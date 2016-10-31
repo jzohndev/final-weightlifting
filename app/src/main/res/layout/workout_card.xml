@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginTop="8dp"
+    android:elevation="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/dot_group_relative_layout"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="16dp">
+
+            <ImageView
+                android:id="@+id/dot_exercise_1"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <ImageView
+                android:id="@+id/dot_exercise_2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toRightOf="@id/dot_exercise_1" />
+
+            <ImageView
+                android:id="@+id/dot_exercise_3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/dot_exercise_1" />
+
+            <ImageView
+                android:id="@+id/dot_exercise_4"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/dot_exercise_2"
+                android:layout_toRightOf="@id/dot_exercise_3" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/workout_name_text_view"
+            style="@style/BlackTextSubheading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/exercise_name_text_view"
+            android:layout_alignTop="@+id/dot_group_relative_layout"
+            android:layout_toEndOf="@+id/dot_group_relative_layout"
+            android:text="Workout Name Placeholder" />
+
+        <TextView
+            android:id="@+id/exercises_number_textv"
+            style="@style/BlackTextBodySecondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:layout_alignBottom="@+id/dot_group_relative_layout"
+            android:layout_alignStart="@+id/workout_name_text_view" />
+
+        <TextView
+            android:id="@+id/exercise_name_text_view"
+            style="@style/BlackTextBodySecondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Exercises"
+            android:layout_alignTop="@+id/exercises_number_textv"
+            android:layout_toEndOf="@+id/exercises_number_textv" />
+
+        <TextView
+            android:id="@+id/date_textv"
+            style="@style/BlackTextBodyHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="date placeholder"
+            android:layout_below="@+id/workout_name_text_view"
+            android:layout_toEndOf="@+id/exercise_name_text_view" />
+
+        <ImageView
+            android:id="@+id/overflow_menu_image_view"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_overflow_menu" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

@@ -1,0 +1,156 @@
+<resources>
+
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/darkGreen</item>
+        <item name="colorAccent">@color/green</item>
+        <item name="android:editTextColor">@color/textBlackPrimary</item>
+        <item name="android:textColorPrimary">@color/textWhitePrimary</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+    <style name="AppTheme.NoBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+
+
+
+    
+    <style name="CaldroidEnhancedDefault" parent="CaldroidDefault">
+        <item name="styleCaldroidMonthName">@style/CaldroidMonthName</item>
+        <item name="styleCaldroidNormalCell">@style/CaldroidCell</item>
+        <!-- <item name="styleCaldroidSquareCell">@style/CaldroidDefaultDarkSquareCell</item>
+         <item name="styleCaldroidGridView">@style/CaldroidDefaultDarkGridView</item>-->
+    </style>
+
+    <style name="CaldroidMonthName" parent="CaldroidDefaultMonthName">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/textBlackSecondary</item>
+    </style>
+
+    <style name="CaldroidCell" parent="CaldroidDefaultCell">
+        <item name="android:textColor">@color/textBlackSecondary</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
+    <style name="BuilderTheme" parent="Base.Theme.AppCompat.Light">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorAccent">@color/green</item>
+        <item name="android:editTextColor">@color/textWhitePrimary</item>
+        <item name="android:textColorPrimary">@color/textWhitePrimary</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+    <style name="ParentTabAppearance" parent="Widget.Design.TabLayout">
+        <item name="android:layout_height">56dp</item>
+        <item name="tabIndicatorColor">@color/textWhitePrimary</item>
+        <item name="android:background">@color/green</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="ChildTabAppearance" parent="Widget.Design.TabLayout">
+        <item name="android:background">@color/lightGreen</item>
+        <item name="android:textColor">@color/textDarkGreen</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:padding">5dp</item>
+        <item name="tabIndicatorColor">@null</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+    <style name="WeekDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
+        <item name="android:layout_marginLeft">84dp</item>
+    </style>
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    <style name="WhiteTextAppBar">
+        <item name="android:textColor">@color/textWhitePrimary</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="BlackTextAppBar">
+        <item name="android:textColor">@color/textBlackPrimary</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+    </style>
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    <style name="WhiteTextSubheading">
+        <item name="android:textColor">@color/textWhitePrimary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="BlackTextSubheading">
+        <item name="android:textColor">@color/textBlackPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">"sans-serif"</item>
+    </style>
+
+    <style name="GreenTextSubheading">
+        <item name="android:textColor">@color/textGreen</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    <style name="BlackTextBodyPrimary">
+        <item name="android:textColor">@color/textBlackPrimary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="BlackTextBodySecondary">
+        <item name="android:textColor">@color/textBlackSecondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="BlackTextBodyHint">
+        <item name="android:textColor">@color/textBlackHint</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <style name="DarkGreenTextBody">
+        <item name="android:textColor">@color/textDarkGreen</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    <style name="PopupButton">
+        <item name="android:textColor">@color/textDarkGreen</item>
+        <item name="android:background">@color/caldroid_transparent</item>
+    </style>
+
+    <style name="ManagePagerTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/lightGreen</item>
+        <item name="tabBackground">@color/lightGreen</item>
+        <item name="tabTextAppearance">@style/ChildTabAppearance</item>
+        <item name="tabSelectedTextColor">@color/textWhitePrimary</item>
+    </style>
+
+</resources>

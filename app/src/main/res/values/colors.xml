@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="googleGrey">#EEEEEE</color>
+
+    <color name="lightestGreen">#DCEDC8</color>
+    <color name="lightGreen">#bae08d</color>
+    <color name="green">#85ba47</color>
+    <color name="darkGreen">#5b902d</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="offWhite">#FAFAFA</color>
+    <color name="offWhite2">#F5F5F5</color>
+    <color name="textLightGrey">#B6B6B6</color>
+
+    <color name="textLightLightGrey">#e0e0e0</color>
+
+    <color name="grey">#9E9E9E</color>
+    <color name="darkGrey">#757575</color>
+
+    <color name="googleBlue">#2196F3</color>
+
+
+
+
+    // Light on Dark
+        // Primary: FF
+        // Secondary: B3
+        // Hint: 80
+    // Dark on Light
+        // Primary: DE
+        // Secondary: 8A
+        // Hint: 63
+
+    <color name="textWhitePrimary">#FFFFFF</color>
+    <color name="textWhiteHint">#80FFFFFF</color>
+
+    <color name="textBlackPrimary">#DE000000</color>
+    <color name="textBlackSecondary">#8A000000</color>
+    <color name="textBlackHint">#63000000</color>
+
+    <color name="textGreen">#8BC34A</color>
+    <color name="textDarkGreen">#689F38</color>
+
+
+</resources>

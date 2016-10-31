@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="104dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/top_relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/workout_name_text_view"
+            style="@style/BlackTextAppBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Workout Name"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/imageView5"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/date_text_view"
+            style="@style/BlackTextBodyHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="16dp"
+            android:text="AUG 13" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/imageView"
+            android:src="@drawable/ic_workout_dots_chest_yellow"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="32dp"
+                android:padding="12dp"
+                android:src="@drawable/ic_lift_unselected"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/exercise_number_text_view"
+                style="@style/BlackTextBodySecondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageView2" />
+
+            <TextView
+                style="@style/BlackTextBodySecondary"
+                android:id="@+id/start_time_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12:30"
+                android:layout_marginLeft="48dp"
+                android:layout_alignTop="@+id/exercise_number_text_view"
+                android:layout_toEndOf="@+id/exercise_number_text_view" />
+
+            <TextView
+                style="@style/BlackTextBodySecondary"
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" - "
+                android:layout_alignTop="@+id/end_time_text_view"
+                android:layout_toEndOf="@+id/start_time_text_view" />
+
+            <TextView
+                style="@style/BlackTextBodySecondary"
+                android:id="@+id/end_time_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12:31 p.m."
+                android:layout_alignTop="@+id/exercise_number_text_view"
+                android:layout_toEndOf="@+id/textView3" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/imageView3"
+            android:src="@drawable/ic_workout_dots_chest_yellow"
+            android:layout_marginLeft="26dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/imageView4"
+            android:src="@drawable/ic_workout_dots_chest_yellow"
+            android:layout_marginLeft="36dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/imageView5"
+            android:src="@drawable/ic_workout_dots_chest_yellow"
+            android:layout_marginLeft="46dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
