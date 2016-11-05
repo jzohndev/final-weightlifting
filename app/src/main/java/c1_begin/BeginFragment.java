@@ -3,6 +3,7 @@ package c1_begin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,23 +30,50 @@ import database.Exercise;
 import database.Schedule;
 import database.SessionWorkout;
 import database.SessionWorkoutExercise;
+import database.Workout;
 
 public class BeginFragment extends Fragment {
+    private DatabaseHelper db;
+    private Schedule mSchedule;
+    private RelativeLayout mRelativeLayout;
     private final int NO_WORKOUT_SCHEDULED = 0;
     private final int WORKOUT_SCHEDULED = 1;
     private final int WORKOUT_COMPLETE = 2;
-
-    private RelativeLayout mRelativeLayout;
-    private BeginWorkoutHelper mHelper;
     private int mWorkoutScheduleStatus;
+    private ScheduleHelper mScheduleHelper;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        db = new DatabaseHelper(getContext());
+        mSchedule = db.getFullSchedule(LocalDate.now());
+        if (mSchedule.getWorkoutId() == -1){
+            mWorkoutScheduleStatus = NO_WORKOUT_SCHEDULED;
+        } else {
+            if (mSchedule.getCompleted().equals("False")){
+                mWorkoutScheduleStatus = WORKOUT_SCHEDULED;
+                initScheduleHelper();
+            } else if (mSchedule.getCompleted().equals("True")){
+                mWorkoutScheduleStatus = WORKOUT_COMPLETE;
+                initScheduleHelper();
+            }
+        }
+    }
+
+    private void initScheduleHelper(){
+        mScheduleHelper = ScheduleHelper.getInstance();
+        mScheduleHelper.initData(db, mSchedule);
+    }
+
+    /*
+
+    private BeginWorkoutHelper mHelper;*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View mView = inflater.inflate(R.layout.fragment_begin, container, false);
         mRelativeLayout = (RelativeLayout) mView.findViewById(R.id.relative_layout);
-
-        resolveIfWorkoutIsScheduled();
 
         switch (mWorkoutScheduleStatus) {
             case (WORKOUT_SCHEDULED):
@@ -59,7 +87,10 @@ public class BeginFragment extends Fragment {
             case (WORKOUT_COMPLETE):
                 initWorkoutIsCompleteView();
                 break;
-        }
+/*
+        resolveIfWorkoutIsScheduled();
+
+        }*/
         return mView;
     }
 
