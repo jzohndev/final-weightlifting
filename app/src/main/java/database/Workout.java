@@ -1,18 +1,21 @@
 package database;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
+
 import java.util.Date;
 
 /**
  * Created by big1 on 7/15/2016.
  */
 public class Workout {
-    private long id = -1;
+    private int id = -1;
     private String name;
     private String description;
-    private Date createdDate;
-    private long iconId = -1;
+    private DateTime createdDate;
     private int timesCompleted = 0;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public Workout() {
     }
 
@@ -20,11 +23,11 @@ public class Workout {
         this.name = name;
     }
 
-    public Workout(Date createdDate) {
+    public Workout(DateTime createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Workout(String name, Date createdDate) {
+    public Workout(String name, DateTime createdDate) {
         this.name = name;
         this.createdDate = createdDate;
     }
@@ -34,33 +37,25 @@ public class Workout {
         this.description = description;
     }
 
-    public Workout(String name, String description, Date createdDate) {
+    public Workout(String name, String description, DateTime createdDate) {
         this.name = name;
         this.description = description;
         this.createdDate = createdDate;
     }
 
-    public Workout(String name, String description, Date createdDate, long iconId) {
+    public Workout(String name, String description, DateTime createdDate, int timesCompleted) {
         this.name = name;
         this.description = description;
         this.createdDate = createdDate;
-        this.iconId = iconId;
-    }
-
-    public Workout(String name, String description, Date createdDate, long iconId, int timesCompleted) {
-        this.name = name;
-        this.description = description;
-        this.createdDate = createdDate;
-        this.iconId = iconId;
         this.timesCompleted = timesCompleted;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -80,27 +75,19 @@ public class Workout {
         return description;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(DateTime createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Date getCreatedDate() {
+    public DateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setIconId(long iconId) {
-        this.iconId = iconId;
-    }
-
-    public long getIconId() {
-        return iconId;
-    }
-
-    public void setTimesCompleted(int timesCompleted){
+    public void setTimesCompleted(int timesCompleted) {
         this.timesCompleted = timesCompleted;
     }
 
-    public int getTimesCompleted(){
+    public int getTimesCompleted() {
         return timesCompleted;
     }
 }

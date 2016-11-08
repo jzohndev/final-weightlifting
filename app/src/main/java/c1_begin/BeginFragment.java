@@ -1,7 +1,6 @@
 package c1_begin;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,56 +17,35 @@ import com.example.jzohndev.no_bullshit_weightlifting_new.R;
 
 import org.joda.time.LocalDate;
 
-import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
-import c0_all.MenuPager;
 import data.Icons;
-import data.IntentResolver;
-import data.LoadDates;
 import database.DatabaseHelper;
 import database.Exercise;
 import database.Schedule;
-import database.SessionWorkout;
-import database.SessionWorkoutExercise;
-import database.Workout;
+import database.SessionExercise;
 
 public class BeginFragment extends Fragment {
-    private DatabaseHelper db;
-    private Schedule mSchedule;
     private RelativeLayout mRelativeLayout;
-    private final int NO_WORKOUT_SCHEDULED = 0;
-    private final int WORKOUT_SCHEDULED = 1;
-    private final int WORKOUT_COMPLETE = 2;
-    private int mWorkoutScheduleStatus;
     private ScheduleHelper mScheduleHelper;
+
+    private int mScheduleStatus = 0;
+    private final int WORKOUT_SCHEDULED = 1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = new DatabaseHelper(getContext());
-        mSchedule = db.getFullSchedule(LocalDate.now());
-        if (mSchedule.getWorkoutId() == -1){
-            mWorkoutScheduleStatus = NO_WORKOUT_SCHEDULED;
-        } else {
-            if (mSchedule.getCompleted().equals("False")){
-                mWorkoutScheduleStatus = WORKOUT_SCHEDULED;
-                initScheduleHelper();
-            } else if (mSchedule.getCompleted().equals("True")){
-                mWorkoutScheduleStatus = WORKOUT_COMPLETE;
-                initScheduleHelper();
-            }
+
+        final DatabaseHelper db = new DatabaseHelper(getContext());
+        mScheduleHelper = ScheduleHelper.getInstance();
+        mScheduleHelper.initScheduleData(db);
+
+        if (mScheduleHelper.getSchedule().getWorkout().getId() != -1){
+            mScheduleHelper.initSessionData(db);
+            mScheduleStatus = WORKOUT_SCHEDULED;
         }
     }
-
-    private void initScheduleHelper(){
-        mScheduleHelper = ScheduleHelper.getInstance();
-        mScheduleHelper.initData(db, mSchedule);
-    }
-
-    /*
-
-    private BeginWorkoutHelper mHelper;*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,26 +53,15 @@ public class BeginFragment extends Fragment {
         final View mView = inflater.inflate(R.layout.fragment_begin, container, false);
         mRelativeLayout = (RelativeLayout) mView.findViewById(R.id.relative_layout);
 
-        switch (mWorkoutScheduleStatus) {
-            case (WORKOUT_SCHEDULED):
-                initBeginWorkoutView();
-                break;
-
-            case (NO_WORKOUT_SCHEDULED):
-                initNoWorkoutView();
-                break;
-
-            case (WORKOUT_COMPLETE):
-                initWorkoutIsCompleteView();
-                break;
-/*
-        resolveIfWorkoutIsScheduled();
-
-        }*/
+        if (mScheduleStatus == WORKOUT_SCHEDULED){
+            createWorkoutListView();
+        } else {
+            createDefaultView();
+        }
         return mView;
     }
 
-    private void resolveIfWorkoutIsScheduled(){
+    /*private void resolveIfWorkoutIsScheduled(){
         final DatabaseHelper db = new DatabaseHelper(getContext());
         final Schedule todaySchedule = db.getFullSchedule(LocalDate.now());
         long workoutId = todaySchedule.getWorkoutId();
@@ -122,9 +89,9 @@ public class BeginFragment extends Fragment {
                 }
             }
         }
-    }
+    }*/
 
-    private void initNoWorkoutView(){
+    private void createDefaultView(){
         final LayoutInflater inflater = LayoutInflater.from(getContext());
         final View defaultView = inflater.inflate(R.layout.no_workout_today, null);
 
@@ -132,32 +99,32 @@ public class BeginFragment extends Fragment {
         mRelativeLayout.addView(defaultView);
     }
 
-    private void initBeginWorkoutView(){
+    private void createWorkoutListView(){
         final LayoutInflater inflater = LayoutInflater.from(getContext());
-        final View workoutView = inflater.inflate(R.layout.begin_schedule, null);
+        final View beginWorkoutLayout = inflater.inflate(R.layout.begin_schedule, null);
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         final BeginScheduleAdapter adapter = new BeginScheduleAdapter();
-        final RecyclerView recyclerView = (RecyclerView) workoutView.findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = (RecyclerView) beginWorkoutLayout.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
         mRelativeLayout.removeAllViews();
-        mRelativeLayout.addView(workoutView);
+        mRelativeLayout.addView(beginWorkoutLayout);
     }
 
-    private void initWorkoutIsCompleteView(){
+    /*private void initWorkoutIsCompleteView(){
         final IntentResolver resolver = IntentResolver.getInstance();
         final DatabaseHelper db = new DatabaseHelper(getContext());
         SessionWorkout tempSessionWorkout = db.getSessionWorkout(LoadDates.getTodayDate());
 
         if (tempSessionWorkout.getEndTime() == null){
             for (int i = 0; i < mHelper.getExercisesSize(); i++){
-                List<SessionWorkoutExercise> tempSession = mHelper
+                List<SessionExercise> tempSession = mHelper
                         .getExerciseSession(mHelper.getExerciseByPosition(i).getId());
-                for (SessionWorkoutExercise session : tempSession){
+                for (SessionExercise session : tempSession){
                     db.createSessionWorkoutExercise(session);
                 }
             }
@@ -170,20 +137,47 @@ public class BeginFragment extends Fragment {
             // TODO goto history
         }
         // TODO dialog
-    }
+    }*/
 
     // Adapter
     public class BeginScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+        /*
         private final int EXERCISE_NOT_STARTED = 0;
         private final int EXERCISE_IN_PROGRESS = 1;
-        private final int EXERCISE_COMPLETE = 2;
+        private final int EXERCISE_COMPLETE = 2;*/
 
-        public BeginScheduleAdapter(){
+        BeginScheduleAdapter(){
+
+            /*
             if (mHelper.getSessionWorkout() == null){
                 initializeDataSet();
-            }
+            }*/
         }
 
+        @Override
+        public int getItemCount() {
+            return mScheduleHelper.getSessionExercises().size();
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return 0;
+
+            /*
+            final Exercise currentExercise = mHelper.getExerciseByPosition(position);
+            final int completedSets = mHelper.getExerciseSessionSize(currentExercise.getId());
+            final int totalSets = currentExercise.getDefaultSets();
+
+            if (completedSets == 0){
+                return EXERCISE_NOT_STARTED;
+            } else if (completedSets < totalSets){
+                return EXERCISE_IN_PROGRESS;
+            } else if (completedSets == totalSets) {
+                return EXERCISE_COMPLETE;
+            }
+            return -1;*/
+        }
+/*
         private void initializeDataSet(){
             // Set session workout
             mHelper.setSessionWorkout(new SessionWorkout(mHelper.getSessionId(),
@@ -198,11 +192,16 @@ public class BeginFragment extends Fragment {
             IntentResolver resolver = IntentResolver.getInstance();
             resolver.setIntent("BeginFragment", "BeginFragment", -1);
             startActivity(new Intent(getActivity(), BeginExerciseSelected.class));
-        }
+        }*/
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v;
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.begin_exercise_card, parent, false);
+            return new ExerciseViewHolder(v);
+
+
+
+            /*
             switch (viewType){
                 case (EXERCISE_NOT_STARTED):
                     v = LayoutInflater.from(parent.getContext()).inflate(R.layout.begin_exercise_card, parent, false);
@@ -213,15 +212,22 @@ public class BeginFragment extends Fragment {
                 case(EXERCISE_COMPLETE):
                     v = LayoutInflater.from(parent.getContext()).inflate(R.layout.begin_exercise_complete_card, parent, false);
                     return new ExerciseCompleteViewHolder(v);
-            }
-            return null;
+            }*/
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            final Exercise currentExercise = mHelper.getExerciseByPosition(position);
+            final SessionExercise sessionExercise = mScheduleHelper.getSessionExercises().get(position);
+            final Exercise exercise = mScheduleHelper.getWorkoutExercises().get(position);
+            final ExerciseViewHolder vHolder = (ExerciseViewHolder) holder;
 
-            try {
+            vHolder.icon.setImageResource(Icons.getMuscleGroupIcon(exercise.getMuscleGroup()));
+            vHolder.name.setText(exercise.getName());
+            vHolder.completedSets.setText(String.valueOf(sessionExercises.get(currentExercise.getId()).size())); // TODO
+            vHolder.totalSets.setText(String.valueOf
+            (//TODO))
+
+           /* try {
                 if (holder instanceof ExerciseViewHolder){
                     ExerciseViewHolder eholder = (ExerciseViewHolder) holder;
                     eholder.icon.setImageResource
@@ -248,29 +254,12 @@ public class BeginFragment extends Fragment {
                 }
             } catch (Exception e){
                 e.printStackTrace();
-            }
+            }*/
         }
 
-        @Override
-        public int getItemCount() {
-            return mHelper.getExercisesSize();
-        }
 
-        @Override
-        public int getItemViewType(int position) {
-            final Exercise currentExercise = mHelper.getExerciseByPosition(position);
-            final int completedSets = mHelper.getExerciseSessionSize(currentExercise.getId());
-            final int totalSets = currentExercise.getDefaultSets();
 
-            if (completedSets == 0){
-                return EXERCISE_NOT_STARTED;
-            } else if (completedSets < totalSets){
-                return EXERCISE_IN_PROGRESS;
-            } else if (completedSets == totalSets) {
-                return EXERCISE_COMPLETE;
-            }
-            return -1;
-        }
+
     }
 
     // View Holder

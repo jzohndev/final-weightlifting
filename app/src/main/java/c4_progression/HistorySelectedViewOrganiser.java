@@ -5,8 +5,8 @@ import android.support.v4.util.ArrayMap;
 import java.util.List;
 import java.util.Map;
 
+import database.SessionExercise;
 import database.SessionWorkout;
-import database.SessionWorkoutExercise;
 
 /**
  * Created by big1 on 9/1/2016.
@@ -23,7 +23,7 @@ public class HistorySelectedViewOrganiser {
 
     private static SessionWorkout sSessionWorkout;
     private static List<Long> sWorkoutExerciseIds;
-    private static Map<Long, List<SessionWorkoutExercise>> sSessionExerciseSets;
+    private static Map<Long, List<SessionExercise>> sSessionExerciseSets;
     private static Map<Integer, Integer> sNumberOfViewsPerExercise;
 
     public void setSessionWorkout(SessionWorkout sessionWorkout){
@@ -34,7 +34,7 @@ public class HistorySelectedViewOrganiser {
         sWorkoutExerciseIds = workoutExerciseIds;
     }
 
-    public void setExerciseSets(Map <Long, List<SessionWorkoutExercise>> sessionExerciseSets){
+    public void setExerciseSets(Map <Long, List<SessionExercise>> sessionExerciseSets){
         sSessionExerciseSets = sessionExerciseSets;
     }
 
@@ -42,8 +42,8 @@ public class HistorySelectedViewOrganiser {
         sNumberOfViewsPerExercise = new ArrayMap<>();
         for (long i : sWorkoutExerciseIds){
             int numberOfViews = 0;
-            List<SessionWorkoutExercise> tempSessionExerciseSets = sSessionExerciseSets.get(i);
-            for (SessionWorkoutExercise exerciseSet : tempSessionExerciseSets){
+            List<SessionExercise> tempSessionExerciseSets = sSessionExerciseSets.get(i);
+            for (SessionExercise exerciseSet : tempSessionExerciseSets){
                 numberOfViews++;
                 if (exerciseSet.getNote() != null){
                     numberOfViews++;

@@ -22,7 +22,7 @@ import java.util.List;
 import c0_all.MenuPager;
 import data.IntentResolver;
 import database.Exercise;
-import database.SessionWorkoutExercise;
+import database.SessionExercise;
 
 /**
  * Created by big1 on 8/3/2016.
@@ -36,7 +36,7 @@ public class BeginExerciseSelected extends Activity {
     private int currentExerciseSet = 1;
 
     private BeginWorkoutHelper mHelper;
-    private List<SessionWorkoutExercise> mExerciseSession;
+    private List<SessionExercise> mExerciseSession;
     private ListView mListView;
 
 
@@ -176,7 +176,7 @@ public class BeginExerciseSelected extends Activity {
         int weightUsed = Integer.parseInt((String) spnWeight.getSelectedItem());
         Date endTime = calendar.getTime();
 
-        SessionWorkoutExercise sessionExercise = new SessionWorkoutExercise(
+        SessionExercise sessionExercise = new SessionExercise(
                 sessionId, exerciseId, currentExerciseSet,
                 repsCompleted, weightUsed, null, endTime);
 
@@ -191,7 +191,7 @@ public class BeginExerciseSelected extends Activity {
             finishExercise();
         } else {
             if (currentExerciseSet != 1) {
-                List<SessionWorkoutExercise> tempSessionExercise =
+                List<SessionExercise> tempSessionExercise =
                         mHelper.getExerciseSession(mHelper.getSelectedExercise().getId());
                 spnReps.setSelection(tempSessionExercise.
                         get(currentExerciseSet - 2).getRepsCompleted());
@@ -223,7 +223,7 @@ public class BeginExerciseSelected extends Activity {
             final int defaultSets = (int) mHelper.getCurrentExercise().getDefaultSets();
 
             mHelper.getCurrentExercise().setDefaultSets(defaultSets + 1); // updates current exercise
-            mExerciseSession.add(new SessionWorkoutExercise(mHelper.getSessionId(),
+            mExerciseSession.add(new SessionExercise(mHelper.getSessionId(),
                     mHelper.getWorkout().getId(),
                     defaultSets + 1)); // adds new session
             final DatabaseHelper db = new DatabaseHelper(getApplicationContext());
@@ -237,7 +237,7 @@ public class BeginExerciseSelected extends Activity {
                 mExerciseSessions.clear();
             }
             for (int i = 0; i < mCurrentExercise.getDefaultSets(); i++) {
-                mExerciseSessions.add(new SessionWorkoutExercise(mSessionId, mWorkoutId, (i + 1), -1, -1));
+                mExerciseSessions.add(new SessionExercise(mSessionId, mWorkoutId, (i + 1), -1, -1));
             }
         }*/
 
@@ -277,9 +277,9 @@ public class BeginExerciseSelected extends Activity {
                 case (SET_COMPLETE):
                     convertView = getLayoutInflater().inflate(R.layout.begin_set_complete_item, null);
 
-                    List<SessionWorkoutExercise> tempSessionExercise =
+                    List<SessionExercise> tempSessionExercise =
                             mHelper.getExerciseSession(mHelper.getSelectedExercise().getId());
-                    SessionWorkoutExercise tempSession = tempSessionExercise.get(position);
+                    SessionExercise tempSession = tempSessionExercise.get(position);
 
                     TextView setss = (TextView) convertView.findViewById(R.id.set_number_complete_textv);
                     setss.setText(String.valueOf(position + 1));

@@ -20,8 +20,8 @@ import data.IntentResolver;
 import data.LoadDates;
 import database.DatabaseHelper;
 import database.Exercise;
+import database.SessionExercise;
 import database.SessionWorkout;
-import database.SessionWorkoutExercise;
 
 /**
  * Created by big1 on 8/31/2016.
@@ -51,7 +51,7 @@ public class HistorySelected extends Activity {
         private SessionWorkout mSessionWorkout;
         private List<Long> mWorkoutExerciseIds;
         private List<Exercise> mExercises;
-        private Map<Long, List<SessionWorkoutExercise>> mSessionExerciseSets;
+        private Map<Long, List<SessionExercise>> mSessionExerciseSets;
 
         public HistorySelectedAdapter() {
             final IntentResolver resolver = IntentResolver.getInstance();
@@ -64,7 +64,7 @@ public class HistorySelected extends Activity {
             for (int i = 0; i < mWorkoutExerciseIds.size(); i++) {
                 long exerciseId = mWorkoutExerciseIds.get(i);
                 long sessionId = mSessionWorkout.getSessionId();
-                List<SessionWorkoutExercise> tempSession = db.getSessionWorkoutExercises(sessionId, exerciseId);
+                List<SessionExercise> tempSession = db.getSessionExercises(sessionId, exerciseId);
                 mSessionExerciseSets.put(exerciseId, tempSession);
             }
         }
@@ -109,10 +109,10 @@ public class HistorySelected extends Activity {
                 mHolder.linearLayout.addView(exerciseTitleView);
 
 
-                List<SessionWorkoutExercise> currentExerciseSession = mSessionExerciseSets.get(mWorkoutExerciseIds.get(position - 1));
+                List<SessionExercise> currentExerciseSession = mSessionExerciseSets.get(mWorkoutExerciseIds.get(position - 1));
                 for (int i = 0; i < currentExerciseSession.size(); i++) {
                     // Set Item
-                    SessionWorkoutExercise currentSessionSet = currentExerciseSession.get(i);
+                    SessionExercise currentSessionSet = currentExerciseSession.get(i);
                     View setItemView = getLayoutInflater().inflate(R.layout.history_selected_set_item, null);
 
                     TextView setNumber = (TextView) setItemView.findViewById(R.id.set_number_text_view);

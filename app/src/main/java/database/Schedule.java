@@ -8,27 +8,26 @@ import org.joda.time.LocalDate;
 
 public class Schedule {
     private LocalDate date;
+    private String status = "no workout";
     private Workout workout;
-    private String status = "incomplete";
 
-    private long workoutId; // TODO REMOVE
-    private String completed = "no"; // TODO REMOVE
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public Schedule(){
 
     }
 
-    public Schedule(LocalDate date, long workoutId){
+    public Schedule(LocalDate date, Workout workout){
         this.date = date;
-        this.workoutId = workoutId;
+        this.workout = workout;
     }
 
-    public Schedule(LocalDate date, long workoutId, String completed){
+    public Schedule(LocalDate date, Workout workout, String status){
         this.date = date;
-        this.workoutId = workoutId;
-        this.completed = completed;
+        this.workout = workout;
+        this.status = status;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public void setDate(LocalDate date){
         this.date = date;
     }
@@ -36,25 +35,6 @@ public class Schedule {
     public LocalDate getDate(){
         return date;
     }
-
-    public void setWorkoutId(long workoutId){
-        this.workoutId = workoutId;
-    }
-
-    public long getWorkoutId(){
-        return workoutId;
-    }
-
-    public void setCompleted(String completed){
-        this.completed = completed;
-    }
-
-    public String getCompleted(){
-        return completed;
-    }
-
-
-
 
     public void setWorkout(Workout workout){
         this.workout = workout;

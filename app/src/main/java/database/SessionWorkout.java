@@ -1,73 +1,68 @@
 package database;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
+
 import java.util.Date;
 
 /**
  * Created by big1 on 8/23/2016.
  */
 public class SessionWorkout {
-    private long mSessionId = -1;
-    private Date mDate;
-    private long mWorkoutId = -1;
-    private Date mStartTime;
-    private String mNote;
-    private Date mEndTime;
+    private int sessionId = -1;
+    private int workoutId = -1;
+    private String note;
+    private DateTime startTime;
+    private DateTime endTime;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public SessionWorkout(){
 
     }
 
-    public SessionWorkout(long sessionId, Date date, long workoutId){
-        this.mSessionId = sessionId;
-        this.mDate = date;
-        this.mWorkoutId = workoutId;
+    public SessionWorkout(int sessionId, int workoutId){
+        this.sessionId = sessionId;
+        this.workoutId = workoutId;
     }
 
-    public void setSessionId(long mSessionId) {
-        this.mSessionId = mSessionId;
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
     }
 
-    public long getSessionId() {
-        return mSessionId;
+    public int getSessionId() {
+        return sessionId;
     }
 
-    public void setDate(Date date){
-        this.mDate = date;
+    public void setWorkoutId(int workoutId){
+        this.workoutId = workoutId;
     }
 
-    public Date getDate(){
-        return mDate;
-    }
-
-    public void setWorkoutId(long workoutId){
-        this.mWorkoutId = workoutId;
-    }
-
-    public long getWorkoutId(){
-        return mWorkoutId;
-    }
-
-    public void setStartTime(Date startTime){
-        this.mStartTime = startTime;
-    }
-
-    public Date getStartTime(){
-        return mStartTime;
+    public int getWorkoutId(){
+        return workoutId;
     }
 
     public void setNote(String note) {
-        this.mNote = note;
+        this.note = note;
     }
 
     public String getNote() {
-        return mNote;
+        return note;
     }
 
-    public void setEndTime(Date endTime) {
-        this.mEndTime = endTime;
+    public void setStartTime(DateTime startTime){
+        this.startTime = startTime;
     }
 
-    public Date getEndTime() {
-        return mEndTime;
+    public DateTime getStartTime(){
+        return startTime;
+    }
+
+    public void setEndTime(DateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public DateTime getEndTime() {
+        return endTime;
     }
 }

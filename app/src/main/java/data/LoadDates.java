@@ -3,6 +3,7 @@ package data;
 import android.util.Log;
 import android.widget.PopupMenu;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -100,16 +101,9 @@ public class LoadDates {
         return dateTimeString;
     }
 
-    public static Date stringToDateTime(String timeString){
-        SimpleDateFormat fmt = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-        Date dateTime = null;
-        try {
-            dateTime = fmt.parse(timeString);
-        } catch (ParseException e){
-            e.printStackTrace();
-        }
-        Log.e(LOG, dateTime.toString());
-        return dateTime;
+    public static DateTime stringToDateTime(String timeString){
+        DateTimeFormatter formatter = forPattern("yyyy-MM-dd HH:mm:ss");
+        return formatter.parseDateTime(timeString);
     }
 
     public static LocalDate stringToLocalDate(String localDateString){

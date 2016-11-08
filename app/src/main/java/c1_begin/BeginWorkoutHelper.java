@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import database.Exercise;
+import database.SessionExercise;
 import database.SessionWorkout;
-import database.SessionWorkoutExercise;
 
 /**
  * Created by big1 on 8/23/2016.
@@ -20,7 +20,7 @@ public class BeginWorkoutHelper {
     private static SessionWorkout sSessionWorkout;
     private static List<Exercise> sExercises = new ArrayList<>();
     private static Exercise sCurrentExercise;
-    private static Map<Long, List<SessionWorkoutExercise>> sExerciseSession = new ArrayMap<>();
+    private static Map<Long, List<SessionExercise>> sExerciseSession = new ArrayMap<>();
     private static Exercise sSelectedExercise;
 
     public static BeginWorkoutHelper getInstance() {
@@ -70,13 +70,13 @@ public class BeginWorkoutHelper {
         return sExercises.get(position);
     }
 
-    public List<SessionWorkoutExercise> getExerciseSession(long exerciseId) {
+    public List<SessionExercise> getExerciseSession(long exerciseId) {
         return sExerciseSession.get(exerciseId);
     }
 
-    public void addSessionExercise(long exerciseId, SessionWorkoutExercise sessionExercise) {
+    public void addSessionExercise(long exerciseId, SessionExercise sessionExercise) {
         if (sExerciseSession.get(exerciseId) == null){
-            List<SessionWorkoutExercise> createSessionExercise = new ArrayList<>();
+            List<SessionExercise> createSessionExercise = new ArrayList<>();
             createSessionExercise.add(sessionExercise);
             sExerciseSession.put(exerciseId, createSessionExercise);
         } else {
