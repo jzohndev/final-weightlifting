@@ -1,6 +1,7 @@
 package c1_begin;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -216,16 +217,30 @@ public class BeginFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            final SessionExercise sessionExercise = mScheduleHelper.getSessionExercises().get(position);
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int i) {
+           // final SessionExercise sessionExercise = mScheduleHelper.getSessionExercises().get(position);
+            final int position = i;
             final Exercise exercise = mScheduleHelper.getWorkoutExercises().get(position);
             final ExerciseViewHolder vHolder = (ExerciseViewHolder) holder;
 
             vHolder.icon.setImageResource(Icons.getMuscleGroupIcon(exercise.getMuscleGroup()));
             vHolder.name.setText(exercise.getName());
-            vHolder.completedSets.setText(String.valueOf(sessionExercises.get(currentExercise.getId()).size())); // TODO
-            vHolder.totalSets.setText(String.valueOf
-            (//TODO))
+
+
+            final int completedSets = mScheduleHelper.getExerciseCompletedSets(position);
+            final int totalSets = mScheduleHelper.getExerciseTotalSets(position);
+            vHolder.completedSets.setText(String.valueOf(completedSets));
+            vHolder.totalSets.setText(totalSets);
+            vHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getActivity(), BeginExerciseSelected.class);
+                    Bundle b = new Bundle();
+                    b.putInt("exerciseId", position);
+                    i.putExtras(b);
+                    startActivity(i);
+                }
+            });
 
            /* try {
                 if (holder instanceof ExerciseViewHolder){
@@ -279,7 +294,7 @@ public class BeginFragment extends Fragment {
     }
 
     // View Holder
-    public class ExerciseCompleteViewHolder extends RecyclerView.ViewHolder {
+    /*public class ExerciseCompleteViewHolder extends RecyclerView.ViewHolder {
         protected ImageView icon;
         protected TextView name;
         protected TextView completedSets;
@@ -292,5 +307,5 @@ public class BeginFragment extends Fragment {
             completedSets = (TextView) v.findViewById(R.id.completed_sets_text_view);
             totalSets = (TextView) v.findViewById(R.id.total_sets_text_view);
         }
-    }
+    }*/
 }

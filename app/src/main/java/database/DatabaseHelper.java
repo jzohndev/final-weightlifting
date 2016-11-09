@@ -22,9 +22,8 @@ import data.LoadDates;
  * Created by big1 on 7/15/2016.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private Context context;
     private static final String LOG = "DatabaseHelper";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "lifting.db";
 
     // Table Names
@@ -36,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_ROUTINE_WORKOUT = "ROUTINE_WORKOUT";
     private static final String TABLE_SESSION_WORKOUT = "SESSION_WORKOUT";
     private static final String TABLE_SESSION_EXERCISE = "SESSION_EXERCISE";
+    private static final String TABLE_SESSION_SET = "SESSION_SET";
 
     // Column Names
     private static final String KEY_WORKOUT_ID = "WorkoutId";
@@ -162,7 +162,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + " ("
             + KEY_SESSION_ID + " INTEGER NOT NULL,"
             + KEY_EXERCISE_ID + " INTEGER NOT NULL,"
-            + KEY_SET_NUMBER + " INTEGER NOT NULL,"
+            + KEY_NUMBER_OF_SETS + " INTEGER NOT NULL,"
             + KEY_REPS_COMPLETED + " INTEGER,"
             + KEY_WEIGHT_USED + " INTEGER,"
             + KEY_NOTE + " TEXT,"
@@ -172,9 +172,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + " FOREIGN KEY (" + KEY_EXERCISE_ID + ") REFERENCES " + TABLE_EXERCISE + " (" + KEY_EXERCISE_ID + ")"
             + ")";
 
+    //TABLE_SESSION_SET
+    private static final String CREATE_TABLE_SESSION_SET = "CREATE TABLE " + TABLE_SESSION_SET
+            + " ("
+            + KEY_SESSION_ID + " INTEGER NOT NULL,"
+            + KEY_EXERCISE_ID + " INTEGER NOT NULL,"
+            + KEY_SET_NUMBER + " INTEGER NOT NULL,"
+            + KEY_NOTE + " TEXT,"// TODO
+            + KEY_DEFAULT_REPS + " INTEGER,"
+            + KEY_ACTUAL_REPS + " INTEGER,"
+            + KEY_WEIGHT + " INTEGER,"
+            + // TODO
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.context = context;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

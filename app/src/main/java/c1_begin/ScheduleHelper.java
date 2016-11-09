@@ -10,6 +10,7 @@ import database.DatabaseHelper;
 import database.Exercise;
 import database.Schedule;
 import database.SessionExercise;
+import database.SessionSet;
 import database.SessionWorkout;
 import database.Workout;
 
@@ -64,5 +65,21 @@ public class ScheduleHelper {
 
     public List<Exercise> getWorkoutExercises(){
         return workoutExercises;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public int getExerciseTotalSets(int position){
+        return sessionExercises.get(position).getNumberOfSets();
+    }
+
+    public int getExerciseCompletedSets(int position){
+        List<SessionSet> sets = sessionExercises.get(position).getExerciseSets();
+        int count = 0;
+        for (SessionSet currentSet : sets){
+            if (currentSet.getEndTime() != null){
+                count++;
+            }
+        }
+        return count;
     }
 }
