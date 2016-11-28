@@ -19,14 +19,14 @@ public class LoadWorkouts {
     public LoadWorkouts(Context context){
         db = new DatabaseHelper(context);
         initializeAllWorkouts();
-        initializeTodayWorkout();
+        //initializeTodayWorkout();
     }
 
     private void initializeAllWorkouts(){
         allWorkouts = db.getAllWorkouts();
     }
 
-    private void initializeTodayWorkout(){
+   /* private void initializeTodayWorkout(){
         todayWorkout = new Workout();
         for (Workout workout : allWorkouts){
             if (workout.getCreatedDate().compareTo(LoadDates.getTodayDate()) == 0){
@@ -34,7 +34,7 @@ public class LoadWorkouts {
             }
         }
     }
-
+*/
     public static void reloadAllWorkouts(Context context){
         DatabaseHelper db = new DatabaseHelper(context);
         allWorkouts = db.getAllWorkouts();

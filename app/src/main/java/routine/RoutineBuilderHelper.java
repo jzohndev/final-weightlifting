@@ -3,6 +3,8 @@ package routine;
 import android.content.Context;
 import android.widget.Toast;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,18 +59,18 @@ public class RoutineBuilderHelper {
     }
 
     public static boolean createRoutine(Context context) {
-        DatabaseHelper db = new DatabaseHelper(context);
+        /*DatabaseHelper db = new DatabaseHelper(context);
         Routine ro = db.getRoutine(routineName);
         if (ro.getId() != -1) {
             Toast.makeText(context, "Routine name already in use.", Toast.LENGTH_SHORT).show();
             return false;
         }
-        Routine routine = new Routine(routineName, routineDescription, LoadDates.getTodayDate(), workouts.size());
+        Routine routine = new Routine(routineName, routineDescription, DateTime.now(), workouts.size());
         long routineId = db.createRoutine(routine);
         for (Workout workout : workouts){
             long workoutId = workout.getId();
             db.createRoutineWorkout(routineId, workoutId);
-        }
+        }*/
         return true;
 
     }

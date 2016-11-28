@@ -1,5 +1,7 @@
 package data;
 
+import org.joda.time.LocalDate;
+
 import java.util.Date;
 
 import database.Exercise;
@@ -16,7 +18,7 @@ public class IntentResolver {
     private static int callingCode = -1;
     private static Workout workout;
     private static Exercise exercise;
-    private static Date date;
+    private static LocalDate date;
     private static SessionWorkout sessionWorkout;
 
     public static IntentResolver getInstance() {
@@ -46,7 +48,7 @@ public class IntentResolver {
         exercise = exercise_;
     }
 
-    public void setIntent(String from, String orgFrom, int purpose, Date date_) {
+    public void setIntent(String from, String orgFrom, int purpose, LocalDate date_) {
         callingActivity = from;
         originalCallingActivity = orgFrom;
         callingCode = purpose;
@@ -80,7 +82,7 @@ public class IntentResolver {
         return exercise;
     }
 
-    public Date getDate() { return date; }
+    public LocalDate getDate() { return date; }
 
     public SessionWorkout getSessionWorkout(){
         return sessionWorkout;

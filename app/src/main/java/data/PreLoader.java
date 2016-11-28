@@ -3,6 +3,8 @@ package data;
 import android.content.Context;
 import android.util.Log;
 
+import org.joda.time.DateTime;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,9 +41,9 @@ public class PreLoader {
     }
 
     private void preLoadWorkouts(){
-        Workout test1 = new Workout("TEST Chest & Biceps", "Monday workout.", LoadDates.getTodayDate());
-        Workout test2 = new Workout("TEST Shoulders & Triceps", "Tuesday workout.", LoadDates.getTodayDate());
-        Workout test3 = new Workout("TEST Back & Legs", "Thursday workout.", LoadDates.getTodayDate());
+        Workout test1 = new Workout("TEST Chest & Biceps", "Monday workout.", DateTime.now());
+        Workout test2 = new Workout("TEST Shoulders & Triceps", "Tuesday workout.", DateTime.now());
+        Workout test3 = new Workout("TEST Back & Legs", "Thursday workout.", DateTime.now());
         workouts = new HashMap<>();
         workouts.put("test1", db.createWorkout(test1));
         workouts.put("test2", db.createWorkout(test2));

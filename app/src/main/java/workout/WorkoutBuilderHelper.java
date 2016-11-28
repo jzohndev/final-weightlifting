@@ -3,6 +3,8 @@ package workout;
 import android.content.Context;
 import android.widget.Toast;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +94,7 @@ public class WorkoutBuilderHelper {
             Toast.makeText(context, "Workout name already used.", Toast.LENGTH_SHORT).show();
             return false;
         } else {
-            Workout workout = new Workout(name, description, LoadDates.getTodayDate());
+            Workout workout = new Workout(name, description, DateTime.now());
             long workoutId = db.createWorkout(workout);
             for (Exercise exercise : exercises) {
                 db.createWorkoutExercise(workoutId, exercise.getId(),

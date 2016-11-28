@@ -76,7 +76,7 @@ public class HistoryChildFragment extends Fragment {
                     (currentSessionWorkout.getWorkoutId());
             HistoryViewHolder eHolder = (HistoryViewHolder) holder;
             eHolder.workoutName.setText(currentWorkout.getName());
-            eHolder.date.setText(LoadDates.dateToString(currentSessionWorkout.getDate()));
+            //eHolder.date.setText(LoadDates.dateToString(currentSessionWorkout.getDate()));
             eHolder.exercises.setText(String.valueOf(numberOfExercises));
             eHolder.startTime.setText(LoadDates.dateTimeToString(currentSessionWorkout.getStartTime()));
             eHolder.endTime.setText(LoadDates.dateTimeToString(currentSessionWorkout.getEndTime()));

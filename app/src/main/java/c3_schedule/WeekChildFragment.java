@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.jzohndev.no_bullshit_weightlifting_new.R;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -76,7 +77,7 @@ public class WeekChildFragment extends Fragment {
 
         private String[] mDaysOfWeek = {"SUN", "MON", "TUE", "WED", "THUR", "FRI", "SAT"};
         private List<Workout> mWeekWorkouts;
-        private List<Date> mWeekDates;
+        private List<LocalDate> mWeekDates;
 
         public WeekWorkoutsAdapter() {
             mWeekWorkouts = new ArrayList<>();
@@ -88,9 +89,9 @@ public class WeekChildFragment extends Fragment {
             mWeekDates = LoadDates.getWeekDates();
             mWeekWorkouts.removeAll(mWeekWorkouts);
 
-            for (Date currentDate : mWeekDates) {
+            for (LocalDate currentDate : mWeekDates) {
                 final Schedule currentSchedule = db.getSchedule(currentDate);
-                long workoutId = currentSchedule.getWorkoutId();
+                int workoutId = currentSchedule.getWorkout().getId();
                 mWeekWorkouts.add(db.getWorkout(workoutId));
             }
             notifyDataSetChanged();
@@ -168,10 +169,7 @@ public class WeekChildFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             IntentResolver resolver = IntentResolver.getInstance();
-                            resolver.setIntent("WeekChildFragment",
-                                    "WeekChildFragment",
-                                    -1,
-                                    mWeekDates.get(pos));
+                            resolver.setIntent("WeekChildFragment", "WeekChildFragment", -1, mWeekDates.get(pos));
                             startActivity(new Intent(getActivity(), WorkoutList.class));
                         }
                     });

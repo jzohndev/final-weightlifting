@@ -49,9 +49,9 @@ public class HistorySelected extends Activity {
         private final int EXERCISE = 1;
 
         private SessionWorkout mSessionWorkout;
-        private List<Long> mWorkoutExerciseIds;
+        private List<Integer> mWorkoutExerciseIds;
         private List<Exercise> mExercises;
-        private Map<Long, List<SessionExercise>> mSessionExerciseSets;
+        private Map<Integer, List<SessionExercise>> mSessionExerciseSets;
 
         public HistorySelectedAdapter() {
             final IntentResolver resolver = IntentResolver.getInstance();
@@ -62,9 +62,9 @@ public class HistorySelected extends Activity {
             mExercises = db.getWorkoutExercises(mSessionWorkout.getWorkoutId());
             mSessionExerciseSets = new ArrayMap<>();
             for (int i = 0; i < mWorkoutExerciseIds.size(); i++) {
-                long exerciseId = mWorkoutExerciseIds.get(i);
-                long sessionId = mSessionWorkout.getSessionId();
-                List<SessionExercise> tempSession = db.getSessionExercises(sessionId, exerciseId);
+                int exerciseId = mWorkoutExerciseIds.get(i);
+                int sessionId = mSessionWorkout.getSessionId();
+                List<SessionExercise> tempSession = db.getSessionExercises(sessionId);
                 mSessionExerciseSets.put(exerciseId, tempSession);
             }
         }
@@ -121,21 +121,21 @@ public class HistorySelected extends Activity {
                     TextView weightUnit = (TextView) setItemView.findViewById(R.id.weight_unit_name_text_view);
                     TextView time = (TextView) setItemView.findViewById(R.id.set_time_stamp_text_view);
 
-                    setNumber.setText(String.valueOf(currentSessionSet.getSetNumber()));
-                    reps.setText(String.valueOf(currentSessionSet.getRepsCompleted()));
-                    weight.setText(String.valueOf(currentSessionSet.getWeightUsed()));
+                    //setNumber.setText(String.valueOf(currentSessionSet.getSetNumber()));
+                    //reps.setText(String.valueOf(currentSessionSet.getRepsCompleted()));
+                    //weight.setText(String.valueOf(currentSessionSet.getWeightUsed()));
                     weightUnit.setText("lb"); // TODO
                     time.setText(LoadDates.dateTimeToString(currentSessionSet.getEndTime()));
                     mHolder.linearLayout.addView(setItemView);
 
-                    if (currentSessionSet.getNote() != null) {
+                    /*if (currentSessionSet.getNote() != null) {
                         //Set Item Note
                         final View noteLayout = getLayoutInflater()
                                 .inflate(R.layout.history_selected_note_text_view, null);
                         TextView note = (TextView) noteLayout.findViewById(R.id.note_text_view);
                         note.setText(currentSessionSet.getNote());
                         mHolder.linearLayout.addView(noteLayout);
-                    }
+                    }*/
                 }
             }
         }

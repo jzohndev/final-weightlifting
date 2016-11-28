@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.example.jzohndev.no_bullshit_weightlifting_new.R;
 
+import org.joda.time.format.DateTimeFormatter;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,8 @@ import database.DatabaseHelper;
 import database.Exercise;
 import database.Workout;
 
+import static org.joda.time.format.DateTimeFormat.forPattern;
+
 /**
  * Created by big1 on 7/23/2016.
  */
@@ -30,7 +34,7 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.Workou
     private Context mContext;
     private List<Workout> mWorkouts;
     private DatabaseHelper db;
-    private Map<Long, Integer> mNumberOfWorkoutExercises;
+    private Map<Integer, Integer> mNumberOfWorkoutExercises;
     private WorkoutOnItemClickListener listener;
 
     public interface WorkoutOnItemClickListener {
@@ -58,7 +62,7 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.Workou
 
     private void initializeNumberOfWorkoutExercises() {
         mNumberOfWorkoutExercises = new ArrayMap<>();
-        List<Long> exerciseIds;
+        List<Integer> exerciseIds;
         for (Workout workout : mWorkouts) {
             exerciseIds = db.getWorkoutExerciseIds(workout.getId());
             mNumberOfWorkoutExercises.put(workout.getId(), exerciseIds.size());
@@ -96,9 +100,8 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.Workou
         holder.vExercises.setText(exercises);
 
         // 4. Date
-        SimpleDateFormat formatter =
-                new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
-        String createdDate = formatter.format(currentWorkout.getCreatedDate());
+        DateTimeFormatter formatter = forPattern("yyyy-MM-dd HH:mm:ss");
+        String createdDate = formatter.print(currentWorkout.getCreatedDate());
         holder.vCreatedDate.setText(createdDate);
     }
 

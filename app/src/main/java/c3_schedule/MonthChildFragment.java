@@ -16,6 +16,7 @@ import com.roomorama.caldroid.CaldroidListener;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
@@ -65,10 +66,11 @@ public class MonthChildFragment extends Fragment {
         final CaldroidListener listener = new CaldroidListener() {
             @Override
             public void onSelectDate(Date input, View view) {
-                Schedule selected = db.getSchedule(input);
+                LocalDate localDate = new LocalDate(input);
+                Schedule selected = db.getSchedule(localDate);
 
-                if (selected.getWorkoutId() != -1){
-                    workoutName.setText(db.getWorkout(selected.getWorkoutId()).getName());
+                if (selected.getWorkout().getId() != -1){
+                    workoutName.setText(db.getWorkout(selected.getWorkout().getId()).getName());
                 } else {
                     workoutName.setText("No workout");
                 }
@@ -108,7 +110,7 @@ public class MonthChildFragment extends Fragment {
         for (Schedule currentSchedule : mSchedules) {
             Date currentDate = currentSchedule.getDate().toDate();
 
-            if (currentSchedule.getCompleted().equals("Yes")) {
+            if (currentSchedule.getStatus().equals("Complete")) {
                 mScheduleDrawableMap.put(currentDate, blue);
             } else {
                 if (today.compareTo(currentSchedule.getDate()) == 0) {

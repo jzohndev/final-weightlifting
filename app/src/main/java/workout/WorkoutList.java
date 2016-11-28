@@ -101,14 +101,14 @@ public class WorkoutList extends Activity implements WorkoutsAdapter.WorkoutOnIt
         final DatabaseHelper db = new DatabaseHelper(this);
 
         Schedule schedule;
-        Date resolverDate;
+        LocalDate resolverDate;
         LocalDate date;
 
         switch (resolver.getFrom()) {
             case ("TodayChildFragment"):
                 resolverDate = resolver.getDate();
                 date = new LocalDate(resolverDate);
-                schedule = new Schedule(date, workout.getId(), "no");
+                schedule = new Schedule(date, workout);
                 db.createSchedule(schedule);
                 resolver.setIntent("WorkoutList", "TodayChildFragment", -1);
                 startActivity(new Intent(WorkoutList.this, MenuPager.class));
@@ -116,7 +116,7 @@ public class WorkoutList extends Activity implements WorkoutsAdapter.WorkoutOnIt
             case ("WeekChildFragment"):
                 resolverDate = resolver.getDate();
                 date = new LocalDate(resolverDate);
-                schedule = new Schedule(date, workout.getId(), "no");
+                schedule = new Schedule(date, workout);
                 db.createSchedule(schedule);
                 resolver.setIntent("WorkoutList", "WeekChildFragment", -1);
                 startActivity(new Intent(WorkoutList.this, MenuPager.class));

@@ -2,6 +2,10 @@ package data;
 
 import android.content.Context;
 
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,9 +18,9 @@ import database.Schedule;
  * Created by big1 on 7/30/2016.
  */
 public class LoadSchedules {
-    private static long todaySchedule;
-    private static Map<Date, Long> weekSchedules;
-    private static Map<Date, Long> monthSchedules;
+    private static Schedule todaySchedule;
+    private static List<Schedule> weekSchedules;
+    private static List<Schedule> monthSchedules;
 
     private static DatabaseHelper db;
     private static Context context;
@@ -29,43 +33,39 @@ public class LoadSchedules {
     }
 
     private static void initializeMonthSchedules(){
-        List<Date> monthDates = LoadDates.getMonthDates();
+        List<LocalDate> monthDates = LoadDates.getMonthDates();
         if (db == null)
             db = new DatabaseHelper(context);
-        monthSchedules = new HashMap<>();
-        long workoutId;
-        for (Date date : monthDates){
-            Schedule currentSchedule = db.getSchedule(date);
-            workoutId = currentSchedule.getWorkoutId();
-            monthSchedules.put(date, workoutId);
+        monthSchedules = new ArrayList<>();
+        int workoutId;
+        for (LocalDate date : monthDates){
+            monthSchedules.add(db.getSchedule(date));
         }
     }
 
     private static void initializeWeekSchedules(){
-        List<Date> weekDates = LoadDates.getWeekDates();
-        long workoutId;
-        weekSchedules = new HashMap<>();
-        for (Date date : weekDates){
-            Schedule currentSchedule = db.getSchedule(date);
-            workoutId = currentSchedule.getWorkoutId();
-            weekSchedules.put(date, workoutId);
+        List<LocalDate> weekDates = LoadDates.getWeekDates();
+        int workoutId;
+        weekSchedules = new ArrayList<>();
+        for (LocalDate date : weekDates){
+            weekSchedules.add(db.getSchedule(date));
         }
     }
 
     private static void initializeTodaySchedule(){
-        Date todayDate = LoadDates.getTodayDate();
-        todaySchedule = db.getSchedule(todayDate).getWorkoutId();
+        LocalDate todayDate = LoadDates.getTodayDate();
+        todaySchedule = db.getSchedule(todayDate);
     }
 
-    public static Map<Date, Long> getMonthSchedules(){
+    public static List<Schedule> getMonthSchedules(){
         return monthSchedules;
     }
 
-    public static Map<Date, Long> getWeekSchedules(){
+    public static List<Schedule> getWeekSchedules(){
         return weekSchedules;
     }
 
-    public static Long getTodaySchedule(){
+    public static Schedule getTodaySchedule(){
         return todaySchedule;
     }
 }

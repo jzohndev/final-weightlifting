@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.jzohndev.no_bullshit_weightlifting_new.R;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import java.util.List;
@@ -92,7 +93,7 @@ public class TodayChildFragment extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case (R.id.remove):
-                                new DatabaseHelper(getContext()).deleteSchedule(LoadDates.getTodayDate());
+                                new DatabaseHelper(getContext()).deleteSchedule(LocalDate.now());
                                 Toast.makeText(getContext(), "Workout removed from schedule", Toast.LENGTH_SHORT).show();
                                 initNoWorkoutView();
                                 break;

@@ -45,9 +45,9 @@ public class HistorySelectedViewOrganiser {
             List<SessionExercise> tempSessionExerciseSets = sSessionExerciseSets.get(i);
             for (SessionExercise exerciseSet : tempSessionExerciseSets){
                 numberOfViews++;
-                if (exerciseSet.getNote() != null){
+                /*if (exerciseSet.getNote() != null){
                     numberOfViews++;
-                }
+                }*/
             }
             sNumberOfViewsPerExercise.put((int)i, numberOfViews);
         }

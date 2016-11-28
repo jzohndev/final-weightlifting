@@ -46,8 +46,8 @@ public class ScheduleHelper {
             db.createSessionWorkout(schedule);
             db.createSessionExercises(sessionWorkout.getSessionId(), workoutExercises);
         }
-        sessionExercises = db.getSessionExercises
-                (sessionWorkout.getSessionId(), workoutExercises);
+        sessionExercises =
+                db.getSessionExercises(sessionWorkout.getSessionId());
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -81,5 +81,9 @@ public class ScheduleHelper {
             }
         }
         return count;
+    }
+
+    public List<SessionSet> getSessionSets(int exercisePosition){
+        return sessionExercises.get(exercisePosition).getExerciseSets();
     }
 }

@@ -4,6 +4,7 @@ import android.util.Log;
 import android.widget.PopupMenu;
 
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -21,9 +22,9 @@ import static org.joda.time.format.DateTimeFormat.forPattern;
  * Created by big1 on 7/16/2016.
  */
 public class LoadDates {
-    private static Date todayDate;
-    private static List<Date> weekDates;
-    private static List<Date> monthDates;
+    private static LocalDate todayDate;
+    private static List<LocalDate> weekDates;
+    private static List<LocalDate> monthDates;
     private static final String LOG = "LoadDates";
 
     public LoadDates() {
@@ -33,40 +34,34 @@ public class LoadDates {
     }
 
     private void initializeTodayDate() {
-        Calendar calendar = Calendar.getInstance();
-        todayDate = calendar.getTime();
+        todayDate = LocalDate.now().withDayOfWeek(1);
     }
 
     private void initializeWeekDates() {
         weekDates = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setFirstDayOfWeek(Calendar.SUNDAY);
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        for (int i = 0; i < 7 ; i++){
-            weekDates.add(calendar.getTime());
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        LocalDate now = LocalDate.now();
+        for (int i = 1; i <= 7; i++) {
+            weekDates.add(now.withDayOfWeek(i));
         }
     }
 
     private void initializeMonthDates() {
         monthDates = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        int currentMonth = calendar.get(Calendar.MONTH);
-        do {
-            monthDates.add(calendar.getTime());
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-        } while (currentMonth == calendar.get(Calendar.MONTH));
+        LocalDate now = LocalDate.now();
+        for (int i = 1; i < now.dayOfMonth().getMaximumValue(); i++){
+            monthDates.add(now.withDayOfMonth(i));
+        }
     }
 
-    public static Date getTodayDate() {
+    public static LocalDate getTodayDate() {
         return todayDate;
     }
 
-    public static List<Date> getWeekDates() {
+    public static List<LocalDate> getWeekDates() {
         return weekDates;
     }
 
-    public static List<Date> getMonthDates() {
+    public static List<LocalDate> getMonthDates() {
         return monthDates;
     }
 
@@ -94,11 +89,9 @@ public class LoadDates {
         return date;
     }
 
-    public static String dateTimeToString(Date time){
-        SimpleDateFormat fmt = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-        String dateTimeString = fmt.format(time);
-        Log.e(LOG, dateTimeString);
-        return dateTimeString;
+    public static String dateTimeToString(DateTime dateTime){
+        DateTimeFormatter formatter = forPattern("yyyy-MM-dd HH:mm:ss");
+        return formatter.print(dateTime);
     }
 
     public static DateTime stringToDateTime(String timeString){

@@ -1,6 +1,7 @@
 package database;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
 import java.util.Date;
@@ -12,7 +13,7 @@ public class Workout {
     private int id = -1;
     private String name;
     private String description;
-    private DateTime createdDate;
+    private LocalDate createdDate;
     private int timesCompleted = 0;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
