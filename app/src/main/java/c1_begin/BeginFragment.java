@@ -271,10 +271,6 @@ public class BeginFragment extends Fragment {
                 e.printStackTrace();
             }*/
         }
-
-
-
-
     }
 
     // View Holder

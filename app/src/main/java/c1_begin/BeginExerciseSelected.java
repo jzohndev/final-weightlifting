@@ -3,6 +3,7 @@ package c1_begin;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -21,8 +22,8 @@ import java.util.List;
 
 import c0_all.MenuPager;
 import data.IntentResolver;
-import database.Exercise;
 import database.SessionExercise;
+import database.SessionSet;
 
 /**
  * Created by big1 on 8/3/2016.
@@ -40,20 +41,36 @@ public class BeginExerciseSelected extends Activity {
     private ListView mListView;
 
 
-    private BeginSetAdapter mAdapter;
+
 
     private Spinner spnReps, spnWeight;
     private ImageView acceptButton;
-    private TextView tvExerciseName, tvSetControlBox;
+    private TextView exerciseNameTextView, setNumberTextView;
+
+    ///////
+    private ScheduleHelper scheduleHelper;
+    private int exercisePosition;
+    private List<SessionSet> sessionSets;
+    //
+    private BeginSetAdapter mAdapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_begin_exercise_selected);
 
-        mHelper = BeginWorkoutHelper.getInstance();
+        scheduleHelper = ScheduleHelper.getInstance();
+        exercisePosition = getIntent().getExtras().getInt("exerciseId");
+        sessionSets = scheduleHelper.getSessionSets(exercisePosition);
+
+        initLayout();
+
+
+        /*mHelper = BeginWorkoutHelper.getInstance();
         getExerciseProgress();
-        createUI();
+        createUI();*/
 
         /*
         switch (exerciseProgress) {
@@ -69,7 +86,7 @@ public class BeginExerciseSelected extends Activity {
         }*/
     }
 
-    private void getExerciseProgress() {
+    /*private void getExerciseProgress() {
         final Exercise selectedExercise = mHelper.getSelectedExercise();
         final int setsCompleted = mHelper.getExerciseSessionSize(selectedExercise.getId());
         final int totalSets = selectedExercise.getDefaultSets();
@@ -83,20 +100,34 @@ public class BeginExerciseSelected extends Activity {
             exerciseProgress = EXERCISE_IN_PROGRESS;
             currentExerciseSet = setsCompleted + 1;
         }
-    }
+    }*/
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private void initLayout() {
 
-    private void createUI() {
+        final View addSetFooter = getLayoutInflater().inflate(R.layout.begin_add_set, null);
+        addSetFooter.setTag("endOfList");
+        addSetFooter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // mAdapter.addSet(); TODO
+            }
+        });
+
+        mAdapter = new BeginSetAdapter();
+        mListView = (ListView) findViewById(R.id.list_view);
+        mListView.addFooterView(addSetFooter);
+        mListView.setAdapter(mAdapter);
+
         createActionBar();
         createTimerBar();
         createExerciseHeader();
-        createListView();
         createWorkingSetControlBox();
     }
 
     private void createActionBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.time_toolbar);
-        ImageView upButton = (ImageView) toolbar.findViewById(R.id.up_button_image_view);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.time_toolbar);
+        final ImageView upButton = (ImageView) toolbar.findViewById(R.id.up_button_image_view);
         upButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,31 +144,12 @@ public class BeginExerciseSelected extends Activity {
     }
 
     private void createExerciseHeader() {
-        tvExerciseName = (TextView) findViewById(R.id.exercise_name_text_view);
-        tvExerciseName.setText(mHelper.getSelectedExercise().getName());
-    }
-
-    private void createListView() {
-        mAdapter = new BeginSetAdapter();
-
-        final View addSetFooter = getLayoutInflater().inflate(R.layout.begin_add_set, null);
-        addSetFooter.setTag("endOfList");
-
-        addSetFooter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // mAdapter.addSet();
-            }
-        });
-
-        mListView = (ListView) findViewById(R.id.list_view);
-        mListView.addFooterView(addSetFooter);
-        mListView.setAdapter(mAdapter);
+        exerciseNameTextView = (TextView) findViewById(R.id.exercise_name_text_view);
+        exerciseNameTextView.setText(mHelper.getSelectedExercise().getName());
     }
 
     private void createWorkingSetControlBox() {
-        tvSetControlBox = (TextView) findViewById(R.id.set_number_text_view);
-        tvSetControlBox.setText(String.valueOf(1));
+        setNumberTextView = (TextView) findViewById(R.id.set_number_text_view);
 
         acceptButton = (ImageView) findViewById(R.id.accept_imagev);
         acceptButton.setOnClickListener(new View.OnClickListener() {
@@ -166,6 +178,7 @@ public class BeginExerciseSelected extends Activity {
         spnWeight.setSelection(0);
 
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void completeSet() {
         final Calendar calendar = Calendar.getInstance();
@@ -201,7 +214,7 @@ public class BeginExerciseSelected extends Activity {
                 spnReps.setSelection(0);
                 spnWeight.setSelection(0);
             }
-            tvSetControlBox.setText(String.valueOf(currentExerciseSet));
+            setNumberTextView.setText(String.valueOf(currentExerciseSet));
         }
     }
 
@@ -211,12 +224,8 @@ public class BeginExerciseSelected extends Activity {
         startActivity(new Intent(BeginExerciseSelected.this, MenuPager.class));
     }
 
-    // Adapter
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public class BeginSetAdapter extends BaseAdapter {
-        private final int SET_COMPLETE = 0;
-        private final int SET_SELECTED = 1;
-        private final int SET_PENDING = 2;
-
 
         /*public void addSet() {
             final long exerciseId = mHelper.getCurrentExercise().getId();
@@ -242,37 +251,44 @@ public class BeginExerciseSelected extends Activity {
         }*/
 
         @Override
-        public int getItemViewType(int position) {
-            final int currentViewSet = position + 1;
-
-            if (currentViewSet < currentExerciseSet) {
-                return SET_COMPLETE;
-            } else if (currentViewSet > currentExerciseSet) {
-                return SET_PENDING;
-            } else {
-                return SET_SELECTED;
-            }
-        }
-
-        @Override
         public int getCount() {
-            return mHelper.getSelectedExercise().getDefaultSets();
+            return sessionSets.size();
         }
 
         @Override
         public Object getItem(int i) {
-            return mExerciseSession.get(i);
-        } // TODO
+            return sessionSets.get(i);
+        }
 
         @Override
         public long getItemId(int i) {
-            return i;
+            return sessionSets.get(i).getSetNumber();
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
-            int setProgress = getItemViewType(position);
+            final SessionSet currentSet = (SessionSet) getItem(position);
 
+            if (currentSet.getEndTime() != null){ // set completed
+                convertView = getLayoutInflater().inflate(R.layout.begin_set_complete_item, null);
+                CompletedSetViewHolder cHolder = new CompletedSetViewHolder();
+                cHolder.setNumber = (TextView) convertView.findViewById(R.id.set_number_text_view);
+                cHolder.reps = (TextView) convertView.findViewById(R.id.reps_number_text_view);
+                cHolder.weight = (TextView) convertView.findViewById(R.id.weight_number_text_view);
+                cHolder.setNumber.setText(currentSet.getSetNumber());
+                cHolder.reps.setText(currentSet.getActualReps());
+                cHolder.weight.setText(currentSet.getWeight());
+                convertView.setTag(cHolder);
+            } else { // set incomplete or not started
+                convertView = getLayoutInflater().inflate(R.layout.begin_set_incomplete_item, null);
+                IncompleteSetViewHolder iHolder = new IncompleteSetViewHolder();
+                iHolder.setNumber = (TextView) convertView.findViewById(R.id.set_number_text_view);
+                iHolder.reps = (TextView) convertView.findViewById(R.id.reps_number_text_view);
+                iHolder.setNumber.setText(currentSet.getSetNumber());
+                iHolder.reps.setText(currentSet.getDefaultReps());
+                convertView.setTag(iHolder); // TODO THE LAST THING I DID 11/28/2016
+            }
+/*
             switch (setProgress) {
                 case (SET_COMPLETE):
                     convertView = getLayoutInflater().inflate(R.layout.begin_set_complete_item, null);
@@ -283,9 +299,9 @@ public class BeginExerciseSelected extends Activity {
 
                     TextView setss = (TextView) convertView.findViewById(R.id.set_number_complete_textv);
                     setss.setText(String.valueOf(position + 1));
-                    TextView reps = (TextView) convertView.findViewById(R.id.rep_number_complete_textv);
+                    TextView reps = (TextView) convertView.findViewById(R.id.reps_number_text_view);
                     reps.setText(String.valueOf(tempSession.getRepsCompleted())); // TODO
-                    TextView weightss = (TextView) convertView.findViewById(R.id.weight_number_complete_textv);
+                    TextView weightss = (TextView) convertView.findViewById(R.id.weight_number_text_view);
                     weightss.setText(String.valueOf(tempSession.getWeightUsed())); // TODO
 
                     break;
@@ -308,8 +324,19 @@ public class BeginExerciseSelected extends Activity {
                     TextView repsss = (TextView) convertView.findViewById(R.id.reps_number_text_view);
                     repsss.setText(String.valueOf(mHelper.getSelectedExercise().getDefaultReps()));
                     break;
-            }
+            }*/
             return convertView;
         }
+    }
+
+    static class CompletedSetViewHolder {
+        protected TextView setNumber;
+        protected TextView reps;
+        protected TextView weight;
+    }
+
+    static class IncompleteSetViewHolder {
+        protected TextView setNumber;
+        protected TextView reps;
     }
 }

@@ -94,11 +94,9 @@ public class LoadDates {
         return date;
     }
 
-    public static String dateTimeToString(Date time){
-        SimpleDateFormat fmt = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-        String dateTimeString = fmt.format(time);
-        Log.e(LOG, dateTimeString);
-        return dateTimeString;
+    public static String dateTimeToString(DateTime dateTime){
+        DateTimeFormatter formatter = forPattern("yyyy-MM-dd HH:mm:ss");
+        return formatter.print(dateTime);
     }
 
     public static DateTime stringToDateTime(String timeString){

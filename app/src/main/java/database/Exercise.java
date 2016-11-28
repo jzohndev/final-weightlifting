@@ -4,7 +4,7 @@ package database;
  * Created by big1 on 7/15/2016.
  */
 public class Exercise {
-    private long id = -1;
+    private int id = -1;
     private String name;
     private String muscleGroup;
     private String description;
@@ -30,11 +30,11 @@ public class Exercise {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public void setId(long id){
+    public void setId(int id){
         this.id = id;
     }
 
-    public long getId(){
+    public int getId(){
         return id;
     }
 
