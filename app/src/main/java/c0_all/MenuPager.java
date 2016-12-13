@@ -15,9 +15,6 @@ import com.example.jzohndev.no_bullshit_weightlifting_new.R;
 import c1_begin.BeginFragment;
 import data.IntentResolver;
 import data.LoadDates;
-import data.LoadExercises;
-import data.LoadSchedules;
-import data.LoadWorkouts;
 import data.PreLoader;
 import c2_manage.ManageFragment;
 import c4_progression.ProgressionFragment;
@@ -99,9 +96,6 @@ public class MenuPager extends FragmentActivity implements ViewPager.OnPageChang
     private void initAppData() {
         LoadDates d = new LoadDates();
         PreLoader p = new PreLoader(this);
-        LoadExercises e = new LoadExercises(this);
-        LoadWorkouts w = new LoadWorkouts(this);
-        LoadSchedules s = new LoadSchedules(this);
     }
 
     @Override
@@ -122,7 +116,7 @@ public class MenuPager extends FragmentActivity implements ViewPager.OnPageChang
                 title.setText("Manage");
                 break;
             case (SCHEDULE_FRAGMENT):
-                title.setText("Schedule");
+                title.setText("ScheduledSession");
                 break;
             case (PROGRESSION_FRAGMENT):
                 title.setText("Progression");

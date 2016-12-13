@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +17,9 @@ import android.widget.TextView;
 
 import com.example.jzohndev.no_bullshit_weightlifting_new.R;
 
-import org.joda.time.LocalDate;
-
-import java.util.List;
-import java.util.Map;
-
 import data.Icons;
 import database.DatabaseHelper;
 import database.Exercise;
-import database.Schedule;
-import database.SessionExercise;
 
 public class BeginFragment extends Fragment {
     private RelativeLayout mRelativeLayout;
@@ -54,6 +48,7 @@ public class BeginFragment extends Fragment {
         final View mView = inflater.inflate(R.layout.fragment_begin, container, false);
         mRelativeLayout = (RelativeLayout) mView.findViewById(R.id.relative_layout);
 
+        Log.e("begin log", mScheduleStatus + "");
         if (mScheduleStatus == WORKOUT_SCHEDULED){
             createWorkoutListView();
         } else {
@@ -64,7 +59,7 @@ public class BeginFragment extends Fragment {
 
     /*private void resolveIfWorkoutIsScheduled(){
         final DatabaseHelper db = new DatabaseHelper(getContext());
-        final Schedule todaySchedule = db.getFullSchedule(LocalDate.now());
+        final ScheduledSession todaySchedule = db.getFullSchedule(LocalDate.now());
         long workoutId = todaySchedule.getWorkoutId();
 
         if (workoutId == -1) {
@@ -230,7 +225,7 @@ public class BeginFragment extends Fragment {
             final int completedSets = mScheduleHelper.getExerciseCompletedSets(position);
             final int totalSets = mScheduleHelper.getExerciseTotalSets(position);
             vHolder.completedSets.setText(String.valueOf(completedSets));
-            vHolder.totalSets.setText(totalSets);
+            vHolder.totalSets.setText(String.valueOf(totalSets));
             vHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

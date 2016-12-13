@@ -20,15 +20,11 @@ import data.IntentResolver;
 import database.DatabaseHelper;
 import database.Workout;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class WorkoutsChildFragment extends Fragment implements WorkoutsAdapter.WorkoutOnItemClickListener{
+public class WorkoutsChildFragment extends Fragment implements WorkoutsAdapter.WorkoutOnItemClickListener {
     private View mView;
     private WorkoutsAdapter mAdapter;
 
     public WorkoutsChildFragment() {
-        // Required empty public constructor
     }
 
 
@@ -53,7 +49,7 @@ public class WorkoutsChildFragment extends Fragment implements WorkoutsAdapter.W
 
     @Override
     public void onItemClick(final Workout workout, View v) {
-        if (v != null && v.getTag() == "overflow"){
+        if (v != null && v.getTag() == "overflow") {
             PopupMenu popupMenu = new PopupMenu(getContext(), v);
             popupMenu.getMenuInflater()
                     .inflate(R.menu.workout_card_overflow_menu, popupMenu.getMenu());

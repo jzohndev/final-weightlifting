@@ -11,14 +11,15 @@ import com.example.jzohndev.no_bullshit_weightlifting_new.R;
 
 import org.joda.time.LocalDate;
 
-import java.util.Date;
+import java.util.List;
 
 import data.IntentResolver;
 import c0_all.MenuPager;
 
-import data.LoadDates;
 import database.DatabaseHelper;
-import database.Schedule;
+import database.ScheduledSession;
+import database.SessionExercise;
+import database.SessionWorkout;
 import database.Workout;
 import c2_manage.WorkoutsAdapter;
 
@@ -65,7 +66,7 @@ public class WorkoutList extends Activity implements WorkoutsAdapter.WorkoutOnIt
                         db = new DatabaseHelper(getApplicationContext());
                         long test = db.createSchedule(LoadDates.getTodayDate(), workout.getId());
                         Log.e("TodayFrag", String.valueOf(test));
-                        i = new Intent(WorkoutList.this, Schedule.class);
+                        i = new Intent(WorkoutList.this, ScheduledSession.class);
                         objective = new Bundle();
                         objective.putString("from", "WorkoutList");
                         objective.putString("orgFrom", "TodayFragment");
@@ -79,8 +80,8 @@ public class WorkoutList extends Activity implements WorkoutsAdapter.WorkoutOnIt
                         String selectedDate = extras.getString("date");
                         Log.e("WorkoutList WeekFragmen", "selectedDate: " + selectedDate);
                         long scheduleAddedRow = db.createSchedule(LoadDates.stringToDate(selectedDate), workout.getId());
-                        Log.e("WorkoutList WeekFragmen", "Schedule created at row: " + String.valueOf(scheduleAddedRow));
-                        i = new Intent(WorkoutList.this, Schedule.class);
+                        Log.e("WorkoutList WeekFragmen", "ScheduledSession created at row: " + String.valueOf(scheduleAddedRow));
+                        i = new Intent(WorkoutList.this, ScheduledSession.class);
                         objective = new Bundle();
                         objective.putString("from", "WorkoutList");
                         objective.putString("orgFrom", "WeekFragment");
@@ -98,29 +99,31 @@ public class WorkoutList extends Activity implements WorkoutsAdapter.WorkoutOnIt
     @Override
     public void onItemClick(Workout workout, View v) {
         final IntentResolver resolver = IntentResolver.getInstance();
-        final DatabaseHelper db = new DatabaseHelper(this);
-
-        Schedule schedule;
-        LocalDate resolverDate;
-        LocalDate date;
+        final DatabaseHelper db = new DatabaseHelper(getApplicationContext());
 
         switch (resolver.getFrom()) {
             case ("TodayChildFragment"):
-                resolverDate = resolver.getDate();
-                date = new LocalDate(resolverDate);
-                schedule = new Schedule(date, workout);
-                db.createSchedule(schedule);
+                createScheduledSession(resolver);
                 resolver.setIntent("WorkoutList", "TodayChildFragment", -1);
                 startActivity(new Intent(WorkoutList.this, MenuPager.class));
                 break;
             case ("WeekChildFragment"):
-                resolverDate = resolver.getDate();
-                date = new LocalDate(resolverDate);
-                schedule = new Schedule(date, workout);
-                db.createSchedule(schedule);
+                createScheduledSession(resolver);
                 resolver.setIntent("WorkoutList", "WeekChildFragment", -1);
                 startActivity(new Intent(WorkoutList.this, MenuPager.class));
                 break;
         }
+    }
+
+    private void createScheduledSession(IntentResolver resolver) {
+        final DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+
+        SessionWorkout sessionWorkout = new SessionWorkout();
+        sessionWorkout.setSessionId(resolver.getScheduledSession().getSessionId());
+        sessionWorkout.setWorkoutId(resolver.getScheduledSession().getWorkoutId());
+        List<SessionExercise> sessionExerciseList = db.getSessionExercises(
+                resolver.getScheduledSession().getSessionId());
+
+        db.createScheduledSession(resolver.getScheduledSession(), sessionWorkout, sessionExerciseList);
     }
 }

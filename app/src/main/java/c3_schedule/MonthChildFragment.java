@@ -4,7 +4,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,6 @@ import com.roomorama.caldroid.CaldroidListener;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -26,13 +22,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import data.LoadDates;
 import database.DatabaseHelper;
-import database.Schedule;
+import database.ScheduledSession;
 
 public class MonthChildFragment extends Fragment {
     private DatabaseHelper db;
-    private List<Schedule> mSchedules;
+    private List<ScheduledSession> mSchedules;
     private Map<Date, Drawable> mScheduleDrawableMap;
 
 
@@ -67,7 +62,7 @@ public class MonthChildFragment extends Fragment {
             @Override
             public void onSelectDate(Date input, View view) {
                 LocalDate localDate = new LocalDate(input);
-                Schedule selected = db.getSchedule(localDate);
+                ScheduledSession selected = db.getSchedule(localDate);
 
                 if (selected.getWorkout().getId() != -1){
                     workoutName.setText(db.getWorkout(selected.getWorkout().getId()).getName());
@@ -107,7 +102,7 @@ public class MonthChildFragment extends Fragment {
         LocalDate today = LocalDate.now();
         mScheduleDrawableMap = new HashMap<>();
 
-        for (Schedule currentSchedule : mSchedules) {
+        for (ScheduledSession currentSchedule : mSchedules) {
             Date currentDate = currentSchedule.getDate().toDate();
 
             if (currentSchedule.getStatus().equals("Complete")) {
@@ -123,7 +118,7 @@ public class MonthChildFragment extends Fragment {
 
         caldroid.setBackgroundDrawableForDates(mScheduleDrawableMap);
 
-       /* for (Schedule currentSchedule : mSchedules){
+       /* for (ScheduledSession currentSchedule : mSchedules){
             Date currentDate = java.sql.Date.valueOf(currentSchedule.getDate().toString());
             if (currentSchedule.getCompleted().contains("Yes")){
                 // Completed: True, Upcoming: False

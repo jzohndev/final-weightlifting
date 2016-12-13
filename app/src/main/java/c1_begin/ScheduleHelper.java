@@ -1,25 +1,22 @@
 package c1_begin;
 
-import android.content.Context;
-
 import org.joda.time.LocalDate;
 
 import java.util.List;
 
 import database.DatabaseHelper;
 import database.Exercise;
-import database.Schedule;
+import database.ScheduledSession;
 import database.SessionExercise;
 import database.SessionSet;
 import database.SessionWorkout;
-import database.Workout;
 
 /**
  * Created by jzohn on 11/5/2016.
  */
 public class ScheduleHelper {
     private static ScheduleHelper ourInstance = new ScheduleHelper();
-    public static Schedule schedule;
+    public static ScheduledSession schedule;
     public static SessionWorkout sessionWorkout;
     public static List<SessionExercise> sessionExercises;
     public static List<Exercise> workoutExercises;
@@ -40,10 +37,11 @@ public class ScheduleHelper {
     public void initSessionData(DatabaseHelper db) {
         workoutExercises = db.getWorkoutExercises(schedule.getWorkout().getId());
 
-        sessionWorkout = db.getSessionWorkout(schedule.getDate());
+        sessionWorkout = db.getSessionWorkout(schedule.getWorkout().getId());
         final int sessionId = sessionWorkout.getSessionId();
         if (sessionId == -1) {
             db.createSessionWorkout(schedule);
+            sessionWorkout = db.getSessionWorkout(schedule.getWorkout().getId());
             db.createSessionExercises(sessionWorkout.getSessionId(), workoutExercises);
         }
         sessionExercises =
@@ -51,7 +49,7 @@ public class ScheduleHelper {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public Schedule getSchedule(){
+    public ScheduledSession getSchedule(){
         return schedule;
     }
 

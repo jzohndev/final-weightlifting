@@ -8,16 +8,12 @@ import org.joda.time.LocalDateTime;
  */
 
 public class SessionSet {
-    private int sessionId;
-    private int exerciseId;
+    private int sessionId = -1;
+    private int exerciseId = -1;
     private int setNumber;
     private String note;
-
-    private int defaultReps;
-
-    private int actualReps;
+    private int reps;
     private int weight;
-
     private DateTime endTime;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,20 +60,12 @@ public class SessionSet {
         this.note = note;
     }
 
-    public int getDefaultReps() {
-        return defaultReps;
+    public int getReps() {
+        return reps;
     }
 
-    public void setDefaultReps(int defaultReps) {
-        this.defaultReps = defaultReps;
-    }
-
-    public int getActualReps() {
-        return actualReps;
-    }
-
-    public void setActualReps(int actualReps) {
-        this.actualReps = actualReps;
+    public void setReps(int reps) {
+        this.reps = reps;
     }
 
     public int getWeight() {

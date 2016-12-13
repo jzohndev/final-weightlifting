@@ -25,7 +25,6 @@ public class LoadDates {
     private static LocalDate todayDate;
     private static List<LocalDate> weekDates;
     private static List<LocalDate> monthDates;
-    private static final String LOG = "LoadDates";
 
     public LoadDates() {
         initializeTodayDate();
@@ -53,6 +52,7 @@ public class LoadDates {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public static LocalDate getTodayDate() {
         return todayDate;
     }
@@ -65,30 +65,7 @@ public class LoadDates {
         return monthDates;
     }
 
-
-
-
-
-    //
-    public static String dateToString(Date date){
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String dateString = fmt.format(date);
-        Log.e(LOG, dateString);
-        return dateString;
-    }
-
-    public static Date stringToDate(String dateString) {
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        Date date = null;
-        try {
-            date = fmt.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Log.e(LOG, date.toString());
-        return date;
-    }
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public static String dateTimeToString(DateTime dateTime){
         DateTimeFormatter formatter = forPattern("yyyy-MM-dd HH:mm:ss");
         return formatter.print(dateTime);
@@ -100,10 +77,8 @@ public class LoadDates {
     }
 
     public static LocalDate stringToLocalDate(String localDateString){
-
         DateTimeFormatter formatter = forPattern("yyyy-MM-dd");
         return formatter.parseLocalDate(localDateString);
-
     }
 
     public static String localDateToString(LocalDate localDate){

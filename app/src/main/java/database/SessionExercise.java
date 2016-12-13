@@ -8,11 +8,13 @@ import java.util.List;
  * Created by big1 on 8/3/2016.
  */
 public class SessionExercise {
-    private int sessionId;
-    private int exerciseId;
-    private int numberOfSets;
+    private int sessionId = -1;
+    private int workoutId = -1;
+    private int exerciseId = -1;
+    private int numberOfSets = 3;
+    private int defaultReps = 10;
     private DateTime endTime;
-    private List<SessionSet> exerciseSets;
+    //private List<SessionSet> exerciseSets;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public SessionExercise() {
@@ -62,6 +64,14 @@ public class SessionExercise {
         return numberOfSets;
     }
 
+    public void setDefaultReps(int defaultReps){
+        this.defaultReps = defaultReps;
+    }
+
+    public int getDefaultReps(){
+        return defaultReps;
+    }
+
     public void setEndTime(DateTime endTime) {
         this.endTime = endTime;
     }
@@ -72,7 +82,7 @@ public class SessionExercise {
 
 
 
-    public void setExerciseSets(List<SessionSet> exerciseSets){
+/*    public void setExerciseSets(List<SessionSet> exerciseSets){
         this.exerciseSets = exerciseSets;
     }
 
@@ -86,5 +96,5 @@ public class SessionExercise {
 
     public void removeExerciseSet(SessionSet exerciseSet, int setNumber){
         exerciseSets.remove(setNumber);
-    }
+    }*/
 }

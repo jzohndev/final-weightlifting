@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Locale;
 
 import data.Icons;
-import data.LoadExercises;
 import database.DatabaseHelper;
 import database.Exercise;
 
@@ -37,8 +36,8 @@ public class ExerciseListAdapter extends BaseAdapter {
     private void updateDataSet() {
         exercises = new ArrayList<>();
         muscleGroupExercises = new ArrayList<>();
-        exercises.addAll(LoadExercises.allExercises);
-        muscleGroupExercises.addAll(LoadExercises.allExercises);
+        exercises.addAll(db.getAllExercises());
+        muscleGroupExercises.addAll(muscleGroupExercises);
     }
 
     @Override
@@ -79,8 +78,8 @@ public class ExerciseListAdapter extends BaseAdapter {
         if (muscleGroup.contains("All Muscles")){
             muscleGroupExercises.clear();
             exercises.clear();
-            muscleGroupExercises.addAll(LoadExercises.allExercises);
-            exercises.addAll(LoadExercises.allExercises);
+            muscleGroupExercises.addAll(db.getAllExercises());
+            exercises.addAll(muscleGroupExercises);
         } else {
             muscleGroupExercises.clear();
             exercises.clear();

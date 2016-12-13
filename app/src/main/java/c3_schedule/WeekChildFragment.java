@@ -14,25 +14,22 @@ import android.widget.TextView;
 
 import com.example.jzohndev.no_bullshit_weightlifting_new.R;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import data.IntentResolver;
 import data.LoadDates;
 import database.DatabaseHelper;
-import database.Schedule;
+import database.ScheduledSession;
 import database.Workout;
 import workout.WorkoutList;
 
-public class WeekChildFragment extends Fragment {
+public class WeekChildFragment extends Fragment { // TODO just finished modifying the create ScheduleSession on the today child fragment. Need to do month and begin also
 
     public WeekChildFragment() {
     }
@@ -90,7 +87,7 @@ public class WeekChildFragment extends Fragment {
             mWeekWorkouts.removeAll(mWeekWorkouts);
 
             for (LocalDate currentDate : mWeekDates) {
-                final Schedule currentSchedule = db.getSchedule(currentDate);
+                final ScheduledSession currentSchedule = db.getSchedule(currentDate);
                 int workoutId = currentSchedule.getWorkout().getId();
                 mWeekWorkouts.add(db.getWorkout(workoutId));
             }

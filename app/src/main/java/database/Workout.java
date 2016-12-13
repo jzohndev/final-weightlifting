@@ -13,7 +13,7 @@ public class Workout {
     private int id = -1;
     private String name;
     private String description;
-    private LocalDate createdDate;
+    private DateTime createdDate;
     private int timesCompleted = 0;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

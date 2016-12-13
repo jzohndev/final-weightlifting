@@ -5,6 +5,7 @@ import org.joda.time.LocalDate;
 import java.util.Date;
 
 import database.Exercise;
+import database.ScheduledSession;
 import database.SessionWorkout;
 import database.Workout;
 
@@ -20,6 +21,7 @@ public class IntentResolver {
     private static Exercise exercise;
     private static LocalDate date;
     private static SessionWorkout sessionWorkout;
+    private static ScheduledSession scheduledSession;
 
     public static IntentResolver getInstance() {
         return ourInstance;
@@ -62,6 +64,13 @@ public class IntentResolver {
         sessionWorkout = sessionWorkout_;
     }
 
+    public void setIntent(String from, String orgFrom, int purpose, ScheduledSession scheduledSession_) {
+        callingActivity = from;
+        originalCallingActivity = orgFrom;
+        callingCode = purpose;
+        scheduledSession = scheduledSession_;
+    }
+
     public String getFrom(){
         return callingActivity;
     }
@@ -87,4 +96,6 @@ public class IntentResolver {
     public SessionWorkout getSessionWorkout(){
         return sessionWorkout;
     }
+
+    public ScheduledSession getScheduledSession() { return scheduledSession; }
 }
