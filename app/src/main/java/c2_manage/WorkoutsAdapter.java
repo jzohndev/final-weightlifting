@@ -3,6 +3,7 @@ package c2_manage;
 import android.content.Context;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,6 +108,7 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.Workou
 
     @Override
     public int getItemCount() {
+        Log.e("getItemCount", mWorkouts.size() + "");
         return mWorkouts.size();
     }
 

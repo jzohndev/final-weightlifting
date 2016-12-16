@@ -62,10 +62,10 @@ public class MonthChildFragment extends Fragment {
             @Override
             public void onSelectDate(Date input, View view) {
                 LocalDate localDate = new LocalDate(input);
-                ScheduledSession selected = db.getSchedule(localDate);
+                ScheduledSession selected = db.getScheduledSession(localDate);
 
-                if (selected.getWorkout().getId() != -1){
-                    workoutName.setText(db.getWorkout(selected.getWorkout().getId()).getName());
+                if (selected.getWorkoutId() != -1){
+                    workoutName.setText(db.getWorkout(selected.getWorkoutId()).getName());
                 } else {
                     workoutName.setText("No workout");
                 }

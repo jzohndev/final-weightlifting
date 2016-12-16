@@ -11,12 +11,14 @@ import com.example.jzohndev.no_bullshit_weightlifting_new.R;
 
 import org.joda.time.LocalDate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import data.IntentResolver;
 import c0_all.MenuPager;
 
 import database.DatabaseHelper;
+import database.Exercise;
 import database.ScheduledSession;
 import database.SessionExercise;
 import database.SessionWorkout;
@@ -99,31 +101,45 @@ public class WorkoutList extends Activity implements WorkoutsAdapter.WorkoutOnIt
     @Override
     public void onItemClick(Workout workout, View v) {
         final IntentResolver resolver = IntentResolver.getInstance();
-        final DatabaseHelper db = new DatabaseHelper(getApplicationContext());
 
         switch (resolver.getFrom()) {
             case ("TodayChildFragment"):
-                createScheduledSession(resolver);
+                createScheduledSession(workout, resolver.getDate());
                 resolver.setIntent("WorkoutList", "TodayChildFragment", -1);
                 startActivity(new Intent(WorkoutList.this, MenuPager.class));
                 break;
             case ("WeekChildFragment"):
-                createScheduledSession(resolver);
+                createScheduledSession(workout, resolver.getDate());
                 resolver.setIntent("WorkoutList", "WeekChildFragment", -1);
                 startActivity(new Intent(WorkoutList.this, MenuPager.class));
                 break;
         }
     }
 
-    private void createScheduledSession(IntentResolver resolver) {
+    private void createScheduledSession(Workout workout, LocalDate date) {
         final DatabaseHelper db = new DatabaseHelper(getApplicationContext());
 
-        SessionWorkout sessionWorkout = new SessionWorkout();
-        sessionWorkout.setSessionId(resolver.getScheduledSession().getSessionId());
-        sessionWorkout.setWorkoutId(resolver.getScheduledSession().getWorkoutId());
-        List<SessionExercise> sessionExerciseList = db.getSessionExercises(
-                resolver.getScheduledSession().getSessionId());
+        ScheduledSession scheduledSession = new ScheduledSession();
+        scheduledSession.setWorkoutId(workout.getId());
+        scheduledSession.setDate(date);
+        scheduledSession.setStatus("None");
 
-        db.createScheduledSession(resolver.getScheduledSession(), sessionWorkout, sessionExerciseList);
+        SessionWorkout sessionWorkout = new SessionWorkout();
+        sessionWorkout.setWorkoutId(workout.getId());
+
+        List<Exercise> exercises = db.getWorkoutExercises(workout.getId());
+
+        List<SessionExercise> sessionExerciseList = new ArrayList<>();
+        SessionExercise sessionExercise;
+        for (Exercise exercise : exercises){
+            sessionExercise = new SessionExercise();
+            sessionExercise.setExerciseId(exercise.getId());
+            sessionExercise.setWorkoutId(workout.getId());
+            sessionExercise.setNumberOfSets(exercise.getDefaultSets());
+            sessionExercise.setDefaultReps(exercise.getDefaultReps());
+            sessionExerciseList.add(sessionExercise);
+        }
+
+        db.createScheduledSession(scheduledSession, sessionWorkout, sessionExerciseList);
     }
 }

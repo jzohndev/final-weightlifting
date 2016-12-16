@@ -125,7 +125,7 @@ public class TodayChildFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 IntentResolver resolver = IntentResolver.getInstance();
-                resolver.setIntent("TodayChildFragment", "TodayChildFragment", -1, mScheduleSession);
+                resolver.setIntent("TodayChildFragment", "TodayChildFragment", -1, LocalDate.now());
                 startActivity(new Intent(getActivity(), WorkoutList.class));
             }
         });

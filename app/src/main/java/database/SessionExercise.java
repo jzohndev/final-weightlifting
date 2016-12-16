@@ -48,6 +48,14 @@ public class SessionExercise {
         return sessionId;
     }
 
+    public void setWorkoutId(int workoutId){
+        this.workoutId = workoutId;
+    }
+
+    public int getWorkoutId(){
+        return workoutId;
+    }
+
     public void setExerciseId(int exerciseId) {
         this.exerciseId = exerciseId;
     }

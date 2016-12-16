@@ -17,9 +17,12 @@ import android.widget.TextView;
 
 import com.example.jzohndev.no_bullshit_weightlifting_new.R;
 
+import org.joda.time.LocalDate;
+
 import data.Icons;
 import database.DatabaseHelper;
 import database.Exercise;
+import database.ScheduledSession;
 
 public class BeginFragment extends Fragment {
     private RelativeLayout mRelativeLayout;
@@ -31,14 +34,11 @@ public class BeginFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         final DatabaseHelper db = new DatabaseHelper(getContext());
         mScheduleHelper = ScheduleHelper.getInstance();
         mScheduleHelper.initScheduleData(db);
-
-        if (mScheduleHelper.getSchedule().getWorkout().getId() != -1){
+        if (mScheduleHelper.getSchedule().getSessionId() != -1){
             mScheduleHelper.initSessionData(db);
-            mScheduleStatus = WORKOUT_SCHEDULED;
         }
     }
 
@@ -48,8 +48,7 @@ public class BeginFragment extends Fragment {
         final View mView = inflater.inflate(R.layout.fragment_begin, container, false);
         mRelativeLayout = (RelativeLayout) mView.findViewById(R.id.relative_layout);
 
-        Log.e("begin log", mScheduleStatus + "");
-        if (mScheduleStatus == WORKOUT_SCHEDULED){
+        if (mScheduleHelper.getSchedule().getSessionId() != -1){
             createWorkoutListView();
         } else {
             createDefaultView();
@@ -217,12 +216,9 @@ public class BeginFragment extends Fragment {
             final int position = i;
             final Exercise exercise = mScheduleHelper.getWorkoutExercises().get(position);
             final ExerciseViewHolder vHolder = (ExerciseViewHolder) holder;
-
             vHolder.icon.setImageResource(Icons.getMuscleGroupIcon(exercise.getMuscleGroup()));
             vHolder.name.setText(exercise.getName());
-
-
-            final int completedSets = mScheduleHelper.getExerciseCompletedSets(position);
+            final int completedSets = mScheduleHelper.getExerciseCompletedSets(exercise.getId());
             final int totalSets = mScheduleHelper.getExerciseTotalSets(position);
             vHolder.completedSets.setText(String.valueOf(completedSets));
             vHolder.totalSets.setText(String.valueOf(totalSets));
@@ -231,7 +227,7 @@ public class BeginFragment extends Fragment {
                 public void onClick(View view) {
                     Intent i = new Intent(getActivity(), BeginExerciseSelected.class);
                     Bundle b = new Bundle();
-                    b.putInt("exerciseId", position);
+                    b.putInt("exerciseId", exercise.getId());
                     i.putExtras(b);
                     startActivity(i);
                 }

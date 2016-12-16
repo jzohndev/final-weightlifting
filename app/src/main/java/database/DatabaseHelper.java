@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.ArrayMap;
 import android.util.Log;
 
 import org.joda.time.DateTime;
@@ -13,7 +14,9 @@ import org.joda.time.LocalDate;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import data.LoadDates;
 
@@ -48,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String KEY_EXERCISE_ID = "ExerciseId";
     private static final String KEY_NUMBER_OF_SETS = "NumberOfSets";
-    private static final String KEY_DEFAULT_REPS = "DefaultReps"
+    private static final String KEY_DEFAULT_REPS = "DefaultReps";
 
     private static final String KEY_REPS = "Reps";
     private static final String KEY_WEIGHT = "Weight";
@@ -139,7 +142,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //TABLE_SCHEDULED_SESSION
     private static final String CREATE_TABLE_SCHEDULED_SESSION = "CREATE TABLE " + TABLE_SCHEDULED_SESSION
             + " ("
-            + KEY_SESSION_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + KEY_SESSION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + KEY_WORKOUT_ID + " INTEGER,"
             + KEY_DATE + " DATE,"
             + KEY_STATUS + " TEXT,"
@@ -418,7 +421,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_WORKOUT_ID, scheduledSession.getWorkoutId());
-        values.put(KEY_DATE, LoadDates.localDateToString(scheduledSession.getDate()));
+        if (scheduledSession.getDate() != null){
+            values.put(KEY_DATE, LoadDates.localDateToString(scheduledSession.getDate()));
+        }
         values.put(KEY_STATUS, scheduledSession.getStatus());
         long scheduledSessionRowNumber = db.insert(TABLE_SCHEDULED_SESSION, null, values);
         Log.e(TABLE_SCHEDULED_SESSION, "...row " + scheduledSessionRowNumber + " created");
@@ -452,7 +457,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             // adds rows to Session_Set table
             long sessionSetRowNumber;
-            for (int x = 0; i < sessionExerciseList.get(i).getNumberOfSets(); x++){
+            for (int x = 0; x < sessionExerciseList.get(i).getNumberOfSets(); x++){
                 values.put(KEY_SESSION_ID, sessionId);
                 values.put(KEY_EXERCISE_ID, sessionExerciseList.get(i).getExerciseId());
                 values.put(KEY_SET_NUMBER, (x + 1));
@@ -468,8 +473,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " WHERE " + KEY_DATE + " = '" + LoadDates.localDateToString(date) + "'";
         Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()){
+            int sessionId = c.getInt(c.getColumnIndex(KEY_SESSION_ID));
             c.close();
-            return c.getInt(c.getColumnIndex(KEY_SESSION_ID));
+            return sessionId;
         } else {
             c.close();
             return -1;
@@ -500,16 +506,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " WHERE " + KEY_DATE + " = '" + LoadDates.localDateToString(localDate) + "'";
         Log.e("getFullSchedule", selectQuery);
         Cursor c = db.rawQuery(selectQuery, null);
-        ScheduledSession schedule = new ScheduledSession();
+        ScheduledSession scheduledSession = new ScheduledSession();
         if (c.moveToFirst()) {
-            schedule.setDate(LoadDates.stringToLocalDate(c.getString(c.getColumnIndex(KEY_DATE))));
-            schedule.setWorkout(getWorkout(c.getInt(c.getColumnIndex(KEY_WORKOUT_ID))));
-            schedule.setStatus(c.getString(c.getColumnIndex(KEY_STATUS)));
+            scheduledSession.setDate(LoadDates.stringToLocalDate(c.getString(c.getColumnIndex(KEY_DATE))));
+            scheduledSession.setWorkout(getWorkout(c.getInt(c.getColumnIndex(KEY_WORKOUT_ID))));
+            scheduledSession.setStatus(c.getString(c.getColumnIndex(KEY_STATUS)));
         }
         c.close();
-        return schedule;
+        return scheduledSession;
     }*/
 
+/*
     public ScheduledSession getSchedule(LocalDate date) {
         String selectQuery = "SELECT * FROM " + TABLE_SCHEDULED_SESSION + " sc"
                 + " INNER JOIN " + TABLE_WORKOUT
@@ -540,6 +547,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.close();
         return schedule;
     }
+*/
 
     public List<ScheduledSession> getMonthSchedules(int month) {
         String monthString;
@@ -556,13 +564,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(selectQuery, null);
         List<ScheduledSession> schedules = new ArrayList<>();
         if (c.moveToFirst()) {
-            ScheduledSession currentSchedule;
+            ScheduledSession currentScheduledSession;
             do {
-                currentSchedule = new ScheduledSession();
-                currentSchedule.setDate(LoadDates.stringToLocalDate(c.getString(c.getColumnIndex(KEY_DATE))));
-                currentSchedule.setWorkout(getWorkout(c.getInt(c.getColumnIndex(KEY_WORKOUT_ID))));
-                currentSchedule.setStatus(c.getString(c.getColumnIndex(KEY_STATUS)));
-                schedules.add(currentSchedule);
+                currentScheduledSession = new ScheduledSession();
+                currentScheduledSession.setSessionId(c.getInt(c.getColumnIndex(KEY_SESSION_ID)));
+                currentScheduledSession.setWorkoutId(c.getInt(c.getColumnIndex(KEY_WORKOUT_ID)));
+                currentScheduledSession.setDate(LoadDates.stringToLocalDate(c.getString(c.getColumnIndex(KEY_DATE))));
+                currentScheduledSession.setStatus(c.getString(c.getColumnIndex(KEY_STATUS)));
+                schedules.add(currentScheduledSession);
             } while (c.moveToNext());
         }
         c.close();
@@ -771,12 +780,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*                                                                                              SESSION_WORKOUT                                                                               */
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public long createSessionWorkout(ScheduledSession schedule) {
+    /*public long createSessionWorkout(ScheduledSession schedule) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_WORKOUT_ID, schedule.getWorkout().getId());
         return db.insert(TABLE_SESSION_WORKOUT, null, values);
-    }
+    }*/
 
     public long createSessionWorkout(long workoutId, DateTime dateTime, DateTime startTime) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -957,13 +966,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 SessionExercise sessionExercise = new SessionExercise();
                 sessionExercise.setSessionId(c.getInt(c.getColumnIndex(KEY_SESSION_ID)));
+                sessionExercise.setWorkoutId(c.getInt(c.getColumnIndex(KEY_WORKOUT_ID)));
                 sessionExercise.setExerciseId(c.getInt(c.getColumnIndex(KEY_EXERCISE_ID)));
                 sessionExercise.setNumberOfSets(c.getInt(c.getColumnIndex(KEY_NUMBER_OF_SETS)));
+                sessionExercise.setDefaultReps(c.getInt(c.getColumnIndex(KEY_DEFAULT_REPS)));
                 if (c.getString(c.getColumnIndex(KEY_END_TIME)) != null){
                     sessionExercise.setEndTime(LoadDates.stringToDateTime(c.getString(c.getColumnIndex(KEY_END_TIME))));
                 }
-                sessionExercise.setExerciseSets(this.getSessionSets(sessionExercise, db));
-
                 sessionExercises.add(sessionExercise);
             } while (c.moveToNext());
         }
@@ -989,6 +998,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+/*
     public List<SessionSet> getSessionSets(SessionExercise sessionExercise, SQLiteDatabase db){
         String selectQuery = "SELECT * FROM " + TABLE_SESSION_SET
                 + " WHERE " + KEY_SESSION_ID + " = '" + sessionExercise.getSessionId() + "' AND "
@@ -1005,14 +1015,97 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 set.setNote(c.getString(c.getColumnIndex(KEY_NOTE)));
                 set.setDefaultReps(c.getInt(c.getColumnIndex(KEY_DEFAULT_REPS)));
                 set.setActualReps(c.getInt(c.getColumnIndex(KEY_REPS)));
-                set.setWeight(c.getInt(c.getColumnIndex(KEY_WEIGHT)));/*
+                set.setWeight(c.getInt(c.getColumnIndex(KEY_WEIGHT)));*/
+/*
                 if (c.getString(c.getColumnIndex(KEY_END_TIME)) != null){
                     set.setEndTime(LoadDates.stringToDateTime(c.getString(c.getColumnIndex(KEY_END_TIME))));
-                }*/
+                }*//*
+
                 sessionSets.add(set);
             } while (c.moveToNext());
         }
         c.close();
         return sessionSets;
+    }
+*/
+
+    public List<SessionSet> getSessionSets(int exerciseId, int sessionId) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_SESSION_SET
+                + " WHERE " + KEY_SESSION_ID + " = '" + sessionId + "' AND "
+                + KEY_EXERCISE_ID + " = '" + exerciseId + "'";
+        Log.e("getSessionSets", selectQuery);
+        Cursor c = db.rawQuery(selectQuery, null);
+        List<SessionSet> sessionSetList = new ArrayList<>();
+        if (c.moveToFirst()) {
+            SessionSet currentSessionSet;
+            do {
+                currentSessionSet = new SessionSet();
+                currentSessionSet.setSessionId(c.getInt(c.getColumnIndex(KEY_SESSION_ID)));
+                currentSessionSet.setExerciseId(c.getInt(c.getColumnIndex(KEY_EXERCISE_ID)));
+                currentSessionSet.setSetNumber(c.getInt(c.getColumnIndex(KEY_SET_NUMBER)));
+                currentSessionSet.setNote(c.getString(c.getColumnIndex(KEY_NOTE)));
+                currentSessionSet.setReps(c.getInt(c.getColumnIndex(KEY_REPS)));
+                currentSessionSet.setWeight(c.getInt(c.getColumnIndex(KEY_WEIGHT)));
+                if (c.getString(c.getColumnIndex(KEY_END_TIME)) != null) {
+                    currentSessionSet.setEndTime(LoadDates.stringToDateTime(
+                            c.getString(c.getColumnIndex(KEY_END_TIME))));
+                }
+                sessionSetList.add(currentSessionSet);
+            } while (c.moveToNext());
+        }
+        c.close();
+        return sessionSetList;
+    }
+
+    public Map<Integer, List<SessionSet>> getSessionSets(List<Exercise> exercises, int sessionId) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        Map<Integer, List<SessionSet>> sessionSetMap = new HashMap<>();
+        for (Exercise currentExercise : exercises) {
+            String selectQuery = "SELECT * FROM " + TABLE_SESSION_SET
+                    + " WHERE " + KEY_SESSION_ID + " = '" + sessionId + "' AND "
+                    + KEY_EXERCISE_ID + " = '" + currentExercise.getId() + "'";
+            Log.e("getSessionSets", selectQuery);
+            Cursor c = db.rawQuery(selectQuery, null);
+            List<SessionSet> sessionSetList = new ArrayList<>();
+            if (c.moveToFirst()) {
+                SessionSet currentSessionSet;
+                do {
+                    currentSessionSet = new SessionSet();
+                    currentSessionSet.setSessionId(c.getInt(c.getColumnIndex(KEY_SESSION_ID)));
+                    currentSessionSet.setExerciseId(c.getInt(c.getColumnIndex(KEY_EXERCISE_ID)));
+                    currentSessionSet.setSetNumber(c.getInt(c.getColumnIndex(KEY_SET_NUMBER)));
+                    currentSessionSet.setNote(c.getString(c.getColumnIndex(KEY_NOTE)));
+                    currentSessionSet.setReps(c.getInt(c.getColumnIndex(KEY_REPS)));
+                    currentSessionSet.setWeight(c.getInt(c.getColumnIndex(KEY_WEIGHT)));
+                    if (c.getString(c.getColumnIndex(KEY_END_TIME)) != null) {
+                        currentSessionSet.setEndTime(LoadDates.stringToDateTime(
+                                c.getString(c.getColumnIndex(KEY_END_TIME))));
+                    }
+                    sessionSetList.add(currentSessionSet);
+                } while (c.moveToNext());
+            }
+            c.close();
+            sessionSetMap.put(currentExercise.getId(), sessionSetList);
+        }
+        return sessionSetMap;
+    }
+
+    public long updateSessionSet(int sessionId, SessionSet sessionSet){
+        SQLiteDatabase db = getWritableDatabase();
+        String [] args = {String.valueOf(sessionId),
+                String.valueOf(sessionSet.getExerciseId()),
+                String.valueOf(sessionSet.getSetNumber())};
+        ContentValues values = new ContentValues();
+        values.put(KEY_NOTE, sessionSet.getNote());
+        values.put(KEY_REPS, sessionSet.getReps());
+        values.put(KEY_WEIGHT, sessionSet.getWeight());
+        values.put(KEY_END_TIME, LoadDates.dateTimeToString(sessionSet.getEndTime()));
+
+        return db.update(TABLE_SESSION_SET, values, KEY_SESSION_ID + " = ? AND "
+                + KEY_EXERCISE_ID + " = ? AND " + KEY_SET_NUMBER + " = ?",
+                args);
     }
 }

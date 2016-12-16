@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.jzohndev.no_bullshit_weightlifting_new.R;
 
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,7 +30,9 @@ import database.ScheduledSession;
 import database.Workout;
 import workout.WorkoutList;
 
-public class WeekChildFragment extends Fragment { // TODO just finished modifying the create ScheduleSession on the today child fragment. Need to do month and begin also
+import static org.joda.time.format.DateTimeFormat.forPattern;
+
+public class WeekChildFragment extends Fragment {
 
     public WeekChildFragment() {
     }
@@ -54,14 +57,14 @@ public class WeekChildFragment extends Fragment { // TODO just finished modifyin
     private View createWeekOfHeader(LayoutInflater inflater) {
         final View weekOfHeader = inflater.inflate(R.layout.week_week_of_date_text_view, null);
         final TextView weekOfTextView = (TextView) weekOfHeader.findViewById(R.id.week_of_text_view);
-        Calendar thisWeek;
-        SimpleDateFormat formatter;
-        String weekOfString;
 
-        thisWeek = Calendar.getInstance();
-        thisWeek.set(Calendar.DAY_OF_WEEK, thisWeek.getFirstDayOfWeek());
-        formatter = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
-        weekOfString = formatter.format(thisWeek.getTime());
+        LocalDate firstDayOfWeek = LocalDate.now().withDayOfWeek(1);
+        LocalDate lastDayOfWeek = LocalDate.now().withDayOfWeek(7);
+        DateTimeFormatter firstDayFormatter = forPattern("MMMM dd");
+        DateTimeFormatter lastDayFormatter = forPattern("dd");
+
+        String weekOfString = firstDayFormatter.print(firstDayOfWeek)
+                + " - " + lastDayFormatter.print(lastDayOfWeek);
         weekOfTextView.setText(weekOfString);
 
         return weekOfHeader;
@@ -72,11 +75,13 @@ public class WeekChildFragment extends Fragment { // TODO just finished modifyin
         private final int WORKOUT = 0;
         private final int NO_WORKOUT = 1;
 
-        private String[] mDaysOfWeek = {"SUN", "MON", "TUE", "WED", "THUR", "FRI", "SAT"};
+        private String[] mDaysOfWeek = {"MON", "TUE", "WED", "THUR", "FRI", "SAT", "SUN"};
         private List<Workout> mWeekWorkouts;
+        private List<ScheduledSession> mWeekScheduledSessions;
         private List<LocalDate> mWeekDates;
 
         public WeekWorkoutsAdapter() {
+            mWeekScheduledSessions = new ArrayList<>();
             mWeekWorkouts = new ArrayList<>();
             updateDataSet();
         }
@@ -87,8 +92,9 @@ public class WeekChildFragment extends Fragment { // TODO just finished modifyin
             mWeekWorkouts.removeAll(mWeekWorkouts);
 
             for (LocalDate currentDate : mWeekDates) {
-                final ScheduledSession currentSchedule = db.getSchedule(currentDate);
-                int workoutId = currentSchedule.getWorkout().getId();
+                final ScheduledSession currentSchedule = db.getScheduledSession(currentDate);
+                int workoutId = currentSchedule.getWorkoutId();
+                mWeekScheduledSessions.add(currentSchedule);
                 mWeekWorkouts.add(db.getWorkout(workoutId));
             }
             notifyDataSetChanged();
@@ -140,7 +146,7 @@ public class WeekChildFragment extends Fragment { // TODO just finished modifyin
                         @Override
                         public void onClick(View v) {
                             new DatabaseHelper(getContext())
-                                    .deleteSchedule(mWeekDates.get(pos));
+                                    .deleteScheduledSession(mWeekScheduledSessions.get(pos).getSessionId());
                             updateDataSet();
                         }
                     });
