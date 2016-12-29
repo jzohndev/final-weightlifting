@@ -24,17 +24,23 @@ import java.util.Map;
 
 import database.DatabaseHelper;
 import database.ScheduledSession;
+import database.SessionWorkout;
 
 public class MonthChildFragment extends Fragment {
+    private View mView;
     private DatabaseHelper db;
+
+    private List<SessionWorkout> mSessionWorkouts;
+    private Map<Date, Drawable> mWorkoutsDrawableMap;
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     private List<ScheduledSession> mSchedules;
     private Map<Date, Drawable> mScheduleDrawableMap;
-
 
     private Map<Date, Drawable> mDayColors;
 
 
-    private View mView;
     private CaldroidFragment caldroid;
 
     private List<Date> mMonthDates;
@@ -49,10 +55,9 @@ public class MonthChildFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_month_child, container, false);
-
         db = new DatabaseHelper(getActivity());
 
-        getSchedules();
+        getSessionWorkouts();
         initCaldroidCalendarWidget();
         assignSchedulesToCalendar();
 
@@ -64,7 +69,7 @@ public class MonthChildFragment extends Fragment {
                 LocalDate localDate = new LocalDate(input);
                 ScheduledSession selected = db.getScheduledSession(localDate);
 
-                if (selected.getWorkoutId() != -1){
+                if (selected.getWorkoutId() != -1) {
                     workoutName.setText(db.getWorkout(selected.getWorkoutId()).getName());
                 } else {
                     workoutName.setText("No workout");
@@ -76,7 +81,7 @@ public class MonthChildFragment extends Fragment {
         return mView;
     }
 
-    private void getSchedules() {
+    private void getSessionWorkouts() {
         final DateTime now = new DateTime();
         mSchedules = db.getMonthSchedules(now.getMonthOfYear());
     }
@@ -95,23 +100,26 @@ public class MonthChildFragment extends Fragment {
                 .replace(R.id.caldroid_layout, caldroid).commit();
     }
 
-    private void assignSchedulesToCalendar() {
-        Drawable green = new ColorDrawable(getResources().getColor(R.color.green));
-        Drawable red = new ColorDrawable(getResources().getColor(R.color.caldroid_light_red));
-        Drawable blue = new ColorDrawable(getResources().getColor(R.color.googleBlue));
-        LocalDate today = LocalDate.now();
+    private void assignSchedulesToCalendar() { // TODO deal with this drawable mess
+        final Drawable green = new ColorDrawable(getResources().getColor(R.color.green));
+        final Drawable red = new ColorDrawable(getResources().getColor(R.color.caldroid_light_red));
+        final Drawable blue = new ColorDrawable(getResources().getColor(R.color.googleBlue));
+        final LocalDate today = LocalDate.now();
         mScheduleDrawableMap = new HashMap<>();
 
+        // populate map with a color assigned to each date for Caldroid
+        Date currentDate;
+        int dateComparer;
         for (ScheduledSession currentSchedule : mSchedules) {
-            Date currentDate = currentSchedule.getDate().toDate();
-
+            currentDate = currentSchedule.getDate().toDate();
             if (currentSchedule.getStatus().equals("Complete")) {
-                mScheduleDrawableMap.put(currentDate, blue);
+                mScheduleDrawableMap.put(currentDate, green);
             } else {
-                if (today.compareTo(currentSchedule.getDate()) == 0) {
+                dateComparer = currentSchedule.getDate().compareTo(today);
+                if (dateComparer < 0) { // PAST workout
                     mScheduleDrawableMap.put(currentDate, red);
-                } else {
-                    mScheduleDrawableMap.put(currentDate, green);
+                } else { // FUTURE/PRESENT workout
+                    mScheduleDrawableMap.put(currentDate, blue);
                 }
             }
         }
