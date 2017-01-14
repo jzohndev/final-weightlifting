@@ -4,7 +4,6 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.TabLayout
-        android:elevation="1dp"
         android:id="@+id/tab_layout"
         style="@style/ChildTabAppearance"
         android:layout_width="match_parent"
@@ -15,6 +14,6 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tab_layout"/>
+        android:layout_below="@+id/tab_layout" />
 
 </RelativeLayout>

@@ -21,15 +21,8 @@ import database.DatabaseHelper;
 import database.SessionWorkout;
 import database.Workout;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HistoryChildFragment extends Fragment {
     private View mView;
-
-    public HistoryChildFragment() {
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,14 +42,14 @@ public class HistoryChildFragment extends Fragment {
     }
 
     // Adapter
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public class HistoryFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private List<SessionWorkout> completedSessionWorkouts;
         private DatabaseHelper db;
 
         public HistoryFragmentAdapter(){
-            completedSessionWorkouts =
-                    new DatabaseHelper(getContext()).getCompletedSessionWorkouts();
             db = new DatabaseHelper(getContext());
+            completedSessionWorkouts = db.getCompletedSessionWorkouts();
         }
 
         @Override

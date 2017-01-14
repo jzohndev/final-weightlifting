@@ -23,12 +23,11 @@ import c3_schedule.ScheduleFragment;
 /**
  * Created by big1 on 8/8/2016.
  */
-public class MenuPager extends FragmentActivity implements ViewPager.OnPageChangeListener {
+public class MenuPager extends FragmentActivity implements ViewPager.OnPageChangeListener, OnRequestNavigationToFragmentListener {
     private final int BEGIN_FRAGMENT = 0;
     private final int MANAGE_FRAGMENT = 1;
     private final int SCHEDULE_FRAGMENT = 2;
     private final int PROGRESSION_FRAGMENT = 3;
-
     private final int[] ICONS = {
             R.drawable.lift_selector,
             R.drawable.add_weight_selector,
@@ -42,7 +41,7 @@ public class MenuPager extends FragmentActivity implements ViewPager.OnPageChang
         super.onCreate(savedInstanceState);
 
         initAppData();
-        setContentView(R.layout.activity_menu_pager);
+        setContentView(R.layout.layout_all_menu_pager);
 
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mViewPager.addOnPageChangeListener(this);
@@ -128,6 +127,24 @@ public class MenuPager extends FragmentActivity implements ViewPager.OnPageChang
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void onFragmentNavigationRequested(int fragmentId) {
+        switch (fragmentId) {
+            case (BEGIN_FRAGMENT):
+                mViewPager.setCurrentItem(BEGIN_FRAGMENT);
+                break;
+            case (MANAGE_FRAGMENT):
+                mViewPager.setCurrentItem(MANAGE_FRAGMENT);
+                break;
+            case (SCHEDULE_FRAGMENT):
+                mViewPager.setCurrentItem(SCHEDULE_FRAGMENT);
+                break;
+            case (PROGRESSION_FRAGMENT):
+                mViewPager.setCurrentItem(PROGRESSION_FRAGMENT);
+                break;
+        }
     }
 }
 

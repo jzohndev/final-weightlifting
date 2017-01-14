@@ -1,5 +1,8 @@
 package c1_begin;
 
+import android.content.Context;
+
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import java.util.List;
@@ -26,6 +29,7 @@ public class ScheduleHelper {
     public static List<Exercise> workoutExercises;
     public static Map<Integer, List<SessionSet>> sessionSetMap;
 
+    // Constructors
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public static ScheduleHelper getInstance() {
         return ourInstance;
@@ -45,25 +49,39 @@ public class ScheduleHelper {
         workoutExercises = db.getWorkoutExercises(scheduledSession.getWorkoutId());
         sessionSetMap = db.getSessionSets(workoutExercises, scheduledSession.getSessionId());
     }
-
+    // scheduledSession
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public ScheduledSession getSchedule(){
         return scheduledSession;
     }
 
+    // sessionWorkout
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public SessionWorkout getSessionWorkout(){
         return sessionWorkout;
     }
 
+    public void startSessionWorkout(Context context){
+        sessionWorkout.setStartTime(DateTime.now());
+        new DatabaseHelper(context).updateSessionWorkout(sessionWorkout);
+    }
+
+    public boolean checkWorkoutIsComplete(){
+        if (sessionWorkout == null){
+            return false;
+        } else if (sessionWorkout.getEndTime() == null){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    // sessionExercises
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public List<SessionExercise> getSessionExercises(){
         return sessionExercises;
     }
 
-    public List<Exercise> getWorkoutExercises(){
-        return workoutExercises;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
     public SessionExercise getSessionExercise(int exerciseId){
         SessionExercise returnSessionExercise = new SessionExercise();
         for (SessionExercise sessionExercise : sessionExercises){
@@ -78,6 +96,36 @@ public class ScheduleHelper {
         return sessionExercises.get(position).getNumberOfSets();
     }
 
+    public void updateSessionExercisesDataSet(Context context){
+        final DatabaseHelper db = new DatabaseHelper(context);
+        sessionExercises.clear();
+        sessionExercises = db.getSessionExercises(sessionWorkout.getSessionId());
+        if (this.workoutIsComplete()){
+            scheduledSession.setStatus("Complete");
+            db.updateScheduledSession(scheduledSession);
+            sessionWorkout.setEndTime(DateTime.now());
+            db.updateSessionWorkout(sessionWorkout);
+        }
+    }
+
+    private boolean workoutIsComplete(){
+        int count = 0;
+        for (SessionExercise currentSessionExercise : sessionExercises){
+            if (currentSessionExercise.getEndTime() != null){
+                count++;
+            }
+        }
+        return count == workoutExercises.size();
+    }
+
+    // workoutExercises
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public List<Exercise> getWorkoutExercises(){
+        return workoutExercises;
+    }
+
+    // sessionSetMap
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public int getExerciseCompletedSets(int exerciseId){
         List<SessionSet> sets = sessionSetMap.get(exerciseId);
         int count = 0;

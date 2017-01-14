@@ -67,7 +67,7 @@ public class ExerciseListAdapter extends BaseAdapter {
         }
         final TextView exerciseName = (TextView) convertView.findViewById(R.id.exercise_name_text_view);
         exerciseName.setText(exercises.get(position).getName());
-        final ImageView icon = (ImageView) convertView.findViewById(R.id.icon_image_view);
+        final ImageView icon = (ImageView) convertView.findViewById(R.id.exercise_icon_image_view);
         icon.setImageResource(Icons.getMuscleGroupIcon(exercises.get(position).getMuscleGroup()));
         final TextView muscleGroup = (TextView) convertView.findViewById(R.id.muscle_group_text_view);
         muscleGroup.setText(exercises.get(position).getMuscleGroup());

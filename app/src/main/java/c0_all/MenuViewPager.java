@@ -8,7 +8,6 @@ import android.view.View;
  * Created by big1 on 8/8/2016.
  */
 public class MenuViewPager extends ViewPager {
-    private int mChildId;
 
     public MenuViewPager(Context context) {
         super(context);

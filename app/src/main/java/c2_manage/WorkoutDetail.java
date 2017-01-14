@@ -37,7 +37,7 @@ public class WorkoutDetail extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         resolveCallingPurpose();
-        setContentView(R.layout.activity_workout_detail);
+        setContentView(R.layout.layout_workout_details);
         mFrameLayout = (FrameLayout) findViewById(R.id.frame_layout);
         mFrameLayout.getForeground().setAlpha(0);
         setTitle();
@@ -106,7 +106,7 @@ public class WorkoutDetail extends Activity {
             switch (viewType) {
                 case (DESCRIPTION_SUBHEADING):
                     v = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.description_text_view, parent, false);
+                            .inflate(R.layout.view_description_text_view, parent, false);
                     return new SubheadingViewHolder(v);
                 case (DESCRIPTION_TEXT_VIEW):
                     v = LayoutInflater.from(parent.getContext())
@@ -245,7 +245,7 @@ public class WorkoutDetail extends Activity {
 
         public ExercisesViewHolder(View v) {
             super(v);
-            icon = (ImageView) v.findViewById(R.id.icon_image_view);
+            icon = (ImageView) v.findViewById(R.id.exercise_icon_image_view);
             name = (TextView) v.findViewById(R.id.exercise_name_text_view);
             muscleGroup = (TextView) v.findViewById(R.id.muscle_group_text_view);
         }

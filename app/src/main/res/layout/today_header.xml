@@ -1,12 +1,13 @@
 <RelativeLayout android:id="@+id/header_relative_layout"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="@color/white"
+    android:background="@color/googleGrey"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
         android:id="@+id/workout_name_text_view"
-        style="@style/BlackTextAppBar"
+        style="@style/BlackTextBodySecondary"
+        android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -16,7 +17,7 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:text="Workout Name"
-        android:fontFamily="sans-serif-medium" />
+        android:fontFamily="sans-serif" />
 
     <ImageView
         android:id="@+id/overflow_menu_image_view"
@@ -26,11 +27,5 @@
         android:layout_centerVertical="true"
         android:padding="12dp"
         android:src="@drawable/ic_overflow_menu" />
-
-    <View
-        style="@style/Divider"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/overflow_menu_image_view" />
-
 
 </RelativeLayout>

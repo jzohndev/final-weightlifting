@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    // 1/10/2017
+    // App Colors
+    <color name="primaryGreen">#0f9d58</color>
+    <color name="primaryDarkGreen">#0b8043</color>
+    <color name="primaryDarkestGreen">#085f32</color>
+    <color name="primaryLightGreen">#19c571</color>
+    <color name="primaryLightestGreen">#9dccb4</color>
+    <color name="backgroundGreenishGrey">#f3f6f4</color>
+    <color name="cardWhite">#ffffff</color>
+
+    // Text Colors
+    <color name="textBlackPrimary">#DE000000</color>
+    <color name="textBlackSecondary">#8A000000</color>
+    <color name="textBlackHint">#63000000</color>
+    <color name="textWhitePrimary">#FFFFFF</color>
+    <color name="textWhiteHint">#80FFFFFF</color>
+
+
+
+    // Working Colors
+    <color name="primaryMaterialLight">#f5f5f5</color>
+
+
+
+
+
+
+
+
     <color name="googleGrey">#EEEEEE</color>
 
     <color name="lightestGreen">#DCEDC8</color>
@@ -31,15 +61,10 @@
         // Secondary: 8A
         // Hint: 63
 
-    <color name="textWhitePrimary">#FFFFFF</color>
-    <color name="textWhiteHint">#80FFFFFF</color>
 
-    <color name="textBlackPrimary">#DE000000</color>
-    <color name="textBlackSecondary">#8A000000</color>
-    <color name="textBlackHint">#63000000</color>
+
 
     <color name="textGreen">#8BC34A</color>
     <color name="textDarkGreen">#689F38</color>
-
 
 </resources>

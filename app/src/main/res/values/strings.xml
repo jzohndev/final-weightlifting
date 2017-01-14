@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Final Weightlifting</string>
+    <string name="workout_complete_dialog_message">Workout complete.</string>
+    <string name="workout_complete_dialog_positive_button">History</string>
+    <string name="workout_complete_dialog_negative_button">Dismiss</string>
+    <string name="schedule">Schedule</string>
 
     <string-array name="sets_array">
         <item>Sets</item>

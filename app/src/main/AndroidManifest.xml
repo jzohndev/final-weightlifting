@@ -5,41 +5,49 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:supportsRtl="true"
         android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="workout.WorkoutBuilder"
-            android:theme="@style/BuilderTheme"/>
-
-        <activity android:name="exercise.ExerciseList"
-            android:theme="@style/AppTheme"
-            android:label="Exercise List" />
-
-        <activity android:name="routine.RoutineBuilder"
-            android:theme="@style/AppTheme"
-            android:label="Routine Builder"/>
-
-        <activity android:name="workout.WorkoutList"
-            android:theme="@style/AppTheme"
-            android:label="Workout List"/>
-
-        <activity android:name="c1_begin.BeginExerciseSelected"
-            android:theme="@style/AppTheme"/>
-
-        <activity android:name="c0_all.MenuPager"
-            android:theme="@style/AppTheme.NoBar">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+        <activity
+            android:name="c0_all.MenuPager"
+            android:theme="@style/AppThemeNew">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
-        <activity android:name="c2_manage.WorkoutDetail"
+        <activity
+            android:name="workout.WorkoutBuilder"
+            android:theme="@style/BuilderTheme" />
+
+        <activity
+            android:name="exercise.ExerciseList"
+            android:label="Exercise List"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name="routine.RoutineBuilder"
+            android:label="Routine Builder"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name="workout.WorkoutList"
+            android:label="Workout List"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name="c1_begin.BeginExerciseSelected"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name="c2_manage.WorkoutDetail"
             android:theme="@style/AppTheme.NoBar" />
 
-        <activity android:name="c4_progression.HistorySelected"
-            android:theme="@style/AppTheme.NoBar"/>
+        <activity
+            android:name="c4_progression.HistorySelected"
+            android:theme="@style/AppTheme.NoBar" />
 
     </application>
 

@@ -60,11 +60,20 @@ public class WeekChildFragment extends Fragment {
 
         LocalDate firstDayOfWeek = LocalDate.now().withDayOfWeek(1);
         LocalDate lastDayOfWeek = LocalDate.now().withDayOfWeek(7);
-        DateTimeFormatter firstDayFormatter = forPattern("MMMM dd");
-        DateTimeFormatter lastDayFormatter = forPattern("dd");
+        DateTimeFormatter firstDayFormatter = forPattern("MMMM d");
+        DateTimeFormatter lastDayFormatter = forPattern("d");
 
-        String weekOfString = firstDayFormatter.print(firstDayOfWeek)
-                + " - " + lastDayFormatter.print(lastDayOfWeek);
+        String weekOfString;
+        // if ending day of week falls in the proceeding month
+        if (lastDayOfWeek.getMonthOfYear() != firstDayOfWeek.getMonthOfYear()) {
+            weekOfString = firstDayFormatter.print(firstDayOfWeek)
+                    + " - " + firstDayFormatter.print(lastDayOfWeek);
+        }
+        // if beginning/ending day of week fall in the same month
+        else {
+            weekOfString = firstDayFormatter.print(firstDayOfWeek)
+                    + " - " + lastDayFormatter.print(lastDayOfWeek);
+        }
         weekOfTextView.setText(weekOfString);
 
         return weekOfHeader;

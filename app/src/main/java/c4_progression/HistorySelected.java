@@ -31,7 +31,7 @@ public class HistorySelected extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history_selected);
+        setContentView(R.layout.layout_progression_history_selected);
 
         final HistorySelectedAdapter adapter = new HistorySelectedAdapter();
 

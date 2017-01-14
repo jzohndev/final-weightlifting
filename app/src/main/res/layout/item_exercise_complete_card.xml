@@ -11,9 +11,9 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/icon_image_view"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:id="@+id/exercise_icon_image_view"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_margin="16dp"
             android:src="@drawable/exercise_icon_v1_0" />
 
@@ -22,46 +22,51 @@
             style="@style/BlackTextSubheading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/icon_image_view"
+            android:layout_alignTop="@+id/exercise_icon_image_view"
             android:layout_marginLeft="72dp"
-            android:text="Exercise name" />
+            android:text="Exercise name"
+            android:textColor="@color/textBlackHint" />
 
         <TextView
             android:id="@+id/completed_sets_text_view"
             style="@style/BlackTextBodySecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/icon_image_view"
+            android:layout_alignBottom="@+id/exercise_icon_image_view"
             android:layout_alignStart="@+id/exercise_name_text_view"
-            android:text="0" />
+            android:text="0"
+            android:textColor="@color/textBlackHint" />
 
         <TextView
             android:id="@+id/text_view_4"
             style="@style/BlackTextBodySecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="/"
+            android:textColor="@color/textBlackHint"
             android:layout_alignTop="@+id/completed_sets_text_view"
-            android:layout_toEndOf="@+id/completed_sets_text_view"
-            android:text="/" />
+            android:layout_toEndOf="@+id/completed_sets_text_view" />
 
         <TextView
             android:id="@+id/total_sets_text_view"
             style="@style/BlackTextBodySecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/textBlackHint"
             android:layout_alignTop="@+id/sets_text_view"
-            android:layout_toEndOf="@+id/text_view_4"
-            android:text="0" />
+            android:layout_toEndOf="@+id/text_view_4" />
 
         <TextView
             android:id="@+id/sets_text_view"
             style="@style/BlackTextBodySecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=" Sets completed"
+            android:textColor="@color/textBlackHint"
+            android:layout_marginStart="6dp"
             android:layout_alignTop="@+id/text_view_4"
-            android:layout_marginStart="7dp"
-            android:layout_toEndOf="@+id/total_sets_text_view"
-            android:text=" Sets completed" />
+            android:layout_toEndOf="@+id/total_sets_text_view" />
 
 
     </RelativeLayout>

@@ -51,7 +51,7 @@ public class WorkoutBuilder extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workout_builder);
+        setContentView(R.layout.layout_manage_workout_builder);
 
         initializeResources();
         initializeToolbar();
@@ -69,8 +69,8 @@ public class WorkoutBuilder extends Activity {
 
     private void initializeToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        mDefaultToolbar = getLayoutInflater().inflate(R.layout.builder_default_bar, null);
-        mEditToolbar = getLayoutInflater().inflate(R.layout.builder_edit_bar, null);
+        mDefaultToolbar = getLayoutInflater().inflate(R.layout.view_workout_builder_default_bar, null);
+        mEditToolbar = getLayoutInflater().inflate(R.layout.view_workout_builder_edit_bar, null);
         setActionBarDefault();
     }
 
@@ -341,16 +341,16 @@ public class WorkoutBuilder extends Activity {
                 final ArrayAdapter<CharSequence> setAdapter =
                         ArrayAdapter.createFromResource(getApplicationContext(),
                                 R.array.sets_array,
-                                R.layout.builder_spinner_selection);
-                setAdapter.setDropDownViewResource(R.layout.builder_spinner_text_view);
+                                R.layout.view_spinner_selection);
+                setAdapter.setDropDownViewResource(R.layout.view_spinner_text_view);
                 spnSets.setAdapter(setAdapter);
 
                 spnReps = (Spinner) v.findViewById(R.id.reps_spinner);
                 ArrayAdapter<CharSequence> repAdapter =
                         ArrayAdapter.createFromResource(getApplicationContext(),
                                 R.array.reps_array,
-                                R.layout.builder_spinner_selection);
-                repAdapter.setDropDownViewResource(R.layout.builder_spinner_text_view);
+                                R.layout.view_spinner_selection);
+                repAdapter.setDropDownViewResource(R.layout.view_spinner_text_view);
                 spnReps.setAdapter(repAdapter);
 
                 delete = (ImageView) v.findViewById(R.id.overflow_menu_image_view);

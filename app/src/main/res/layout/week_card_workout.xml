@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:background="@color/white">
+    android:layout_height="88dp"
+    android:background="@color/googleGrey">
 
     <TextView
         android:id="@+id/day_of_week_text_view"
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginRight="16dp"
         android:fontFamily="sans-serif-medium"
         android:text="ABC" />
@@ -18,14 +18,14 @@
     <TextView
         android:id="@+id/workout_name_text_view"
         style="@style/BlackTextBodyPrimary"
+        android:textSize="15sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="88dp"
+        android:layout_marginLeft="96dp"
         android:layout_marginRight="8dp"
         android:ellipsize="end"
-        android:fontFamily="sans-serif-medium"
         android:lines="1"
         android:text="Workout Name Placeholder" />
 

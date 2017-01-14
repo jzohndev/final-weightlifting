@@ -55,7 +55,7 @@ public class RoutineBuilder extends Activity {
         super.onCreate(savedInstanceState);
         mHelper = WorkoutBuilderHelper.getInstance();
 
-        setContentView(R.layout.activity_routine_builder);
+        setContentView(R.layout.layout_manage_routine_builder);
         actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowHomeEnabled(false);
@@ -86,7 +86,7 @@ public class RoutineBuilder extends Activity {
     }
 
     private void setActionBarDefault() {
-        defaultBar = getLayoutInflater().inflate(R.layout.builder_default_bar, null);
+        defaultBar = getLayoutInflater().inflate(R.layout.view_workout_builder_default_bar, null);
         actionBar.setCustomView(defaultBar);
         Toolbar parent = (Toolbar) defaultBar.getParent();
         parent.setContentInsetsAbsolute(0, 0);
@@ -157,7 +157,7 @@ public class RoutineBuilder extends Activity {
     }
 
     private void setActionBarEdit() {
-        editBar = getLayoutInflater().inflate(R.layout.builder_edit_bar, null);
+        editBar = getLayoutInflater().inflate(R.layout.view_workout_builder_edit_bar, null);
         actionBar.setCustomView(editBar);
         Toolbar parent = (Toolbar) editBar.getParent();
         parent.setContentInsetsAbsolute(0, 0);

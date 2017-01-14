@@ -74,7 +74,7 @@ public class ExercisesChildFragment extends Fragment {
         ArrayAdapter<CharSequence> spinnerAdapter =
                 ArrayAdapter.createFromResource(getContext(),
                         R.array.workout_muscle_groups,
-                        R.layout.builder_spinner_selection);
+                        R.layout.view_spinner_selection);
 
         spinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         mMuscleGroupSpinner = (Spinner) mView.findViewById(R.id.muscle_group_spinner);

@@ -1,13 +1,48 @@
 <resources>
 
-    <style name="AppTheme" parent="Base.Theme.AppCompat.Light">
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryDark">@color/darkGreen</item>
-        <item name="colorAccent">@color/green</item>
+    // 1/10/2017
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primaryGreen</item>
+        <item name="colorPrimaryDark">@color/primaryDarkGreen</item>
+        <item name="colorAccent">@color/primaryGreen</item>
         <item name="android:editTextColor">@color/textBlackPrimary</item>
-        <item name="android:textColorPrimary">@color/textWhitePrimary</item>
+        <item name="android:textColorPrimary">@color/textBlackPrimary</item>
         <item name="android:windowContentTransitions">true</item>
+        <item name="android:colorBackground">@color/backgroundGreenishGrey</item>
+        <item name="android:navigationBarColor">@color/primaryDarkGreen</item>
+        <item name="android:textColorPrimaryInverse">@color/textWhitePrimary</item>
+        <item name="android:statusBarColor">@color/primaryDarkGreen</item>
+        <item name="android:textColorSecondary">@color/textBlackSecondary</item>
+        <item name="android:textColorSecondaryInverse">@color/textWhiteHint</item>
+        <item name="android:windowBackground">@color/cardWhite</item>
+        <item name="android:colorForeground">@color/cardWhite</item>
     </style>
+
+    <style name="AppThemeNew" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primaryMaterialLight</item>
+        <item name="android:textColorPrimary">@color/textBlackSecondary</item>
+        <item name="android:statusBarColor">@color/primaryDarkGreen</item>
+        <item name="colorAccent">@color/primaryGreen</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <style name="AppTheme.NoBar">
         <item name="android:windowActionBar">false</item>
@@ -15,9 +50,6 @@
     </style>
 
 
-
-
-    
     <style name="CaldroidEnhancedDefault" parent="CaldroidDefault">
         <item name="styleCaldroidMonthName">@style/CaldroidMonthName</item>
         <item name="styleCaldroidNormalCell">@style/CaldroidCell</item>
@@ -35,14 +67,6 @@
     </style>
 
 
-
-
-
-
-
-
-
-
     <style name="BuilderTheme" parent="Base.Theme.AppCompat.Light">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
@@ -52,16 +76,10 @@
         <item name="android:windowContentTransitions">true</item>
     </style>
 
-    <style name="ParentTabAppearance" parent="Widget.Design.TabLayout">
-        <item name="android:layout_height">56dp</item>
-        <item name="tabIndicatorColor">@color/textWhitePrimary</item>
-        <item name="android:background">@color/green</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
     <style name="ChildTabAppearance" parent="Widget.Design.TabLayout">
-        <item name="android:background">@color/lightGreen</item>
-        <item name="android:textColor">@color/textDarkGreen</item>
+        <item name="android:background">@color/cardWhite</item>
+        <item name="tabSelectedTextColor">@color/primaryDarkestGreen</item>
+        <item name="android:elevation">1dp</item>
         <item name="android:textSize">13sp</item>
         <item name="android:padding">5dp</item>
         <item name="tabIndicatorColor">@null</item>
@@ -70,7 +88,7 @@
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">?android:attr/listDivider</item>
+        <item name="android:background">@color/textBlackHint</item>
     </style>
 
     <style name="WeekDivider">
@@ -153,4 +171,9 @@
         <item name="tabSelectedTextColor">@color/textWhitePrimary</item>
     </style>
 
+    <style name="WorkoutCompleteCustomDialog" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">@color/darkGreen</item>
+        <item name="android:textColorPrimary">@color/textBlackSecondary</item>
+    </style>
+    
 </resources>

@@ -2,7 +2,6 @@ package c3_schedule;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -29,7 +28,6 @@ import data.IntentResolver;
 import database.DatabaseHelper;
 import database.Exercise;
 import database.ScheduledSession;
-import database.SessionWorkout;
 import database.Workout;
 import workout.WorkoutList;
 
@@ -161,7 +159,7 @@ public class TodayChildFragment extends Fragment {
                         getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.exercise_list, null);
             }
-            ImageView icon = (ImageView) convertView.findViewById(R.id.icon_image_view);
+            ImageView icon = (ImageView) convertView.findViewById(R.id.exercise_icon_image_view);
 
             icon.setImageResource(Icons.getMuscleGroupIcon(mExerciseList.get(position).getMuscleGroup()));
             TextView name = (TextView) convertView.findViewById(R.id.exercise_name_text_view);
