@@ -1,29 +1,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relativeLayout2"
     android:layout_width="match_parent"
-    android:background="@color/material_grey_50"
-    android:layout_height="48dp">
+    android:layout_height="56dp"
+    android:background="@color/backgroundGrey"
+    android:minHeight="56dp">
 
     <TextView
         android:id="@+id/textView5"
-        style="@style/BlackTextBodySecondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Week of " />
+        android:text="Week of "
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/week_of_text_view"
-        style="@style/BlackTextBodySecondary"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="56dp"
+        android:layout_toEndOf="@+id/textView5"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="January 1st, 2016"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/textView5" />
+        android:textSize="16sp" />
 
 </RelativeLayout>

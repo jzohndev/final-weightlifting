@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:minHeight="48dp">
+
+    <TextView
+        android:id="@+id/set_textview"
+        style="@style/ExerciseSetIncomplete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="62dp"
+        android:layout_centerVertical="true"
+        android:text="Set" />
+
+    <TextView
+        android:id="@+id/set_number_textview"
+        style="@style/ExerciseSetIncomplete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_toEndOf="@+id/set_textview"
+        android:layout_centerVertical="true"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/reps_number_textview"
+        style="@style/ExerciseSetIncomplete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_toEndOf="@+id/set_number_textview"
+        android:layout_centerVertical="true"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/textView11"
+        style="@style/ExerciseSetIncomplete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_toEndOf="@+id/reps_number_textview"
+        android:layout_centerVertical="true"
+        android:text="Reps" />
+
+</RelativeLayout>

@@ -3,17 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/divider"
+        style="@style/Divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true" />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         style="@style/ChildTabAppearance"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:fillViewport="false"/>
+        android:layout_below="@id/divider"
+        android:fillViewport="false" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tab_layout"/>
+        android:layout_below="@+id/tab_layout" />
 
 </RelativeLayout>

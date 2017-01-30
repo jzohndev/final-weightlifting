@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:background="@color/white"
+    android:minHeight="72dp">
+
+    <ImageView
+        android:id="@+id/exercise_icon_imageview"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:padding="4dp"
+        android:src="@drawable/exercise_icon_v1_0" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignTop="@+id/exercise_icon_imageview"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/exercise_icon_imageview">
+
+        <TextView
+            android:id="@+id/exercise_name_textview"
+            style="@style/BlackTextSubheading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:text="Exercise Name Placeholder" />
+
+        <TextView
+            android:id="@+id/muscle_group_text_view"
+            style="@style/BlackTextBodySecondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="4dp"
+            android:text="Muscle Group" />
+    </RelativeLayout>
+
+</RelativeLayout>

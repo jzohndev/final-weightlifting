@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/relative_layout"
+    android:id="@+id/relativelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/googleGrey">
@@ -24,8 +24,18 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:padding="12dp"
             android:src="?attr/homeAsUpIndicator" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="00:00"
+            android:textSize="18sp" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -34,20 +44,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/time_toolbar">
-
-        <TextView
-            android:id="@+id/exercise_name_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/exercise_icon_image_view"
-            android:text="exercise name"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/caldroid_black" />
+        android:layout_below="@+id/time_toolbar"
+        android:paddingEnd="8dp">
 
         <ImageView
-            android:id="@+id/exercise_icon_image_view"
+            android:id="@+id/exercise_icon_imageview"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_alignParentStart="true"
@@ -55,21 +56,24 @@
             android:layout_margin="8dp"
             android:padding="5dp"
             android:src="@drawable/exercise_icon_v1_0" />
-    </RelativeLayout>
 
-    <ListView
-        android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/relative_layout_control_box_parent"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/relative_layout_exercise_header"
-        android:background="@color/googleGrey" />
+        <TextView
+            android:id="@+id/exercise_name_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/exercise_icon_imageview"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="exercise name"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/caldroid_black" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relative_layout_control_box_parent"
         android:layout_width="match_parent"
-        android:layout_height="91dp"
+        android:layout_height="99dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:background="@color/white"
@@ -78,47 +82,32 @@
         <RelativeLayout
             android:id="@+id/relative_layout_top"
             android:layout_width="match_parent"
-            android:layout_height="42dp">
+            android:layout_height="50dp">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="16dp">
-
-                <TextView
-                    android:id="@+id/set_number_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/set_text_view"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="0"
-                    android:textColor="@color/textBlackPrimary" />
-
-                <TextView
-                    android:id="@+id/set_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="Set "
-                    android:textColor="@color/textBlackPrimary" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="200dp"
+                android:layout_width="240dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="16dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true">
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="18dp">
+
+                <TextView
+                    android:id="@+id/weight_textview"
+                    android:layout_width="108dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="right"
+                    android:paddingBottom="4dp"
+                    android:paddingEnd="6dp"
+                    android:text="lb"
+                    android:textColor="@color/textBlackHint"
+                    android:textSize="12sp" />
 
                 <ImageView
                     android:id="@+id/weight_background"
-                    android:layout_width="88dp"
+                    android:layout_width="108dp"
                     android:layout_height="14dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentStart="true"
@@ -127,25 +116,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/reps_textview"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_toRightOf="@+id/weight_background"
                     android:text="x"
                     android:textAlignment="center"
                     android:textColor="@color/textBlackHint" />
 
-                <ImageView
-                    android:id="@+id/reps_background"
-                    android:layout_width="88dp"
-                    android:layout_height="14dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginLeft="24dp"
-                    android:src="@drawable/rep_weight_edittext_background" />
-
                 <TextView
                     android:id="@+id/reps_textview"
-                    android:layout_width="88dp"
+                    android:layout_width="108dp"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/weight_textview"
                     android:layout_alignBottom="@+id/weight_textview"
@@ -156,33 +137,64 @@
                     android:textColor="@color/textBlackHint"
                     android:textSize="12sp" />
 
-                <EditText
-                    android:id="@+id/reps_edit_text"
-                    android:layout_height="48dp"
-                    android:background="@null"
-                    android:inputType="numberSigned"
-                    android:textSize="13sp"
-                    android:textColor="@color/textBlackPrimary"
-                    android:maxLength="6"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="88dp" />
-
-                <TextView
-                    android:id="@+id/weight_textview"
-                    android:layout_width="88dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:paddingBottom="4dp"
-                    android:paddingEnd="6dp"
-                    android:text="lb"
-                    android:textColor="@color/textBlackHint"
-                    android:textSize="12sp"
+                <ImageView
+                    android:id="@+id/reps_background"
+                    android:layout_width="108dp"
+                    android:layout_height="14dp"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="24dp"
+                    android:src="@drawable/rep_weight_edittext_background" />
 
             </RelativeLayout>
 
+            <EditText
+                android:id="@+id/weight_edittext"
+                android:layout_width="104dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="144dp"
+                android:background="@null"
+                android:inputType="numberSigned"
+                android:maxLength="6"
+                android:textColor="@color/textBlackPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/reps_edittext"
+                android:layout_width="104dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:background="@null"
+                android:inputType="numberSigned"
+                android:maxLength="6"
+                android:textColor="@color/textBlackPrimary"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/set_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Set "
+                android:textColor="@color/textBlackPrimary" />
+
+            <TextView
+                android:id="@+id/set_number_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/set_textview"
+                android:layout_alignBottom="@+id/set_textview"
+                android:layout_toEndOf="@+id/set_textview"
+                android:fontFamily="sans-serif-medium"
+                android:text="0"
+                android:textColor="@color/textBlackPrimary" />
 
         </RelativeLayout>
 
@@ -194,7 +206,7 @@
             android:layout_below="@+id/relative_layout_top"
             android:layout_marginEnd="56dp"
             android:layout_marginStart="32dp"
-            android:background="@color/textBlackHint" />
+            android:background="@color/primaryMaterialLight" />
 
         <RelativeLayout
             android:id="@+id/relative_layout_bottom"
@@ -204,25 +216,72 @@
             android:layout_alignParentStart="true">
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/back_fab"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="12dp"
-                android:layout_toLeftOf="@+id/forward_fab" />
+                android:id="@+id/forward_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:scaleType="fitStart"
+                android:src="@drawable/ic_arrow_forward_white_24dp"
+                app:fabSize="mini" />
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/forward_fab"
+                android:id="@+id/back_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_toLeftOf="@+id/forward_fab"
+                android:clickable="true"
+                android:src="@drawable/ic_arrow_back_white_24dp"
+                app:fabSize="mini" />
+
+            <ImageView
+                android:id="@+id/more_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginRight="8dp" />
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="false"
+                android:layout_centerHorizontal="false"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_more_vert_grey_24dp" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/more_button"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_history_grey_24dp" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="8dp"
+                android:layout_toEndOf="@+id/imageView6"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_note_add_grey_24dp" />
 
         </RelativeLayout>
     </RelativeLayout>
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/relative_layout_control_box_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/relative_layout_exercise_header" />
 
 </RelativeLayout>

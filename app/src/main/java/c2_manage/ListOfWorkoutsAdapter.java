@@ -12,12 +12,7 @@ import android.widget.TextView;
 
 import com.example.jzohndev.no_bullshit_weightlifting_new.R;
 
-import org.joda.time.format.DateTimeFormatter;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import data.Icons;
@@ -25,12 +20,10 @@ import database.DatabaseHelper;
 import database.Exercise;
 import database.Workout;
 
-import static org.joda.time.format.DateTimeFormat.forPattern;
-
 /**
  * Created by big1 on 7/23/2016.
  */
-public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.WorkoutViewHolder> {
+public class ListOfWorkoutsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
     private List<Workout> mWorkouts;
@@ -46,7 +39,7 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.Workou
         this.listener = listener;
     }
 
-    public WorkoutsAdapter(Context context) {
+    public ListOfWorkoutsAdapter(Context context) {
         this.mContext = context;
         updateDataSet();
 
@@ -70,46 +63,56 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.Workou
         }
     }
 
-    @Override
-    public WorkoutViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.
-                from(parent.getContext()).
-                inflate(R.layout.workout_card, parent, false);
-        return new WorkoutViewHolder(v);
-    }
-
-    @Override
-    public void onBindViewHolder(WorkoutViewHolder holder, int position) {
-        final Workout currentWorkout = mWorkouts.get(position);
-        holder.workout = currentWorkout;
-        List<Exercise> currentExercises = db.getWorkoutExercises(currentWorkout.getId());
-
-        // 1. Icon
-        List<Integer> dotsIcons = Icons.getWorkoutDots(currentExercises);
-        holder.dot1.setImageResource(dotsIcons.get(0));
-        holder.dot2.setImageResource(dotsIcons.get(1));
-        holder.dot3.setImageResource(dotsIcons.get(2));
-        holder.dot4.setImageResource(dotsIcons.get(3));
-
-        // 2. Name
-        String name = currentWorkout.getName();
-        holder.vName.setText(name);
-
-        // 3. Number of Exercises
-        String exercises = String.valueOf
-                (mNumberOfWorkoutExercises.get(currentWorkout.getId()));
-        holder.vExercises.setText(exercises);
-
-        // 4. Date
-        DateTimeFormatter formatter = forPattern("yyyy-MM-dd HH:mm:ss");
-        String createdDate = formatter.print(currentWorkout.getCreatedDate());
-        holder.vCreatedDate.setText(createdDate);
-    }
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // + 1 for footer space
     @Override
     public int getItemCount() {
-        Log.e("getItemCount", mWorkouts.size() + "");
-        return mWorkouts.size();
+        return mWorkouts.size() + 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position >= mWorkouts.size()) {
+            return 2;
+        }
+        return 1;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == 1) {
+            return new WorkoutViewHolder(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_workout_card, parent, false));
+        } else { // footer
+            return new FooterViewHolder(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.view_footer_space, parent, false));
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder theHolder, int position) {
+        if (theHolder instanceof WorkoutViewHolder){
+            final Workout currentWorkout = mWorkouts.get(position);
+            WorkoutViewHolder holder = (WorkoutViewHolder) theHolder;
+            holder.workout = currentWorkout;
+            List<Exercise> currentExercises = db.getWorkoutExercises(currentWorkout.getId());
+
+            // 1. Icon
+            List<Integer> dotsIcons = Icons.getWorkoutDots(currentExercises);
+            holder.dot1.setImageResource(dotsIcons.get(0));
+            holder.dot2.setImageResource(dotsIcons.get(1));
+            holder.dot3.setImageResource(dotsIcons.get(2));
+            holder.dot4.setImageResource(dotsIcons.get(3));
+
+            // 2. Name
+            String name = currentWorkout.getName();
+            holder.vName.setText(name);
+
+            // 3. Number of Exercises
+            String exercises = String.valueOf
+                    (mNumberOfWorkoutExercises.get(currentWorkout.getId()));
+            holder.vExercises.setText(exercises);
+        }
     }
 
     // Class
@@ -117,7 +120,6 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.Workou
         protected ImageView dot1, dot2, dot3, dot4;
         protected TextView vName;
         protected TextView vExercises;
-        protected TextView vCreatedDate;
         protected Workout workout;
         protected ImageView overflowMenu;
 
@@ -128,9 +130,8 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.Workou
             dot3 = (ImageView) v.findViewById(R.id.dot_exercise_3);
             dot4 = (ImageView) v.findViewById(R.id.dot_exercise_4);
 
-            vName = (TextView) v.findViewById(R.id.workout_name_text_view);
-            vExercises = (TextView) v.findViewById(R.id.exercises_number_textv);
-            vCreatedDate = (TextView) v.findViewById(R.id.date_textv);
+            vName = (TextView) v.findViewById(R.id.workout_name_textview);
+            vExercises = (TextView) v.findViewById(R.id.exercises_number_textview);
 
             overflowMenu = (ImageView) v.findViewById(R.id.overflow_menu_image_view);
             overflowMenu.setTag("overflow");
@@ -143,6 +144,13 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.Workou
             if (listener != null) {
                 listener.onItemClick(workout, view);
             }
+        }
+    }
+
+    class FooterViewHolder extends RecyclerView.ViewHolder {
+
+        public FooterViewHolder(View v) {
+            super(v);
         }
     }
 }

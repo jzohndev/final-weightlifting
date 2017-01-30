@@ -116,22 +116,22 @@ public class BeginExerciseSelected extends Activity {
     }
 
     private void createExerciseHeader() {
-        exerciseIcon = (ImageView) findViewById(R.id.exercise_icon_image_view);
-        exerciseNameTextView = (TextView) findViewById(R.id.exercise_name_text_view);
+        exerciseIcon = (ImageView) findViewById(R.id.exercise_icon_imageview);
+        exerciseNameTextView = (TextView) findViewById(R.id.exercise_name_textview);
 
         exerciseIcon.setImageResource(Icons.getMuscleGroupIcon(exercise.getMuscleGroup()));
         exerciseNameTextView.setText(exercise.getName());
     }
 
     private void createWorkingSetControlBox() {
-        setNumberTextView = (TextView) findViewById(R.id.set_number_text_view);
+        setNumberTextView = (TextView) findViewById(R.id.set_number_textview);
         //acceptButton = (ImageView) findViewById(R.id.accept_imagev);
         final ArrayAdapter<CharSequence> repsAdapter =
                 ArrayAdapter.createFromResource(this, R.array.reps_array,
-                        R.layout.text_view_begin_selected);
+                        R.layout.view_begin_selected_textview);
         final ArrayAdapter<CharSequence> weightAdapter =
                 ArrayAdapter.createFromResource(this, R.array.weight_array,
-                        R.layout.text_view_begin_selected);
+                        R.layout.view_begin_selected_textview);
 
 
         setNumberTextView.setText(String.valueOf(currentExerciseSet));
@@ -225,20 +225,20 @@ public class BeginExerciseSelected extends Activity {
             final SessionSet currentSet = (SessionSet) getItem(position);
 
             if (currentSet.getEndTime() != null) { // set completed
-                convertView = getLayoutInflater().inflate(R.layout.item_begin_exercise_set_complete, null);
+                convertView = getLayoutInflater().inflate(R.layout.item_begin_exercise_selected_set_complete, null);
                 CompletedSetViewHolder cHolder = new CompletedSetViewHolder();
-                cHolder.setNumber = (TextView) convertView.findViewById(R.id.set_number_text_view);
-                cHolder.reps = (TextView) convertView.findViewById(R.id.reps_number_text_view);
-                cHolder.weight = (TextView) convertView.findViewById(R.id.weight_number_text_view);
+                cHolder.setNumber = (TextView) convertView.findViewById(R.id.set_number_textview);
+                cHolder.reps = (TextView) convertView.findViewById(R.id.reps_number_textview);
+                cHolder.weight = (TextView) convertView.findViewById(R.id.weight_number_textview);
                 cHolder.setNumber.setText(String.valueOf(currentSet.getSetNumber()));
                 cHolder.reps.setText(String.valueOf(currentSet.getReps()));
                 cHolder.weight.setText(String.valueOf(currentSet.getWeight()));
                 convertView.setTag(cHolder);
             } else { // set incomplete or not started
-                convertView = getLayoutInflater().inflate(R.layout.item_begin_exercise_set_incomplete, null);
+                convertView = getLayoutInflater().inflate(R.layout.item_begin_exercise_selected_set_incomplete, null);
                 IncompleteSetViewHolder iHolder = new IncompleteSetViewHolder();
-                iHolder.setNumber = (TextView) convertView.findViewById(R.id.set_number_text_view);
-                iHolder.reps = (TextView) convertView.findViewById(R.id.reps_number_text_view);
+                iHolder.setNumber = (TextView) convertView.findViewById(R.id.set_number_textview);
+                iHolder.reps = (TextView) convertView.findViewById(R.id.reps_number_textview);
                 iHolder.setNumber.setText(String.valueOf(currentSet.getSetNumber()));
                 iHolder.reps.setText(String.valueOf(sessionExercise.getDefaultReps()));
                 convertView.setTag(iHolder); // TODO THE LAST THING I DID 11/28/2016

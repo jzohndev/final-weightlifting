@@ -20,20 +20,19 @@ import data.IntentResolver;
 import database.DatabaseHelper;
 import database.Workout;
 
-public class WorkoutsChildFragment extends Fragment implements WorkoutsAdapter.WorkoutOnItemClickListener {
+public class WorkoutsChildFragment extends Fragment implements ListOfWorkoutsAdapter.WorkoutOnItemClickListener {
     private View mView;
-    private WorkoutsAdapter mAdapter;
+    private ListOfWorkoutsAdapter mAdapter;
 
     public WorkoutsChildFragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_workouts_child, container, false);
 
-        mAdapter = new WorkoutsAdapter(getContext());
+        mAdapter = new ListOfWorkoutsAdapter(getContext());
         mAdapter.setOnItemClickListener(this);
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -59,7 +58,7 @@ public class WorkoutsChildFragment extends Fragment implements WorkoutsAdapter.W
 
                     final AlertDialog.Builder confirmation
                             = new AlertDialog.Builder(getContext());
-                    confirmation.setMessage("Delete this workout?");
+                    confirmation.setMessage("Remove workout?");
                     confirmation.setCancelable(true);
                     confirmation.setPositiveButton("Yes",
                             new DialogInterface.OnClickListener() {

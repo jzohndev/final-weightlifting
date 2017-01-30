@@ -45,7 +45,7 @@ public class TodayChildFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_today_child, container, false);
-        mRelativeLayout = (RelativeLayout) mView.findViewById(R.id.relative_layout);
+        mRelativeLayout = (RelativeLayout) mView.findViewById(R.id.relativelayout);
 
         if (getTodaySchedule()){
             initTodayView();
@@ -75,11 +75,11 @@ public class TodayChildFragment extends Fragment {
         fab.setClickable(false);
 
         final LayoutInflater inflater = LayoutInflater.from(getContext());
-        final View headerWorkoutName = inflater.inflate(R.layout.today_header, null);
-        final View workoutView = inflater.inflate(R.layout.today_schedule, null);
-        final View footerSpace = inflater.inflate(R.layout.today_footer, null);
+        final View headerWorkoutName = inflater.inflate(R.layout.view_today_header, null);
+        final View workoutView = inflater.inflate(R.layout.view_today_schedule, null);
+        final View footerSpace = inflater.inflate(R.layout.view_footer_space, null);
 
-        final TextView workoutName = (TextView) headerWorkoutName.findViewById(R.id.workout_name_text_view);
+        final TextView workoutName = (TextView) headerWorkoutName.findViewById(R.id.workout_name_textview);
         workoutName.setText(mWorkout.getName());
 
         final TodayScheduleAdapter adapter = new TodayScheduleAdapter();
@@ -129,7 +129,7 @@ public class TodayChildFragment extends Fragment {
         });
 
         final LayoutInflater inflater = LayoutInflater.from(getContext());
-        final View noWorkoutView = inflater.inflate(R.layout.no_workout_today, null);
+        final View noWorkoutView = inflater.inflate(R.layout.view_no_workout_today, null);
         mRelativeLayout.removeAllViews();
         mRelativeLayout.addView(noWorkoutView);
     }
@@ -157,12 +157,12 @@ public class TodayChildFragment extends Fragment {
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater)
                         getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.exercise_list, null);
+                convertView = inflater.inflate(R.layout.item_exercise_list, null);
             }
-            ImageView icon = (ImageView) convertView.findViewById(R.id.exercise_icon_image_view);
+            ImageView icon = (ImageView) convertView.findViewById(R.id.exercise_icon_imageview);
 
             icon.setImageResource(Icons.getMuscleGroupIcon(mExerciseList.get(position).getMuscleGroup()));
-            TextView name = (TextView) convertView.findViewById(R.id.exercise_name_text_view);
+            TextView name = (TextView) convertView.findViewById(R.id.exercise_name_textview);
             name.setText(mExerciseList.get(position).getName());
             TextView muscleGroup = (TextView) convertView.findViewById(R.id.muscle_group_text_view);
             muscleGroup.setText(mExerciseList.get(position).getMuscleGroup());

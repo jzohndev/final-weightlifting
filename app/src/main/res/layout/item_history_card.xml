@@ -18,7 +18,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/workout_name_text_view"
+            android:id="@+id/workout_name_textview"
             style="@style/BlackTextAppBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

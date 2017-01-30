@@ -16,14 +16,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.jzohndev.no_bullshit_weightlifting_new.R;
+import com.mikhaellopez.hfrecyclerview.HFRecyclerView;
 
+import c0_all.UpdateFabListener;
 import data.Icons;
 import database.DatabaseHelper;
 import database.Exercise;
 
-public class BeginFragment extends Fragment {
+public class BeginFragment extends Fragment{
     private RelativeLayout mRelativeLayout;
     private ScheduleHelper mScheduleHelper;
+    private UpdateFabListener mListener;
 
     // updates data set in case a workout was added/removed since last viewing
     @Override
@@ -53,8 +56,8 @@ public class BeginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.e("BeginFragment", "onCreateView");
-        final View mView = inflater.inflate(R.layout.fragment_begin, container, false);
-        mRelativeLayout = (RelativeLayout) mView.findViewById(R.id.relative_layout);
+        final View mView = inflater.inflate(R.layout.layout_begin_no_exercise, container, false);
+        mRelativeLayout = (RelativeLayout) mView.findViewById(R.id.relativelayout);
 
         if (mScheduleHelper == null) {
             resolveSchedule();
@@ -70,7 +73,7 @@ public class BeginFragment extends Fragment {
 
     private void createNoWorkoutTodayView() {
         final LayoutInflater inflater = LayoutInflater.from(getContext());
-        final View defaultView = inflater.inflate(R.layout.no_workout_today, null);
+        final View defaultView = inflater.inflate(R.layout.view_no_workout_today, null);
 
         mRelativeLayout.removeAllViews();
         mRelativeLayout.addView(defaultView);
@@ -117,133 +120,70 @@ public class BeginFragment extends Fragment {
     }*/
 
     // Adapter
-    public class BeginScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        /*
-        private final int EXERCISE_NOT_STARTED = 0;
-        private final int EXERCISE_IN_PROGRESS = 1;
-        private final int EXERCISE_COMPLETE = 2;*/
+    public class BeginScheduleAdapter extends HFRecyclerView<Exercise> {
 
         BeginScheduleAdapter() {
-
-            /*
-            if (mHelper.getSessionWorkout() == null){
-                initializeDataSet();
-            }*/
+            super(mScheduleHelper.getWorkoutExercises(), true, true);
         }
 
         @Override
         public int getItemCount() {
-            return mScheduleHelper.getSessionExercises().size();
+            // header and footer = + 2
+            return mScheduleHelper.getSessionExercises().size() + 2;
         }
 
         @Override
-        public int getItemViewType(int position) {
-            return 0;
+        protected RecyclerView.ViewHolder getItemView(LayoutInflater inflater, ViewGroup parent) {
+            return new ExerciseViewHolder(inflater.inflate(R.layout.item_exercise_card, parent, false));
+        }
 
-            /*
-            final Exercise currentExercise = mHelper.getExerciseByPosition(position);
-            final int completedSets = mHelper.getExerciseSessionSize(currentExercise.getId());
-            final int totalSets = currentExercise.getDefaultSets();
-
-            if (completedSets == 0){
-                return EXERCISE_NOT_STARTED;
-            } else if (completedSets < totalSets){
-                return EXERCISE_IN_PROGRESS;
-            } else if (completedSets == totalSets) {
-                return EXERCISE_COMPLETE;
+        @Override
+        protected RecyclerView.ViewHolder getHeaderView(LayoutInflater inflater, ViewGroup parent) {
+            if (mScheduleHelper.getSessionWorkout().getStartTime() == null){
+                return new HeaderViewHolder(inflater.inflate(R.layout.view_begin_header, parent, false));
+            } else {
+                return new HeaderViewHolder(inflater.inflate(R.layout.view_begin_no_header, parent, false));
             }
-            return -1;*/
         }
-/*
-        private void initializeDataSet(){
-            // Set session workout
-            mHelper.setSessionWorkout(new SessionWorkout(mHelper.getSessionId(),
-                    LoadDates.getTodayDate(),mHelper.getWorkoutId()));
-
-            final DatabaseHelper db = new DatabaseHelper(getContext());
-            mHelper.setExercises(db.getWorkoutExercises(mHelper.getWorkoutId()));
-        }
-
-        private void exerciseSelected(Exercise selectedExercise){
-            mHelper.setSelectedExercise(selectedExercise);
-            IntentResolver resolver = IntentResolver.getInstance();
-            resolver.setIntent("BeginFragment", "BeginFragment", -1);
-            startActivity(new Intent(getActivity(), BeginExerciseSelected.class));
-        }*/
 
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_exercise_card, parent, false);
-            return new ExerciseViewHolder(v);
-
-
-
-            /*
-            switch (viewType){
-                case (EXERCISE_NOT_STARTED):
-                    v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_exercise_card, parent, false);
-                    return new ExerciseViewHolder(v);
-                case (EXERCISE_IN_PROGRESS):
-                    v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_exercise_card, parent, false);
-                    return new ExerciseViewHolder(v);
-                case(EXERCISE_COMPLETE):
-                    v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_exercise_complete_card, parent, false);
-                    return new ExerciseCompleteViewHolder(v);
-            }*/
+        protected RecyclerView.ViewHolder getFooterView(LayoutInflater inflater, ViewGroup parent) {
+            return new FooterViewHolder(inflater.inflate(R.layout.view_footer_space, parent, false));
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int i) {
-            // final SessionExercise sessionExercise = mScheduleHelper.getSessionExercises().get(position);
-            final int position = i;
-            final Exercise exercise = mScheduleHelper.getWorkoutExercises().get(position);
-            final ExerciseViewHolder vHolder = (ExerciseViewHolder) holder;
-            vHolder.icon.setImageResource(Icons.getMuscleGroupIcon(exercise.getMuscleGroup()));
-            vHolder.name.setText(exercise.getName());
-            final int completedSets = mScheduleHelper.getExerciseCompletedSets(exercise.getId());
-            final int totalSets = mScheduleHelper.getExerciseTotalSets(position);
-            vHolder.completedSets.setText(String.valueOf(completedSets));
-            vHolder.totalSets.setText(String.valueOf(totalSets));
-            vHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent i = new Intent(getActivity(), BeginExerciseSelected.class);
-                    Bundle b = new Bundle();
-                    b.putInt("exerciseId", exercise.getId());
-                    i.putExtras(b);
-                    mScheduleHelper.startSessionWorkout(getContext());
-                    startActivity(i);
-                }
-            });
 
-           /* try {
-                if (holder instanceof ExerciseViewHolder){
-                    ExerciseViewHolder eholder = (ExerciseViewHolder) holder;
-                    eholder.icon.setImageResource
-                            (Icons.getMuscleGroupIcon(currentExercise.getMuscleGroup()));
-                    eholder.name.setText(currentExercise.getName());
-                    eholder.completedSets.setText(String.valueOf(
-                            mHelper.getExerciseSessionSize(currentExercise.getId())));
-                    eholder.totalSets.setText(String.valueOf(currentExercise.getDefaultSets()));
+            if (holder instanceof ExerciseViewHolder) {
+                final int position = (i - 1);
+                final Exercise exercise = mScheduleHelper.getWorkoutExercises().get(position);
+                final ExerciseViewHolder vHolder = (ExerciseViewHolder) holder;
+                vHolder.icon.setImageResource(Icons.getMuscleGroupIcon(exercise.getMuscleGroup()));
+                vHolder.name.setText(exercise.getName());
+                final int completedSets = mScheduleHelper.getExerciseCompletedSets(exercise.getId());
+                final int totalSets = mScheduleHelper.getExerciseTotalSets(position);
+                vHolder.completedSets.setText(String.valueOf(completedSets));
+                vHolder.totalSets.setText(String.valueOf(totalSets));
+                vHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(getActivity(), BeginExerciseSelected.class);
+                        Bundle b = new Bundle();
+                        b.putInt("exerciseId", exercise.getId());
+                        i.putExtras(b);
+                        mScheduleHelper.startSessionWorkout(getContext());
+                        startActivity(i);
+                    }
+                });
+            }
+            /* else if (holder instanceof FooterViewHolder){
 
-                    eholder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            exerciseSelected(currentExercise);
-                        }
-                    });
-                } else if (holder instanceof ExerciseCompleteViewHolder){
-                    ExerciseCompleteViewHolder eholder = (ExerciseCompleteViewHolder) holder;
-                    eholder.icon.setImageResource
-                            (Icons.getMuscleGroupIcon(currentExercise.getMuscleGroup()));
-                    eholder.name.setText(currentExercise.getName());
-                    eholder.completedSets.setText(String.valueOf(currentExercise.getDefaultSets()));
-                    eholder.totalSets.setText(String.valueOf(currentExercise.getDefaultSets()));
+            } else if (holder instanceof HeaderViewHolder){
 
-                }
-            } catch (Exception e){
-                e.printStackTrace();
             }*/
+
+
+
         }
     }
 
@@ -254,28 +194,26 @@ public class BeginFragment extends Fragment {
         protected TextView completedSets;
         protected TextView totalSets;
 
-        public ExerciseViewHolder(View v) {
+        ExerciseViewHolder(View v) {
             super(v);
-            icon = (ImageView) v.findViewById(R.id.exercise_icon_image_view);
-            name = (TextView) v.findViewById(R.id.exercise_name_text_view);
-            completedSets = (TextView) v.findViewById(R.id.completed_sets_text_view);
+            icon = (ImageView) v.findViewById(R.id.exercise_icon_imageview);
+            name = (TextView) v.findViewById(R.id.exercise_name_textview);
+            completedSets = (TextView) v.findViewById(R.id.completed_sets_textview);
             totalSets = (TextView) v.findViewById(R.id.total_sets_text_view);
         }
     }
 
-    // View Holder
-    /*public class ExerciseCompleteViewHolder extends RecyclerView.ViewHolder {
-        protected ImageView icon;
-        protected TextView name;
-        protected TextView completedSets;
-        protected TextView totalSets;
+    protected class HeaderViewHolder extends RecyclerView.ViewHolder {
 
-        public ExerciseCompleteViewHolder(View v) {
+        HeaderViewHolder(View v) {
             super(v);
-            icon = (ImageView) v.findViewById(R.id.icon_image_view);
-            name = (TextView) v.findViewById(R.id.exercise_name_text_view);
-            completedSets = (TextView) v.findViewById(R.id.completed_sets_text_view);
-            totalSets = (TextView) v.findViewById(R.id.total_sets_text_view);
         }
-    }*/
+    }
+
+    protected class FooterViewHolder extends RecyclerView.ViewHolder {
+
+        FooterViewHolder(View v) {
+            super(v);
+        }
+    }
 }

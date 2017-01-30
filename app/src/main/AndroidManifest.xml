@@ -39,7 +39,8 @@
 
         <activity
             android:name="c1_begin.BeginExerciseSelected"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name="c2_manage.WorkoutDetail"

@@ -17,11 +17,8 @@ import com.example.jzohndev.no_bullshit_weightlifting_new.R;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import data.IntentResolver;
 import data.LoadDates;
@@ -43,7 +40,7 @@ public class WeekChildFragment extends Fragment {
         final View mView = inflater.inflate(R.layout.fragment_week_child, container, false);
 
         final View header = createWeekOfHeader(inflater);
-        final View footer = inflater.inflate(R.layout.today_footer, null);
+        final View footer = inflater.inflate(R.layout.view_footer_space, null);
 
         final WeekWorkoutsAdapter adapter = new WeekWorkoutsAdapter();
         final ListView listView = (ListView) mView.findViewById(R.id.list_view);
@@ -55,7 +52,7 @@ public class WeekChildFragment extends Fragment {
     }
 
     private View createWeekOfHeader(LayoutInflater inflater) {
-        final View weekOfHeader = inflater.inflate(R.layout.week_week_of_date_text_view, null);
+        final View weekOfHeader = inflater.inflate(R.layout.view_week_week_of_date_textview, null);
         final TextView weekOfTextView = (TextView) weekOfHeader.findViewById(R.id.week_of_text_view);
 
         LocalDate firstDayOfWeek = LocalDate.now().withDayOfWeek(1);
@@ -135,11 +132,11 @@ public class WeekChildFragment extends Fragment {
 
                     if (convertView == null || convertView.getTag() instanceof NoWorkoutViewHolder) {
                         LayoutInflater inflater = (getActivity()).getLayoutInflater();
-                        convertView = inflater.inflate(R.layout.week_card_workout, parent, false);
+                        convertView = inflater.inflate(R.layout.item_week_card_workout, parent, false);
 
                         workoutViewHolder = new WorkoutViewHolder();
                         workoutViewHolder.day = (TextView) convertView.findViewById(R.id.day_of_week_text_view);
-                        workoutViewHolder.name = (TextView) convertView.findViewById(R.id.workout_name_text_view);
+                        workoutViewHolder.name = (TextView) convertView.findViewById(R.id.workout_name_textview);
                         workoutViewHolder.remove = (ImageView) convertView.findViewById(R.id.remove_image_view);
 
                         convertView.setTag(workoutViewHolder);
@@ -165,11 +162,11 @@ public class WeekChildFragment extends Fragment {
 
                     if (convertView == null || convertView.getTag() instanceof WorkoutViewHolder) {
                         LayoutInflater inflater = (getActivity()).getLayoutInflater();
-                        convertView = inflater.inflate(R.layout.week_card_no_workout, parent, false);
+                        convertView = inflater.inflate(R.layout.item_week_card_no_workout, parent, false);
 
                         noWorkoutViewHolder = new NoWorkoutViewHolder();
                         noWorkoutViewHolder.day = (TextView) convertView.findViewById(R.id.day_of_week_text_view);
-                        noWorkoutViewHolder.layout = (RelativeLayout) convertView.findViewById(R.id.relative_layout);
+                        noWorkoutViewHolder.layout = (RelativeLayout) convertView.findViewById(R.id.relativelayout);
 
                         convertView.setTag(noWorkoutViewHolder);
                     } else {

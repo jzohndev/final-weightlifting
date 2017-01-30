@@ -3,13 +3,13 @@
 
     // 1/10/2017
     // App Colors
-    <color name="primaryGreen">#0f9d58</color>
-    <color name="primaryDarkGreen">#0b8043</color>
-    <color name="primaryDarkestGreen">#085f32</color>
-    <color name="primaryLightGreen">#19c571</color>
-    <color name="primaryLightestGreen">#9dccb4</color>
-    <color name="backgroundGreenishGrey">#f3f6f4</color>
+    <color name="primaryGrey">#f5f5f5</color>
+    <color name="primaryDarkGrey">#dbdbdb</color>
+    <color name="primaryDarkestGrey">#373737</color>
     <color name="cardWhite">#ffffff</color>
+    <color name="backgroundGrey">#fafafa</color>
+    <color name="accentGreen">#0f9d58</color>
+    <color name="accentDarkGreen">#026133</color>
 
     // Text Colors
     <color name="textBlackPrimary">#DE000000</color>

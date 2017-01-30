@@ -63,11 +63,11 @@ public class ExerciseListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.exercise_list, null);
+            convertView = inflater.inflate(R.layout.item_exercise_list, null);
         }
-        final TextView exerciseName = (TextView) convertView.findViewById(R.id.exercise_name_text_view);
+        final TextView exerciseName = (TextView) convertView.findViewById(R.id.exercise_name_textview);
         exerciseName.setText(exercises.get(position).getName());
-        final ImageView icon = (ImageView) convertView.findViewById(R.id.exercise_icon_image_view);
+        final ImageView icon = (ImageView) convertView.findViewById(R.id.exercise_icon_imageview);
         icon.setImageResource(Icons.getMuscleGroupIcon(exercises.get(position).getMuscleGroup()));
         final TextView muscleGroup = (TextView) convertView.findViewById(R.id.muscle_group_text_view);
         muscleGroup.setText(exercises.get(position).getMuscleGroup());

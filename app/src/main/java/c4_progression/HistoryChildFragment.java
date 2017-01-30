@@ -56,7 +56,7 @@ public class HistoryChildFragment extends Fragment {
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
             View v = LayoutInflater.from(parent.getContext()).
-                    inflate(R.layout.history_item_card, parent, false);
+                    inflate(R.layout.item_history_card, parent, false);
             return new HistoryViewHolder(v);
         }
 
@@ -100,7 +100,7 @@ public class HistoryChildFragment extends Fragment {
 
         public HistoryViewHolder(View v) {
             super(v);
-            workoutName = (TextView) v.findViewById(R.id.workout_name_text_view);
+            workoutName = (TextView) v.findViewById(R.id.workout_name_textview);
             date = (TextView) v.findViewById(R.id.date_text_view);
             exercises = (TextView) v.findViewById(R.id.exercise_number_text_view);
             startTime = (TextView) v.findViewById(R.id.start_time_text_view);

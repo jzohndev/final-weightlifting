@@ -14,6 +14,7 @@ import org.joda.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import c2_manage.ListOfWorkoutsAdapter;
 import data.IntentResolver;
 import c0_all.MenuPager;
 
@@ -23,19 +24,18 @@ import database.ScheduledSession;
 import database.SessionExercise;
 import database.SessionWorkout;
 import database.Workout;
-import c2_manage.WorkoutsAdapter;
 
 /**
  * Created by big1 on 7/23/2016.
  */
-public class WorkoutList extends Activity implements WorkoutsAdapter.WorkoutOnItemClickListener {
+public class WorkoutList extends Activity implements ListOfWorkoutsAdapter.WorkoutOnItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_workouts);
 
-        final WorkoutsAdapter adapter = new WorkoutsAdapter(this);
+        final ListOfWorkoutsAdapter adapter = new ListOfWorkoutsAdapter(this);
         adapter.setOnItemClickListener(this);
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -47,7 +47,7 @@ public class WorkoutList extends Activity implements WorkoutsAdapter.WorkoutOnIt
         recyclerView.setAdapter(adapter);
 
 
-        /*adapter.setOnItemClickListener(new WorkoutsAdapter.WorkoutOnItemClickListener() {
+        /*adapter.setOnItemClickListener(new ListOfWorkoutsAdapter.WorkoutOnItemClickListener() {
             @Override
             public void onItemClick(Workout workout, View v) {
                 Intent i;

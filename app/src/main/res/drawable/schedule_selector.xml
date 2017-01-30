@@ -2,8 +2,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_selected="true"
-        android:drawable="@drawable/ic_schedule_selected" />
+        android:drawable="@drawable/ic_schedule_selected_darkgreen_24dp" />
     <item
         android:state_selected="false"
-        android:drawable="@drawable/ic_schedule_unselected" />
+        android:drawable="@drawable/ic_schedule_unselected_lightgrey_24dp" />
 </selector>

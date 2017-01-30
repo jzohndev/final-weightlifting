@@ -23,16 +23,17 @@ import c3_schedule.ScheduleFragment;
 /**
  * Created by big1 on 8/8/2016.
  */
-public class MenuPager extends FragmentActivity implements ViewPager.OnPageChangeListener, OnRequestNavigationToFragmentListener {
+public class MenuPager extends FragmentActivity implements ViewPager.OnPageChangeListener,
+        OnRequestNavigationToFragmentListener {
     private final int BEGIN_FRAGMENT = 0;
     private final int MANAGE_FRAGMENT = 1;
     private final int SCHEDULE_FRAGMENT = 2;
     private final int PROGRESSION_FRAGMENT = 3;
     private final int[] ICONS = {
-            R.drawable.lift_selector,
-            R.drawable.add_weight_selector,
+            R.drawable.begin_selector,
+            R.drawable.manage_selector,
             R.drawable.schedule_selector,
-            R.drawable.graph_selector
+            R.drawable.progression_selector
     };
     private ViewPager mViewPager;
 
@@ -115,7 +116,7 @@ public class MenuPager extends FragmentActivity implements ViewPager.OnPageChang
                 title.setText("Manage");
                 break;
             case (SCHEDULE_FRAGMENT):
-                title.setText("ScheduledSession");
+                title.setText("Session");
                 break;
             case (PROGRESSION_FRAGMENT):
                 title.setText("Progression");
@@ -146,33 +147,33 @@ public class MenuPager extends FragmentActivity implements ViewPager.OnPageChang
                 break;
         }
     }
-}
 
-class MenuPagerAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 4;
+    class MenuPagerAdapter extends FragmentPagerAdapter {
+        final int PAGE_COUNT = 4;
 
-    public MenuPagerAdapter(FragmentManager fm) {
-        super(fm);
-    }
+        public MenuPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
-    @Override
-    public int getCount() {
-        return PAGE_COUNT;
-    }
+        @Override
+        public int getCount() {
+            return PAGE_COUNT;
+        }
 
-    @Override
-    public Fragment getItem(int position) {
-        switch (position) {
-            case (0):
-                return new BeginFragment();
-            case (1):
-                return new ManageFragment();
-            case (2):
-                return new ScheduleFragment();
-            case (3):
-                return new ProgressionFragment();
-            default:
-                return null;
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case (0):
+                    return new BeginFragment();
+                case (1):
+                    return new ManageFragment();
+                case (2):
+                    return new ScheduleFragment();
+                case (3):
+                    return new ProgressionFragment();
+                default:
+                    return null;
+            }
         }
     }
 }

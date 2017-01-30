@@ -2,16 +2,16 @@
 
     // 1/10/2017
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/primaryGreen</item>
-        <item name="colorPrimaryDark">@color/primaryDarkGreen</item>
-        <item name="colorAccent">@color/primaryGreen</item>
+        <item name="colorPrimary">@color/primaryGrey</item>
+        <item name="colorPrimaryDark">@color/primaryDarkGrey</item>
+        <item name="colorAccent">@color/accentGreen</item>
         <item name="android:editTextColor">@color/textBlackPrimary</item>
         <item name="android:textColorPrimary">@color/textBlackPrimary</item>
         <item name="android:windowContentTransitions">true</item>
-        <item name="android:colorBackground">@color/backgroundGreenishGrey</item>
-        <item name="android:navigationBarColor">@color/primaryDarkGreen</item>
+        <item name="android:colorBackground">@color/backgroundGrey</item>
+        <item name="android:navigationBarColor">@color/primaryDarkGrey</item>
         <item name="android:textColorPrimaryInverse">@color/textWhitePrimary</item>
-        <item name="android:statusBarColor">@color/primaryDarkGreen</item>
+        <item name="android:statusBarColor">@color/primaryDarkGrey</item>
         <item name="android:textColorSecondary">@color/textBlackSecondary</item>
         <item name="android:textColorSecondaryInverse">@color/textWhiteHint</item>
         <item name="android:windowBackground">@color/cardWhite</item>
@@ -21,11 +21,19 @@
     <style name="AppThemeNew" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primaryMaterialLight</item>
         <item name="android:textColorPrimary">@color/textBlackSecondary</item>
-        <item name="android:statusBarColor">@color/primaryDarkGreen</item>
-        <item name="colorAccent">@color/primaryGreen</item>
+        <item name="android:statusBarColor">@color/primaryDarkGrey</item>
+        <item name="colorAccent">@color/primaryGrey</item>
     </style>
 
+    <style name="ExerciseSetIncomplete">
+        <item name="android:textColor">@color/textBlackPrimary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 
+    <style name="ExerciseSetComplete">
+        <item name="android:textColor">@color/textBlackHint</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 
 
 
@@ -78,17 +86,24 @@
 
     <style name="ChildTabAppearance" parent="Widget.Design.TabLayout">
         <item name="android:background">@color/cardWhite</item>
-        <item name="tabSelectedTextColor">@color/primaryDarkestGreen</item>
         <item name="android:elevation">1dp</item>
-        <item name="android:textSize">13sp</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="tabIndicatorColor">@null</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="tabSelectedTextColor">@color/accentDarkGreen</item>
+        <item name="tabTextAppearance">@style/ChildTabTextAppearance</item>
+    </style>
+    
+    <style name="ChildTabTextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/primaryDarkGrey</item>
     </style>
 
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/textBlackHint</item>
+        <item name="android:background">@color/primaryDarkGrey</item>
     </style>
 
     <style name="WeekDivider">

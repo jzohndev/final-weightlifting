@@ -14,11 +14,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/primaryGreen">
+            android:background="@color/primaryGrey">
 
             <TextView
                 android:id="@+id/page_name_text_view"
-                style="@style/WhiteTextAppBar"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="20sp"
+                android:textColor="@color/primaryDarkestGrey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -34,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_below="@+id/toolbar"
-        android:background="@color/primaryGreen"
+        android:background="@color/primaryGrey"
         app:tabIndicatorColor="@color/cardWhite"
         app:tabIndicatorHeight="0dp"
         app:tabMode="fixed">

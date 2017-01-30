@@ -3,5 +3,5 @@
 
     <item
         android:left="84dp"
-        android:drawable="@drawable/list_divider_inner"/>
+        android:drawable="@drawable/listview_divider_week"/>
 </layer-list>

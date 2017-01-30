@@ -13,82 +13,85 @@
 
         <RelativeLayout
             android:id="@+id/dot_group_relative_layout"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="16dp">
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/overflow_menu_image_view"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:padding="8dp">
 
             <ImageView
                 android:id="@+id/dot_exercise_1"
-                android:layout_width="20dp"
-                android:layout_height="20dp" />
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:paddingEnd="1dp" />
 
             <ImageView
                 android:id="@+id/dot_exercise_2"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_toRightOf="@id/dot_exercise_1" />
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_toEndOf="@id/dot_exercise_1" />
 
             <ImageView
                 android:id="@+id/dot_exercise_3"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_below="@id/dot_exercise_1" />
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_below="@id/dot_exercise_1"
+                android:paddingEnd="1dp"
+                android:paddingTop="1dp" />
 
             <ImageView
                 android:id="@+id/dot_exercise_4"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_below="@+id/dot_exercise_2"
-                android:layout_toRightOf="@id/dot_exercise_3" />
-
+                android:layout_toEndOf="@id/dot_exercise_3"
+                android:paddingTop="1dp" />
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/workout_name_text_view"
+            android:id="@+id/workout_name_textview"
             style="@style/BlackTextSubheading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/exercise_name_text_view"
             android:layout_alignTop="@+id/dot_group_relative_layout"
+            android:layout_marginTop="4dp"
             android:layout_toEndOf="@+id/dot_group_relative_layout"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
             android:text="Workout Name Placeholder" />
 
         <TextView
-            android:id="@+id/exercises_number_textv"
+            android:id="@+id/exercises_number_textview"
             style="@style/BlackTextBodySecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
             android:layout_alignBottom="@+id/dot_group_relative_layout"
-            android:layout_alignStart="@+id/workout_name_text_view" />
+            android:layout_alignStart="@+id/workout_name_textview"
+            android:layout_marginBottom="4dp"
+            android:text="0" />
 
         <TextView
-            android:id="@+id/exercise_name_text_view"
+            android:id="@+id/exercise_name_textview"
             style="@style/BlackTextBodySecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" Exercises"
-            android:layout_alignTop="@+id/exercises_number_textv"
-            android:layout_toEndOf="@+id/exercises_number_textv" />
-
-        <TextView
-            android:id="@+id/date_textv"
-            style="@style/BlackTextBodyHint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:text="date placeholder"
-            android:layout_below="@+id/workout_name_text_view"
-            android:layout_toEndOf="@+id/exercise_name_text_view" />
+            android:layout_alignTop="@+id/exercises_number_textview"
+            android:layout_toEndOf="@+id/exercises_number_textview"
+            android:text=" Exercises" />
 
         <ImageView
             android:id="@+id/overflow_menu_image_view"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:padding="12dp"
             android:src="@drawable/ic_overflow_menu" />
 
     </RelativeLayout>

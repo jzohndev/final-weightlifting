@@ -3,7 +3,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/relative_layout"
+        android:id="@+id/relativelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -11,12 +11,12 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
-        android:background="@color/lightGreen"
+        android:backgroundTint="@color/accentGreen"
         android:elevation="6dp"
         android:src="@drawable/ic_add_white_24dp" />
 

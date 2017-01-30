@@ -51,7 +51,7 @@ public class WorkoutBuilder extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_manage_workout_builder);
+        setContentView(R.layout.layout_workout_builder);
 
         initializeResources();
         initializeToolbar();
@@ -164,7 +164,7 @@ public class WorkoutBuilder extends Activity {
     }
 
     private void createNotesPopup() {
-        final View popupLayout = getLayoutInflater().inflate(R.layout.popup_description, null);
+        final View popupLayout = getLayoutInflater().inflate(R.layout.view_popup_description, null);
         final PopupWindow popup = new PopupWindow(popupLayout,
                 RecyclerView.LayoutParams.WRAP_CONTENT,
                 RecyclerView.LayoutParams.WRAP_CONTENT);
@@ -253,11 +253,11 @@ public class WorkoutBuilder extends Activity {
             View v;
             if (viewType == FOOTER_VIEW) {
                 v = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.footer_add_exercise, parent, false);
+                        .inflate(R.layout.view_footer_add_exercise, parent, false);
                 return new FooterViewHolder(v);
             }
             v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.exercise_card_reps_sets, parent, false);
+                    .inflate(R.layout.item_workout_builder_exercise_card, parent, false);
             return new ExerciseViewHolder(v);
         }
 
@@ -335,7 +335,7 @@ public class WorkoutBuilder extends Activity {
             public ExerciseViewHolder(View v) {
                 super(v);
 
-                name = (TextView) v.findViewById(R.id.exercise_name_text_view);
+                name = (TextView) v.findViewById(R.id.exercise_name_textview);
 
                 spnSets = (Spinner) v.findViewById(R.id.sets_spinner);
                 final ArrayAdapter<CharSequence> setAdapter =

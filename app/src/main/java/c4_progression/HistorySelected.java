@@ -74,11 +74,11 @@ public class HistorySelected extends Activity {
             View v;
             if (viewType == MAIN_CONTENT) {
                 v = LayoutInflater.from(getApplicationContext())
-                        .inflate(R.layout.history_selected_main_content, parent, false);
+                        .inflate(R.layout.view_history_selected_main_content, parent, false);
                 return new MainContentViewHolder(v);
             }
             v = LayoutInflater.from(getApplicationContext())
-                    .inflate(R.layout.history_select_exercise_layout, parent, false);
+                    .inflate(R.layout.layout_history_exercise_selected, parent, false);
             return new ExerciseLayoutViewHolder(v);
         }
 
@@ -102,9 +102,9 @@ public class HistorySelected extends Activity {
                 ExerciseLayoutViewHolder mHolder = (ExerciseLayoutViewHolder) holder;
 
                 // Exercise Title
-                View exerciseTitleView = getLayoutInflater().inflate(R.layout.history_selected_exercise_name, null);
+                View exerciseTitleView = getLayoutInflater().inflate(R.layout.view_history_selected_exercise_name, null);
 
-                TextView exerciseTitle = (TextView) exerciseTitleView.findViewById(R.id.exercise_name_text_view);
+                TextView exerciseTitle = (TextView) exerciseTitleView.findViewById(R.id.exercise_name_textview);
                 exerciseTitle.setText(mExercises.get(position-1).getName());
                 mHolder.linearLayout.addView(exerciseTitleView);
 
@@ -113,9 +113,9 @@ public class HistorySelected extends Activity {
                 for (int i = 0; i < currentExerciseSession.size(); i++) {
                     // Set Item
                     SessionExercise currentSessionSet = currentExerciseSession.get(i);
-                    View setItemView = getLayoutInflater().inflate(R.layout.history_selected_set_item, null);
+                    View setItemView = getLayoutInflater().inflate(R.layout.item_history_selected_set, null);
 
-                    TextView setNumber = (TextView) setItemView.findViewById(R.id.set_number_text_view);
+                    TextView setNumber = (TextView) setItemView.findViewById(R.id.set_number_textview);
                     TextView reps = (TextView) setItemView.findViewById(R.id.reps_text_view);
                     TextView weight = (TextView) setItemView.findViewById(R.id.weight_text_view);
                     TextView weightUnit = (TextView) setItemView.findViewById(R.id.weight_unit_name_text_view);
@@ -131,7 +131,7 @@ public class HistorySelected extends Activity {
                     /*if (currentSessionSet.getNote() != null) {
                         //Set Item Note
                         final View noteLayout = getLayoutInflater()
-                                .inflate(R.layout.history_selected_note_text_view, null);
+                                .inflate(R.layout.item_history_selected_note_textview, null);
                         TextView note = (TextView) noteLayout.findViewById(R.id.note_text_view);
                         note.setText(currentSessionSet.getNote());
                         mHolder.linearLayout.addView(noteLayout);
@@ -165,7 +165,7 @@ public class HistorySelected extends Activity {
 
         public MainContentViewHolder(View v) {
             super(v);
-            workoutName = (TextView) v.findViewById(R.id.workout_name_text_view);
+            workoutName = (TextView) v.findViewById(R.id.workout_name_textview);
             workoutDescription = (TextView) v.findViewById(R.id.description_text_view);
             startTime = (TextView) v.findViewById(R.id.start_time_text_view);
             endTime = (TextView) v.findViewById(R.id.end_time_text_view);

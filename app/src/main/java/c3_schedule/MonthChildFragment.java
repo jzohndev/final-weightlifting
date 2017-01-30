@@ -62,7 +62,7 @@ public class MonthChildFragment extends Fragment {
         assignSchedulesToCalendar();
 
         // Selected Date
-        final TextView workoutName = (TextView) mView.findViewById(R.id.workout_name_text_view);
+        final TextView workoutName = (TextView) mView.findViewById(R.id.workout_name_textview);
         final CaldroidListener listener = new CaldroidListener() {
             @Override
             public void onSelectDate(Date input, View view) {

@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/workout_name_text_view"
+        android:id="@+id/workout_name_textview"
         style="@style/BlackTextSubheading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         style="@style/BlackTextBodySecondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/workout_name_text_view"
+        android:layout_below="@+id/workout_name_textview"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
         android:text="No workout description."

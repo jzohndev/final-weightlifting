@@ -52,7 +52,7 @@ public class WorkoutDetail extends Activity {
     }
 
     private void setTitle() {
-        final TextView title = (TextView) findViewById(R.id.workout_name_text_view);
+        final TextView title = (TextView) findViewById(R.id.workout_name_textview);
         title.setText(mWorkout.getName());
     }
 
@@ -110,19 +110,19 @@ public class WorkoutDetail extends Activity {
                     return new SubheadingViewHolder(v);
                 case (DESCRIPTION_TEXT_VIEW):
                     v = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.workout_description_text_view, parent, false);
+                            .inflate(R.layout.view_workout_description_textview, parent, false);
                     return new DescriptionViewHolder(v);
                 case (DIVIDER):
                     v = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.divider, parent, false);
+                            .inflate(R.layout.view_divider, parent, false);
                     return new SubheadingViewHolder(v);
                 case (EXERCISES_SUBHEADING):
                     v = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.exercises_text_view, parent, false);
+                            .inflate(R.layout.view_exercise_textview, parent, false);
                     return new SubheadingViewHolder(v);
             }
             v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.exercise_list, parent, false);
+                    .inflate(R.layout.item_exercise_list, parent, false);
             return new ExercisesViewHolder(v);
         }
 
@@ -188,7 +188,7 @@ public class WorkoutDetail extends Activity {
         @Override
         public void onClick(View v) {
             final DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-            final View popupLayout = getLayoutInflater().inflate(R.layout.popup_description, null);
+            final View popupLayout = getLayoutInflater().inflate(R.layout.view_popup_description, null);
             final PopupWindow popup = new PopupWindow(popupLayout,
                     RecyclerView.LayoutParams.WRAP_CONTENT,
                     RecyclerView.LayoutParams.WRAP_CONTENT);
@@ -245,8 +245,8 @@ public class WorkoutDetail extends Activity {
 
         public ExercisesViewHolder(View v) {
             super(v);
-            icon = (ImageView) v.findViewById(R.id.exercise_icon_image_view);
-            name = (TextView) v.findViewById(R.id.exercise_name_text_view);
+            icon = (ImageView) v.findViewById(R.id.exercise_icon_imageview);
+            name = (TextView) v.findViewById(R.id.exercise_name_textview);
             muscleGroup = (TextView) v.findViewById(R.id.muscle_group_text_view);
         }
     }

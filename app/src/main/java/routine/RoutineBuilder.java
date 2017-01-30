@@ -115,7 +115,7 @@ public class RoutineBuilder extends Activity {
             public void onClick(View view) {
                 TextView finishTextV, cancelTextV, deleteTextV;
                 LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                final View notesView = inflater.inflate(R.layout.popup_description, null);
+                final View notesView = inflater.inflate(R.layout.view_popup_description, null);
                 final EditText descriptionEditT = (EditText) notesView.findViewById(R.id.description_edit_text);
                 descriptionEditT.setFocusable(true);
                 final PopupWindow popup = new PopupWindow(notesView,
@@ -231,10 +231,10 @@ public class RoutineBuilder extends Activity {
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v;
             if (viewType == FOOTER_VIEW) {
-                v = LayoutInflater.from(parent.getContext()).inflate(R.layout.footer_add_workout, parent, false);
+                v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_footer_add_workout, parent, false);
                 return new FooterViewHolder(v);
             }
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.workout_card, parent, false);
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_workout_card, parent, false);
             return new WorkoutViewHolder(v);
         }
 
@@ -274,9 +274,8 @@ public class RoutineBuilder extends Activity {
 
             public WorkoutViewHolder(View v) {
                 super(v);
-                name = (TextView) v.findViewById(R.id.workout_name_text_view);
-                exercises = (TextView) v.findViewById(R.id.exercises_number_textv);
-                date = (TextView) v.findViewById(R.id.date_textv);
+                name = (TextView) v.findViewById(R.id.workout_name_textview);
+                exercises = (TextView) v.findViewById(R.id.exercises_number_textview);
                 delete = (ImageView) v.findViewById(R.id.overflow_menu_image_view);
                 delete.setOnClickListener(new View.OnClickListener() {
                     @Override
