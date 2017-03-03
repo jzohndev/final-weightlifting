@@ -1,6 +1,7 @@
 package c4_progression;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
@@ -14,6 +15,9 @@ import android.widget.Spinner;
 
 import com.example.jzohndev.no_bullshit_weightlifting_new.R;
 
+import data.IntentResolver;
+import database.Exercise;
+import exercise.ExerciseInfoPager;
 import exercise.ExerciseListAdapter;
 
 /**
@@ -60,6 +64,16 @@ public class ExercisesChildFragment extends Fragment {
         mListView = (ListView) mView.findViewById(R.id.list_view);
         mAdapter = new ExerciseListAdapter(getParentFragment().getActivity());
         mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                IntentResolver resolver = IntentResolver.getInstance();
+                resolver.setIntent("ExercisesChildFragment", "ExercisesChildFragment",
+                        -1, (Exercise) mAdapter.getItem(i));
+                startActivity(new Intent(getActivity(), ExerciseInfoPager.class));
+            }
+        });
+
         searchView();
         spinner();
         return mView;

@@ -23,7 +23,7 @@
                 android:layout_height="48dp"
                 android:layout_margin="4dp"
                 android:padding="12dp"
-                android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha" />
+                android:src="@drawable/ic_arrow_back_white_24dp" />
 
             <TextView
                 style="@style/WhiteTextAppBar"

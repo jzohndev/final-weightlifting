@@ -50,6 +50,9 @@
             android:name="c4_progression.HistorySelected"
             android:theme="@style/AppTheme.NoBar" />
 
+        <activity android:name="exercise.ExerciseInfoPager"
+            android:label="Exercise Info"/>
+
     </application>
 
 </manifest>

@@ -46,7 +46,6 @@ public class ExerciseList extends Activity {
                         helper.addExercise(db.getExercise(id));
                         resolver.setIntent("ExerciseList", "WorkoutBuilder", -1);
                         startActivity(new Intent(ExerciseList.this, WorkoutBuilder.class));
-                        break;
                 }
             }
         });

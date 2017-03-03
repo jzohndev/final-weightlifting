@@ -1,6 +1,7 @@
 package exercise;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class ExerciseListAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.item_exercise_list, null);
         }
+
         final TextView exerciseName = (TextView) convertView.findViewById(R.id.exercise_name_textview);
         exerciseName.setText(exercises.get(position).getName());
         final ImageView icon = (ImageView) convertView.findViewById(R.id.exercise_icon_imageview);
